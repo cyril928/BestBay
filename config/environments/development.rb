@@ -34,4 +34,8 @@ RisingFalcons::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # In development mode, the path is used to find the image processor ImageMagick for gem paperclip
+  Paperclip.options[:command_path] = "/usr/local/bin/"
+
 end

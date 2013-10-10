@@ -48,7 +48,12 @@ gem 'jquery-rails'
 #suggested gems by Todd
 gem 'factory_girl_rails' 
 gem 'rspec-rails' 
-gem 'devise' 
+gem 'devise'
+
+#used for uploading files
+gem "paperclip", "~> 3.0"
+
+
 group :development do
 #  gem 'ruby-debug-base19x' 
 #  gem 'ruby-debug-ide' 
