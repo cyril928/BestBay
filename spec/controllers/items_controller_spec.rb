@@ -23,13 +23,14 @@ describe ItemsController do
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "title" => "MyString" } }
+  #let(:valid_attributes) { { "title" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ItemsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  #let(:valid_session) { {} }
 
+=begin
   describe "GET index" do
     it "assigns all items as @items" do
       item = Item.create! valid_attributes
@@ -156,5 +157,6 @@ describe ItemsController do
       response.should redirect_to(items_url)
     end
   end
+=end
 
 end

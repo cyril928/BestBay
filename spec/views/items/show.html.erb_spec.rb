@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "items/show" do
+=begin
   before(:each) do
     @item = assign(:item, stub_model(Item,
       :title => "Title",
@@ -26,4 +27,5 @@ describe "items/show" do
     rendered.should match(/2/)
     rendered.should match(/3/)
   end
+=end
 end

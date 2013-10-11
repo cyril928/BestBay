@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "items/index" do
+=begin
   before(:each) do
     assign(:items, [
       stub_model(Item,
@@ -38,4 +39,5 @@ describe "items/index" do
     assert_select "tr>td", :text => 2.to_s, :count => 2
     assert_select "tr>td", :text => 3.to_s, :count => 2
   end
+=end
 end

@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe ItemsController do
+=begin
   describe "routing" do
 
     it "routes to #index" do
@@ -32,4 +33,5 @@ describe ItemsController do
     end
 
   end
+=end
 end
