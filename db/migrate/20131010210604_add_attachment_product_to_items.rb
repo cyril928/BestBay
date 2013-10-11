@@ -1,4 +1,5 @@
   class AddAttachmentProductToItems < ActiveRecord::Migration
+
   def self.up
     change_table :items do |t|
       t.attachment :product
