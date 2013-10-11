@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @user=current_user
-    @items = Item.all
+    @items = Item.find_all_by_user_id(current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,6 +43,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
+    @item.user_id = current_user.id
 
 
     respond_to do |format|
