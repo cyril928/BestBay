@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
+    @user=current_user
     @items = Item.all
 
     respond_to do |format|
@@ -42,6 +43,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
+
 
     respond_to do |format|
       if @item.save

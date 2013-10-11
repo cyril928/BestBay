@@ -2,7 +2,39 @@
 
 
 <p>
-  <b>Title:</b>
+  <strong>First Name:</strong>
+  <%= @user.first_name %>
+</p>
+<p>
+  <strong>Last Name:</strong>
+  <%= @user.last_name %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @user.street %>
+</p>
+<p>
+  <strong>Country:</strong>
+  <%= @user.country %>
+</p>
+
+<p>
+  <strong>zip:</strong>
+  <%= @user.zip %>
+</p>
+<p>
+  <strong>phone:</strong>
+  <%= @user.phone %>
+</p>
+
+
+<p>
+  <b>Title :</b>
   <%= @item.title %>
 </p>
 
