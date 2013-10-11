@@ -1,5 +1,16 @@
 class ItemsController < ApplicationController
-      before_filter :authenticate_user!
+      before_filter :authenticate_user!, :except => [:home]
+
+  def home
+     @items = Item.all
+
+     respond_to do |format|
+       format.html # index.html.erb
+       format.json { render json: @items }
+     end
+  end
+
+
   # GET /items
   # GET /items.json
   def index

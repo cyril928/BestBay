@@ -1,0 +1,36 @@
+<h1>Welcome to BestBay</h1>
+
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Condition</th>
+    <th>Duration</th>
+    <th>Price</th>
+    <th>User</th>
+    <th>Buyer</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @items.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= item.category %></td>
+    <td><%= item.description %></td>
+    <td><%= item.condition %></td>
+    <td><%= item.duration %></td>
+    <td><%= item.price %></td>
+    <td><%= item.user_id %></td>
+    <td><%= item.buyer_id %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'My Profile', items_path %>
