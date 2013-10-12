@@ -1,4 +1,11 @@
 RisingFalcons::Application.routes.draw do
+  match '/signup',  to: 'users#new',            via: 'get'
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  get "static_pages/home"
+  get "static_pages/about"
+  get "static_pages/help"
+
   devise_for :users
 
   resources :items

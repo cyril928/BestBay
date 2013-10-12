@@ -1,5 +1,11 @@
 <h1>Welcome to BestBay</h1>
+           <div>
 
+           </div>
+<div>
+
+</div>
+   <center>
 
 <table>
   <tr>
@@ -16,6 +22,7 @@
     <th></th>
   </tr>
 
+
 <% @items.each do |item| %>
   <tr>
     <td><%= item.title %></td>
@@ -26,11 +33,13 @@
     <td><%= item.price %></td>
     <td><%= item.user_id %></td>
     <td><%= item.buyer_id %></td>
+    <td><%= link_to 'View the Item', item %></td>
 
   </tr>
 <% end %>
 </table>
+</centre>
 
 <br />
 
-<%= link_to 'My Profile', items_path %>
+
