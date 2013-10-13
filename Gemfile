@@ -50,6 +50,7 @@ gem 'jquery-rails'
 gem 'factory_girl_rails' 
 gem 'rspec-rails' 
 gem 'devise'
+gem "capybara"
 
 #used for uploading files
 gem "paperclip", "~> 3.0"

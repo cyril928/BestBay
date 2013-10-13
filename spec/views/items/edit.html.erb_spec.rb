@@ -2,6 +2,15 @@ require 'spec_helper'
 
 describe "items/edit" do
 =begin
+  before {visit '/items/1'}
+  context '' do
+    it { should have_content('Title') }
+    it { should have_link('Show',    href: 'items#show') }
+  end
+=end
+
+=begin
+begin
   before(:each) do
     @item = assign(:item, stub_model(Item,
       :title => "MyString",
@@ -30,5 +39,6 @@ describe "items/edit" do
       assert_select "input#item_buyer_id[name=?]", "item[buyer_id]"
     end
   end
+end
 =end
 end
