@@ -66,8 +66,19 @@ p {
   font-weight: bold;
   line-height: 1;
   &:hover {
-    color: #fff;
+    color: #5bc0de;
     text-decoration: none;
+  }
+}
+
+#headlink {
+  color: #fff;
+  &:visited {
+    color: #666;
+  }
+  &:hover {
+    color: #5bc0de;
+    background-color: #000;
   }
 }
 /* footer */
@@ -79,7 +90,8 @@ footer {
   a {
     color: #555;
     &:hover {
-      color: #222;
+      color: #5bc0de;
+      background-color: #000;
     }
   }
   small {

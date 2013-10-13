@@ -1,12 +1,23 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "BestBay", '#', id: "logo" %>
+      <%= link_to "BestBay", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home", http://0.0.0.0:3000/items %></li>
-          <li><%= link_to "Profile",    'http://0.0.0.0:3000/items' %></li>
-          <li><%= link_to "Sign in", 'http://0.0.0.0:3000/users/sign_in' %></li>
+          <li><%= link_to 'My Profile', items_path, id:"headlink" %></li>
+
+          <% if user_signed_in? %>
+              <font color = "white">Signed in as <%=current_user.email %>. Not you?</font>
+
+              <li><%= link_to "Home", root_path, id:"headlink" %></li>
+
+              <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete, id:"headlink" %></li>
+
+          <% else %>
+              <li><%= link_to "Sign up", new_user_registration_path, id:"headlink" %></li>
+              <li><%= link_to "Sign in", new_user_session_path, id:"headlink" %></li>
+          <% end %>
+
         </ul>
       </nav>
     </div>

@@ -1,13 +1,7 @@
 <h1>Welcome to BestBay</h1>
-           <div>
+<div align="center">
 
-           </div>
-<div>
-
-</div>
-   <center>
-
-<table>
+  <table>
   <tr>
     <th>Title</th>
     <th>Category</th>
@@ -15,8 +9,7 @@
     <th>Condition</th>
     <th>Duration</th>
     <th>Price</th>
-    <th>User</th>
-    <th>Buyer</th>
+    <th>Seller</th>
     <th></th>
     <th></th>
     <th></th>
@@ -31,15 +24,12 @@
     <td><%= item.condition %></td>
     <td><%= item.duration %></td>
     <td><%= item.price %></td>
-    <td><%= item.user_id %></td>
-    <td><%= item.buyer_id %></td>
+    <td><%= item.user.email %>
     <td><%= link_to 'View the Item', item %></td>
 
   </tr>
 <% end %>
 </table>
-</centre>
-
-<br />
+</div>
 
 

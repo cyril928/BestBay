@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 
-<p>
-  <b>Title:</b>
+<h1>
+  <!--<b>Title:</b>-->
   <%= @item.title %>
-</p>
+</h1>
 
 <p>
   <b>Category:</b>
@@ -32,13 +32,8 @@
 </p>
 
 <p>
-  <b>User:</b>
-  <%= @item.user_id %>
-</p>
-
-<p>
-  <b>Buyer:</b>
-  <%= @item.buyer_id %>
+  <b>Seller:</b>
+  <%= @item.user.email %>
 </p>
 
 
@@ -47,5 +42,4 @@
 </p>
 
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
