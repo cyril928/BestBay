@@ -17,10 +17,8 @@ class User < ActiveRecord::Base
   validates :last_name,  presence: true, length: { maximum: 50 }
   validates :street,  presence: true, length: { maximum: 50 }
   validates :country,  presence: true, length: { maximum: 50 }
-
   validates :zip,  presence: true, length: { maximum: 50 }
   validates_length_of :zip, :in => 5..10
-  validates_numericality_of :zip
 
   validates :phone,  presence: true, length: { maximum: 50 }
   validates_length_of :phone, :in => 7..32
