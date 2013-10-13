@@ -2,10 +2,12 @@ require 'spec_helper'
 
 describe "items/edit" do
 =begin
-  before {visit '/items/1'}
-  context '' do
+  let(:item) {FactoryGirl.create(:item)}
+  before { visit edit_item_path(item) }
+  subject { page }
+  context "Item's edit page" do
     it { should have_content('Title') }
-    it { should have_link('Show',    href: 'items#show') }
+    it { should have_link('Show',    href: item) }
   end
 =end
 

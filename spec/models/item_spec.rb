@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Item do
   #pending "add some examples to (or delete) #{__FILE__}"
-  before {@item = Item.new}
-
-  subject {@item}
+  #before {@item = Item.new}
+  #before { let(:item) {FactoryGirl.create(:item)} }
+  let(:item) {FactoryGirl.create(:item)}
+  subject {item}
   context 'item' do
-  #let(:item) {FactoryGirl.create(:item)}
 
     it {should respond_to(:title)}
     it {should respond_to(:category)}
@@ -24,7 +24,230 @@ describe Item do
 
   context 'after item is saved,' do
     it 'the number of item plus one' do
-      expect { @item.save }.to change { Item.count }.by(1)
+      expect { item.save }.to change { Item.count }.by(1)
+    end
+  end
+
+
+  describe "title" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :title => "")
+      blank.should_not be_valid
+      blank.errors[:title].should include("can't be blank")
+
+      blank.title = "Foo"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 51 characters" do
+      too_long = FactoryGirl.build(:item, :title => 'a' * 51)
+      too_long.should_not be_valid
+      too_long.errors[:title].should include("is too long (maximum is 50 characters)")
+
+      too_long.title = 'a' * 50
+      too_long.should be_valid
+    end
+  end
+
+
+  describe "category" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :category => "")
+      blank.should_not be_valid
+      blank.errors[:category].should include("can't be blank")
+
+      blank.category = "Foo"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 51 characters" do
+      too_long = FactoryGirl.build(:item, :category => 'a' * 51)
+      too_long.should_not be_valid
+      too_long.errors[:category].should include("is too long (maximum is 50 characters)")
+
+      too_long.category = 'a' * 50
+      too_long.should be_valid
+    end
+  end
+
+  describe "description" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :description => "")
+      blank.should_not be_valid
+      blank.errors[:description].should include("can't be blank")
+
+      blank.description = "Foo"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 51 characters" do
+      too_long = FactoryGirl.build(:item, :description => 'a' * 51)
+      too_long.should_not be_valid
+      too_long.errors[:description].should include("is too long (maximum is 50 characters)")
+
+      too_long.description = 'a' * 50
+      too_long.should be_valid
+    end
+  end
+
+  describe "condition" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :condition => "")
+      blank.should_not be_valid
+      blank.errors[:condition].should include("can't be blank")
+
+      blank.condition = "Foo"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 51 characters" do
+      too_long = FactoryGirl.build(:item, :condition => 'a' * 51)
+      too_long.should_not be_valid
+      too_long.errors[:condition].should include("is too long (maximum is 50 characters)")
+
+      too_long.condition = 'a' * 50
+      too_long.should be_valid
+    end
+  end
+
+  describe "condition" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :condition => "")
+      blank.should_not be_valid
+      blank.errors[:condition].should include("can't be blank")
+
+      blank.condition = "Foo"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 51 characters" do
+      too_long = FactoryGirl.build(:item, :condition => 'a' * 51)
+      too_long.should_not be_valid
+      too_long.errors[:condition].should include("is too long (maximum is 50 characters)")
+
+      too_long.condition = 'a' * 50
+      too_long.should be_valid
+    end
+  end
+
+  describe "duration" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :duration => "")
+      blank.should_not be_valid
+      blank.errors[:duration].should include("can't be blank")
+
+      blank.duration = "123"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 9 characters" do
+      too_long = FactoryGirl.build(:item, :duration => '1' * 9)
+      too_long.should_not be_valid
+      too_long.errors[:duration].should include("is too long (maximum is 8 characters)")
+
+      too_long.duration = '1' * 8
+      too_long.should be_valid
+    end
+
+    it "should be a number" do
+      too_long = FactoryGirl.build(:item, :duration => 'aaa')
+      too_long.should_not be_valid
+      too_long.errors[:duration].should include("is not a number")
+
+      too_long.duration = '111'
+      too_long.should be_valid
+    end
+  end
+
+  describe "price" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :price => "")
+      blank.should_not be_valid
+      blank.errors[:price].should include("can't be blank")
+
+      blank.price = "123"
+      blank.should be_valid
+    end
+=begin
+    it "should be longer than 1 character" do
+      too_short = FactoryGirl.build(:item, :title => 'a')
+      too_short.should_not be_valid
+      too_short.errors[:title].should include("is too short (minimum is 2 characters)")
+
+      too_short.title = 'aa'
+      too_short.should be_valid
+    end
+=end
+    it "should be shorter than 9 characters" do
+      too_long = FactoryGirl.build(:item, :price => '1' * 9)
+      too_long.should_not be_valid
+      too_long.errors[:price].should include("is too long (maximum is 8 characters)")
+
+      too_long.price = '1' * 8
+      too_long.should be_valid
+    end
+
+    it "should be a number" do
+      too_long = FactoryGirl.build(:item, :price => 'aaa')
+      too_long.should_not be_valid
+      too_long.errors[:price].should include("is not a number")
+
+      too_long.price = '111'
+      too_long.should be_valid
     end
   end
 
