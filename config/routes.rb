@@ -1,4 +1,10 @@
 RisingFalcons::Application.routes.draw do
+  resources :shopping_carts
+
+
+  resources :biddings
+
+
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
