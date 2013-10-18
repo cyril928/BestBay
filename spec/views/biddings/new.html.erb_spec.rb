@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "biddings/new" do
+=begin
   before(:each) do
     assign(:bidding, stub_model(Bidding,
       :item_id => 1,
@@ -21,4 +22,5 @@ describe "biddings/new" do
       assert_select "input#bidding_price[name=?]", "bidding[price]"
     end
   end
+=end
 end

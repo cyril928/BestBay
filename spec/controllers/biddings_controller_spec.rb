@@ -20,6 +20,7 @@ require 'spec_helper'
 
 describe BiddingsController do
 
+=begin
   # This should return the minimal set of attributes required to create a valid
   # Bidding. As you add validations to Bidding, be sure to
   # adjust the attributes here as well.
@@ -156,5 +157,6 @@ describe BiddingsController do
       response.should redirect_to(biddings_url)
     end
   end
+=end
 
 end
