@@ -1,4 +1,6 @@
 class BiddingsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /biddings
   # GET /biddings.json
   def index
@@ -25,7 +27,7 @@ class BiddingsController < ApplicationController
   # GET /biddings/new.json
   def new
     @bidding = Bidding.new
-
+    @item =  Item.find(cookies[:remember_item_token])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @bidding }

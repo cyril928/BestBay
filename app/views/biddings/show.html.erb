@@ -6,20 +6,9 @@
 </p>
 
 <p>
-  <b>Seller:</b>
-  <%= @bidding.seller_id %>
-</p>
-
-<p>
-  <b>Bidder:</b>
-  <%= @bidding.bidder_id %>
-</p>
-
-<p>
   <b>Price:</b>
   <%= @bidding.price %>
 </p>
 
 
-<%= link_to 'Edit', edit_bidding_path(@bidding) %> |
-<%= link_to 'Back', biddings_path %>
+<%= link_to 'Change Bid', edit_bidding_path(@bidding) %>

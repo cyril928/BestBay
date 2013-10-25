@@ -10,19 +10,10 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :item_id %><br />
-    <%= f.number_field :item_id %>
-  </div>
-  <div class="field">
-    <%= f.label :seller_id %><br />
-    <%= f.number_field :seller_id %>
-  </div>
-  <div class="field">
-    <%= f.label :bidder_id %><br />
-    <%= f.number_field :bidder_id %>
-  </div>
+    <p>
+      <B> Item:</B>
+      <%= @item.id %>
+    </p>
   <div class="field">
     <%= f.label :price %><br />
     <%= f.number_field :price %>

@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-      before_filter :authenticate_user!, :except => [:home]
+      before_filter :authenticate_user!, :except => [:home, :show]
 
   def home
      @items = Item.all
@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-
+    cookies.permanent[:remember_item_token] = @item.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
