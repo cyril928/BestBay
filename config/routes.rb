@@ -1,4 +1,7 @@
 RisingFalcons::Application.routes.draw do
+  resources :transactions
+
+
   resources :shopping_carts
 
 
