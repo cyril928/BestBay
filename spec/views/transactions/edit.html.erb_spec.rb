@@ -8,7 +8,7 @@ describe "transactions/edit" do
     #  :cardnum => "",
      # :dateofexpire => "",
       #:address => ""
-    ))
+
  # end
 
  # it "renders the edit transaction form" do

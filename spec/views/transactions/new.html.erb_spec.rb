@@ -9,7 +9,6 @@ describe "transactions/new" do
       :address => ""
     ).as_new_record)
   end
-
   it "renders new transaction form" do
     render
 
@@ -19,6 +18,6 @@ describe "transactions/new" do
       assert_select "input#transaction_cardnum[name=?]", "transaction[cardnum]"
       assert_select "input#transaction_dateofexpire[name=?]", "transaction[dateofexpire]"
       assert_select "input#transaction_address[name=?]", "transaction[address]"
-    end
   end
-end
+  end
+  end

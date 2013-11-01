@@ -10,11 +10,12 @@ describe "Transactions" do
       end
     end
     describe "with valid information" do
-      let(:user) { FactoryGirl.create(:user) }
+      let!(:user) { FactoryGirl.create(:user) }
       before do
-        fill_in "name"
-        fill_in "cardnum"
+        fill_in "name",    with: user.name
+        fill_in "cardnum",    with:transaction.cardnum
         click_button "buy"
+      end
       end
 
       #describe "GET /transactions" do

@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 #describe "transactions/index" do
  # before(:each) do
   #  assign(:transactions, [
@@ -26,4 +25,3 @@ require 'spec_helper'
     #assert_select "tr>td", :text => "".to_s, :count => 2
    # assert_select "tr>td", :text => "".to_s, :count => 2
   #end
-end
