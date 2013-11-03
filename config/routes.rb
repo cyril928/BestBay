@@ -1,8 +1,11 @@
 RisingFalcons::Application.routes.draw do
-  resources :shopping_carts
+  resources :transactions, only: [:new, :create, :show]
 
 
-  resources :biddings
+  #resources :shopping_carts
+
+
+  #resources :biddings
 
 
   match '/signup',  to: 'users#new',            via: 'get'
@@ -17,6 +20,7 @@ RisingFalcons::Application.routes.draw do
 
   match "/about", to: "static_pages#about", via: "get"
   match "/help", to: "static_pages#help", via: "get"
+  #match "Item/buy", to: "items#buy", via: "get"
 
 
   match "/search", to: "items#search", via: "get"

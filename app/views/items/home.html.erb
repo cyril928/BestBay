@@ -25,10 +25,8 @@
               <td><%= item.price %></td>
               <td><%= item.user.email %>
               <td><%= link_to 'View the Item', item %></td>
-              <% unless current_user.nil? %>
-                  <% unless current_user.id.eql? item.user_id %>
-                      <td><%= link_to 'Buy', item %></td>
-                  <% end %>
+              <% if current_user.nil? || current_user.id != item.user_id %>
+                  <td><%= link_to 'Buy',new_transaction_path(:item_id => item.id) %></td>
               <% end %>
             </tr>
         <% end %>
@@ -44,10 +42,8 @@
               <td><%= item.price %></td>
               <td><%= item.user.email %>
               <td><%= link_to 'View the Item', item %></td>
-              <% unless current_user.nil? %>
-                  <% unless current_user.id.eql? item.user_id %>
-                      <td><%= link_to 'Buy', item %></td>
-                  <% end %>
+              <% if current_user.nil? || current_user.id != item.user_id %>
+                  <td><%= link_to 'Buy',new_transaction_path(:item_id => item.id) %></td>
               <% end %>
             </tr>
         <% end %>
