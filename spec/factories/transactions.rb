@@ -2,9 +2,10 @@
 
 FactoryGirl.define do
   factory :transaction do
-    name ""
-    cardnum ""
-    dateofexpire ""
-    address ""
+    name "Test"
+    card_number "123456123456"
+    expiry_date "1010"
+    address "abcde"
+    item_id 1
   end
 end

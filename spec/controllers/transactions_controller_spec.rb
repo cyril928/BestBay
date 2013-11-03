@@ -20,6 +20,7 @@ require 'spec_helper'
 
 describe TransactionsController do
 
+=begin
   # This should return the minimal set of attributes required to create a valid
   # Transaction. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
@@ -156,5 +157,6 @@ describe TransactionsController do
       response.should redirect_to(transactions_url)
     end
   end
+=end
 
 end

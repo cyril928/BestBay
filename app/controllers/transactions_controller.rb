@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /transactions
   # GET /transactions.json
   def index
@@ -23,12 +24,19 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   # GET /transactions/new.json
+  # Start of buy transaction and ensures that the seller cannot buy a product he has posted
   def new
     @transaction = Transaction.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @transaction }
+    @item = Item.find(params[:item_id])
+    #params[:item_id] = nil
+    if current_user.id  == @item.user_id
+      redirect_to root_path
+    else
+      #@transaction.item_id = @item.id
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @transaction }
+      end
     end
   end
 
@@ -39,12 +47,15 @@ class TransactionsController < ApplicationController
 
   # POST /transactions
   # POST /transactions.json
+  # Generates the transaction for buying and also updates the item table to reflect that the item is bought.
   def create
     @transaction = Transaction.new(params[:transaction])
+    @item = Item.find(@transaction.item_id)
+    @item.buyer_id=current_user.id
 
     respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+      if (@transaction.save && @item.save)
+        format.html { redirect_to @transaction, notice: 'Transaction successful.' }
         format.json { render json: @transaction, status: :created, location: @transaction }
       else
         format.html { render action: "new" }

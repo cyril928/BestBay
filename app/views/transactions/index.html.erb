@@ -3,8 +3,8 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Cardnum</th>
-    <th>Dateofexpire</th>
+    <th>Card Number</th>
+    <th>Expiry Date(mmyy format only)</th>
     <th>Address</th>
     <th></th>
     <th></th>
@@ -14,8 +14,8 @@
 <% @transactions.each do |transaction| %>
   <tr>
     <td><%= transaction.name %></td>
-    <td><%= transaction.cardnum %></td>
-    <td><%= transaction.dateofexpire %></td>
+    <td><%= transaction.card_number %></td>
+    <td><%= transaction.expiry_date %></td>
     <td><%= transaction.address %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>

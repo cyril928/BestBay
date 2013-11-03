@@ -27,7 +27,9 @@
     <td><%= item.user.email %>
 
     <td><%= link_to 'View the Item', item %></td>
-    <td><%= link_to 'Buy', new_transaction_path %></td>
+    <% if current_user.nil? || current_user.id != item.user_id %>
+        <td><%= link_to 'Buy',new_transaction_path(:item_id => item.id) %></td>
+    <% end %>
 
 
   </tr>

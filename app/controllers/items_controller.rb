@@ -1,8 +1,9 @@
 class ItemsController < ApplicationController
       before_filter :authenticate_user!, :except => [:home, :show]
 
+  # Fetches items up for sale, filter excludes already bought item.
   def home
-     @items = Item.all
+     @items = Item.where(:buyer_id => nil)
 
      respond_to do |format|
        format.html # index.html.erb
@@ -13,6 +14,7 @@ class ItemsController < ApplicationController
 
   # GET /items
   # GET /items.json
+  # This method is used to fetch the list of items relevant to the current user as a seller and his profile information.
   def index
     @user=current_user
     @items = Item.find_all_by_user_id(current_user.id)

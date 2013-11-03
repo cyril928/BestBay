@@ -1,11 +1,11 @@
 RisingFalcons::Application.routes.draw do
-  resources :transactions
+  resources :transactions, only: [:new, :create, :show]
 
 
-  resources :shopping_carts
+  #resources :shopping_carts
 
 
-  resources :biddings
+  #resources :biddings
 
 
   match '/signup',  to: 'users#new',            via: 'get'
@@ -20,6 +20,7 @@ RisingFalcons::Application.routes.draw do
 
   match "/about", to: "static_pages#about", via: "get"
   match "/help", to: "static_pages#help", via: "get"
+  #match "Item/buy", to: "items#buy", via: "get"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

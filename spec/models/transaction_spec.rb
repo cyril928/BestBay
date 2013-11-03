@@ -1,44 +1,56 @@
 require 'spec_helper'
 
 describe Transaction  do
-pending "add some examples to (or delete) #{__FILE__}"
+
  let(:transaction) {FactoryGirl.create(:transaction)}
- subject {item}
- context 'item' do
+ subject {transaction}
+ context 'transaction' do
 
   it {should respond_to(:name)}
-  it {should respond_to(:cardnum)}
-  it {should respond_to(:dateofexpire)}
+  it {should respond_to(:card_number)}
+  it {should respond_to(:expiry_date)}
   it {should respond_to(:address)}
+  it {should respond_to(:item_id)}
  end
+
   describe "name" do
     it "should be required" do
     blank = FactoryGirl.build(:transaction, :name => "")
     blank.should_not be_valid
     blank.errors[:name].should include("can't be blank")
 
-    blank.title = "Foo"
+    blank.name = "Foo"
     blank.should be_valid
     end
   end
-  describe "cardnum" do
+  describe "card_number" do
     it "should be required" do
-      blank = FactoryGirl.build(:transaction, :cardnum => "")
+      blank = FactoryGirl.build(:transaction, :card_number => "")
       blank.should_not be_valid
-      blank.errors[:cardnum].should include("can't be blank")
+      blank.errors[:card_number].should include("can't be blank")
 
-      blank.title = 123
+      blank.card_number = 654321654321
       blank.should be_valid
     end
   end
-  describe "dateofexpire" do
+  describe "expiry_date" do
       it "should be required" do
-        blank = FactoryGirl.build(:transaction, :dateofexpire => "")
+        blank = FactoryGirl.build(:transaction, :expiry_date => "")
         blank.should_not be_valid
-        blank.errors[:dateofexpire].should include("can't be blank")
+        blank.errors[:expiry_date].should include("can't be blank")
 
-        blank.title = 1204
+        blank.expiry_date = 1204
         blank.should be_valid
       end
   end
+ describe "item_id" do
+   it "should be required" do
+     blank = FactoryGirl.build(:transaction, :item_id => "")
+     blank.should_not be_valid
+     blank.errors[:item_id].should include("can't be blank")
+
+     blank.item_id = 2
+     blank.should be_valid
+   end
+ end
 end

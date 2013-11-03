@@ -10,18 +10,18 @@
       </ul>
     </div>
   <% end %>
-
+  <%= f.hidden_field :item_id, :value => params[:item_id] %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :cardnum %><br />
-    <%= f.text_field :cardnum %>
+    <%= f.label :card_number %><br />
+    <%= f.text_field :card_number %>
   </div>
   <div class="field">
-    <%= f.label :dateofexpire %><br />
-    <%= f.text_field :dateofexpire %>
+    <%= f.label :expiry_date %> mmyy format only<br />
+    <%= f.text_field :expiry_date %>
   </div>
   <div class="field">
     <%= f.label :address %><br />
