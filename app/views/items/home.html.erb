@@ -1,38 +1,59 @@
 <h1>Welcome to BestBay</h1>
 <div align="center">
-
   <table>
-  <tr>
-    <th>Title</th>
-    <th>Category</th>
-    <th>Description</th>
-    <th>Condition</th>
-    <th>Duration</th>
-    <th>Price</th>
-    <th>Seller</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Condition</th>
+      <th>Duration</th>
+      <th>Price</th>
+      <th>Seller</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
 
+    <% if @find_items.nil? %>
+        <% @items.each do |item| %>
+            <tr>
+              <td><%= item.title %></td>
+              <td><%= item.category %></td>
+              <td><%= item.description %></td>
+              <td><%= item.condition %></td>
+              <td><%= item.duration %></td>
+              <td><%= item.price %></td>
+              <td><%= item.user.email %>
+              <td><%= link_to 'View the Item', item %></td>
+              <% unless current_user.nil? %>
+                  <% unless current_user.id.eql? item.user_id %>
+                      <td><%= link_to 'Buy', item %></td>
+                  <% end %>
+              <% end %>
+            </tr>
+        <% end %>
 
-<% @items.each do |item| %>
-  <tr>
-    <td><%= item.title %></td>
-    <td><%= item.category %></td>
-    <td><%= item.description %></td>
-    <td><%= item.condition %></td>
-    <td><%= item.duration %></td>
-    <td><%= item.price %></td>
-    <td><%= item.user.email %>
+    <% elsif %>
+        <% @find_items.each do |item| %>
+            <tr>
+              <td><%= item.title %></td>
+              <td><%= item.category %></td>
+              <td><%= item.description %></td>
+              <td><%= item.condition %></td>
+              <td><%= item.duration %></td>
+              <td><%= item.price %></td>
+              <td><%= item.user.email %>
+              <td><%= link_to 'View the Item', item %></td>
+              <% unless current_user.nil? %>
+                  <% unless current_user.id.eql? item.user_id %>
+                      <td><%= link_to 'Buy', item %></td>
+                  <% end %>
+              <% end %>
+            </tr>
+        <% end %>
+    <% end %>
+  </table>
 
-    <td><%= link_to 'View the Item', item %></td>
-    <td><%= link_to 'Bid', biddings_path %></td>
-    <td><%= link_to 'Buy', item %></td>
-
-  </tr>
-<% end %>
-</table>
 </div>
 
 

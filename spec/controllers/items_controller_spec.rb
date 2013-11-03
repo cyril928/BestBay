@@ -30,6 +30,57 @@ describe ItemsController do
   # ItemsController. Be sure to keep this updated too.
   #let(:valid_session) { {} }
 
+  #@user = FactoryGirl.create(:user)
+=begin
+  @user_attr = FactoryGirl.attributes_for(:user)
+  #@user = User.create!(@user_attr)
+  user = User.where({:email => @user_attr[:email]})
+  describe "GET index" do
+    it "renders the index template" do
+
+      sign_in user
+      get :index
+      expect(response).to render_template("index")
+      expect(response.body).to eq ""
+      sign_out user
+    end
+    it "renders the items/index template" do
+      get :index
+      expect(response).to render_template("index")
+      expect(response.body).to eq ""
+    end
+  end
+=end
+
+  describe "User uses category search and page will redirect to home page" do
+    it "redirects to the home page" do
+      get :search
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe "User uses keyword search and page will redirect to home page" do
+    it "redirects to the home page" do
+      post :search
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe "Search result is what user expects" do
+    it "when user uses category search" do
+      get :search, {:category_query => "TV & Home Theater"}
+      @result = Item.select(:id).where({category: "TV & Home Theater"})
+      expect(assigns(:items)).to eq @result
+
+    end
+    it "when user uses keyword search" do
+      post :search, {:category_query => "TV & Home Theater", :keyword => "panasonic"}
+      @result = Item.select(:id).where({category: "TV & Home Theater", title: "panasonic"})
+      expect(assigns(:items)).to eq @result
+    end
+  end
+
+
 =begin
   describe "GET index" do
     it "assigns all items as @items" do

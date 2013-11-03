@@ -1,13 +1,32 @@
 class ItemsController < ApplicationController
-      before_filter :authenticate_user!, :except => [:home, :show]
+      before_filter :authenticate_user!, :except => [:home, :show, :search]
+
+  def search
+    if params[:keyword].nil?
+      @items = Item.select(:id).where({category: params[:category_query]})
+    else
+      if params[:category_query].eql?("All")
+        @items = Item.select(:id).where({title: params[:keyword]})
+      else
+        @items = Item.select(:id).where({category: params[:category_query], title: params[:keyword]})
+      end
+    end
+    redirect_to root_path, :flash => { :query_result => @items }
+  end
+
 
   def home
-     @items = Item.all
+    if !flash[:query_result].nil?
+      @find_items = Item.where('id = ?', flash[:query_result])
+      flash[:query_result] = nil
+    else
+      @items = Item.all
+    end
 
-     respond_to do |format|
-       format.html # index.html.erb
-       format.json { render json: @items }
-     end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
   end
 
 

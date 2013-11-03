@@ -4,18 +4,18 @@
       <%= link_to "BestBay", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to 'My Profile', items_path, id:"headlink" %></li>
+          <li><%= link_to 'My Profile', items_path, id: "headlink" %></li>
 
           <% if user_signed_in? %>
-              <font color = "white">Signed in as <%=current_user.email %>. Not you?</font>
+              <font color="white">Signed in as <%= current_user.email %>. Not you?</font>
 
-              <li><%= link_to "Home", root_path, id:"headlink" %></li>
+              <li><%= link_to "Home", root_path, id: "headlink" %></li>
 
-              <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete, id:"headlink" %></li>
+              <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete, id: "headlink" %></li>
 
           <% else %>
-              <li><%= link_to "Sign up", new_user_registration_path, id:"headlink" %></li>
-              <li><%= link_to "Sign in", new_user_session_path, id:"headlink" %></li>
+              <li><%= link_to "Sign up", new_user_registration_path, id: "headlink" %></li>
+              <li><%= link_to "Sign in", new_user_session_path, id: "headlink" %></li>
           <% end %>
 
         </ul>
@@ -23,3 +23,47 @@
     </div>
   </div>
 </header>
+
+<script type="text/javascript">
+    ddlevelsmenu.setup("ddtopmenubar", "topbar") //ddlevelsmenu.setup("mainmenuid", "topbar|sidebar")
+</script>
+
+<div id="ddtopmenubar" class="mattblackmenu">
+  <ul>
+    <li><a href="#" rel="ddsubmenu1">Category</a></li>
+  </ul>
+</div>
+
+<ul id="ddsubmenu1" class="ddsubmenustyle">
+  <li><%= link_to "TV & Home Theater", :controller  => "/items", :action => :search, :category_query => "TV & Home Theater" %></li>
+  <li><%= link_to "Computer & Tables", :controller => "/items", :action => :search, :category_query => "Computer & Tables" %></li>
+  <li><%= link_to "Cell Phones", :controller => "/items", :action => :search, :category_query => "Cell Phones" %></li>
+  <li><%= link_to "Cameras", :controller => "/items", :action => :search, :category_query => "Cameras" %></li>
+  <li><%= link_to "Audio", :controller => "/items", :action => :search, :category_query => "Audio" %></li>
+  <li><%= link_to "Electronics", :controller => "/items", :action => :search, :category_query => "Electronics" %></li>
+  <li><%= link_to "Video Games", :controller => "/items", :action => :search, :category_query => "Video Games" %></li>
+  <li><%= link_to "Health", :controller => "/items", :action => :search, :category_query => "Health" %></li>
+</ul>
+
+<div align="center">
+
+  <%= form_tag(controller: "/items", action: "search", method: "post") do %>
+
+      <%= select_tag(:category_query, options_for_select(
+              [['All', 'All'],
+               ['TV & Home Theater', 'TV & Home Theater'],
+               ['Computer & Tables', 'Computer & Tables'],
+               ['Cell Phones', 'Cell Phones'],
+               ['Cameras', 'Cameras'],
+               ['Audio', 'Audio'],
+               ['Electronics', 'Electronics'],
+               ['Video Games', 'Video Games'],
+               ['Health', 'Health']]),
+                     :onChange => "displaydesc(document.form1.select1, thetext1, 'textcontainer1')",
+                     :size => 1) %>
+      <%= text_field_tag(:keyword) %>
+      <%= submit_tag("Search") %>
+
+  <% end %>
+
+</div>
