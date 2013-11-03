@@ -255,4 +255,15 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  ActionDispatch::Callbacks.after do
+    # Reload the factories
+    return unless (Rails.env.development? || Rails.env.test?)
+
+    unless FactoryGirl.factories.blank? # first init will load factories, this should only run on subsequent reloads
+      FactoryGirl.factories.clear
+      FactoryGirl.find_definitions
+    end
+  end
+
 end
