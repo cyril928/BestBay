@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 describe "transactions/new" do
-=begin
+
   before(:each) do
     assign(:transaction, stub_model(Transaction,
       :name => "",
       :card_number => "",
       :expiry_date => "",
-      :address => ""
+      :address => "",
+      :item_id => ""
     ).as_new_record)
+    @item = FactoryGirl.create(:item)
   end
   it "renders new transaction form" do
     render
@@ -21,5 +23,5 @@ describe "transactions/new" do
       assert_select "input#transaction_address[name=?]", "transaction[address]"
   end
   end
-=end
+
 end

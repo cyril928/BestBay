@@ -20,17 +20,34 @@ require 'spec_helper'
 
 describe TransactionsController do
 
-=begin
+#  include Devise::TestHelpers
+
+  before (:each) do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+
+    @item = FactoryGirl.create(:item)
+  end
+
+  describe "Signed in user" do
+    it "should be a signed in user" do
+      subject.current_user.should_not be_nil
+    end
+  end
+
+
   # This should return the minimal set of attributes required to create a valid
   # Transaction. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "" } }
+  let(:valid_attributes) { { "name" => "test", "card_number" => 1234456789123, "expiry_date" => 1111, "address" => "
+  Howe Street", "item_id" => @item.id } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TransactionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
+=begin
   describe "GET index" do
     it "assigns all transactions as @transactions" do
       transaction = Transaction.create! valid_attributes
@@ -38,22 +55,22 @@ describe TransactionsController do
       assigns(:transactions).should eq([transaction])
     end
   end
-
+=end
   describe "GET show" do
     it "assigns the requested transaction as @transaction" do
       transaction = Transaction.create! valid_attributes
-      get :show, {:id => transaction.to_param}, valid_session
+      get :show, {:id => transaction.to_param}
       assigns(:transaction).should eq(transaction)
     end
   end
 
   describe "GET new" do
-    it "assigns a new transaction as @transaction" do
-      get :new, {}, valid_session
+    it "assigns a new transaction as @transaction", :focus => true do
+      get :new, {:item_id => @item.id}
       assigns(:transaction).should be_a_new(Transaction)
     end
   end
-
+=begin
   describe "GET edit" do
     it "assigns the requested transaction as @transaction" do
       transaction = Transaction.create! valid_attributes
@@ -61,23 +78,23 @@ describe TransactionsController do
       assigns(:transaction).should eq(transaction)
     end
   end
-
+=end
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Transaction" do
         expect {
-          post :create, {:transaction => valid_attributes}, valid_session
+          post :create, {:transaction => valid_attributes}
         }.to change(Transaction, :count).by(1)
       end
 
       it "assigns a newly created transaction as @transaction" do
-        post :create, {:transaction => valid_attributes}, valid_session
+        post :create, {:transaction => valid_attributes}
         assigns(:transaction).should be_a(Transaction)
         assigns(:transaction).should be_persisted
       end
 
       it "redirects to the created transaction" do
-        post :create, {:transaction => valid_attributes}, valid_session
+        post :create, {:transaction => valid_attributes}
         response.should redirect_to(Transaction.last)
       end
     end
@@ -86,19 +103,21 @@ describe TransactionsController do
       it "assigns a newly created but unsaved transaction as @transaction" do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        post :create, {:transaction => { "name" => "invalid value" }}, valid_session
+        post :create, {:transaction => { "name" => "test", "card_number" => 1, "expiry_date" => 1111, "address" => "
+  Howe Street", "item_id" => @item.id }}
         assigns(:transaction).should be_a_new(Transaction)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        post :create, {:transaction => { "name" => "invalid value" }}, valid_session
+        post :create, {:transaction => { "name" => "", "card_number" => 1234456789123, "expiry_date" => 1111, "address" => "
+  Howe Street", "item_id" => @item.id }}
         response.should render_template("new")
       end
     end
   end
-
+=begin
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested transaction" do
