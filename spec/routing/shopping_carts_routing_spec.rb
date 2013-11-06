@@ -1,5 +1,6 @@
 require "spec_helper"
 
+=begin
 describe ShoppingCartsController do
   describe "routing" do
 
@@ -33,3 +34,4 @@ describe ShoppingCartsController do
 
   end
 end
+=end

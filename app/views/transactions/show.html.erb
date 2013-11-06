@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @transaction.name %>
+</p>
+
+<p>
+  <b>Card number:</b>
+  <%= @transaction.card_number %>
+</p>
+
+<p>
+  <b>Expiry Date:</b>
+  <%= @transaction.expiry_date %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @transaction.address %>
+</p>
+
+
+<%= link_to 'Back', root_path %>
