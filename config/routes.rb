@@ -15,6 +15,7 @@ RisingFalcons::Application.routes.draw do
   root :to => 'Items#home'
 
   devise_for :users
+  resources :users, :only => [:show, :edit, :update]
 
   resources :items, only: [:new, :create, :show, :index]
 
