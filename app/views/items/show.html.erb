@@ -21,10 +21,11 @@
   <%= @item.condition %>
 </p>
 
-<p>
+<!--<p>
   <b>Duration:</b>
-  <%= @item.duration %>
-</p>
+  <%#= @item.duration %>
+</p>-->
+
 
 <p>
   <b>Price:</b>
@@ -38,11 +39,26 @@
 
 
 <p>
- <%= image_tag @item.product.url %>
+  <%= image_tag @item.product.url %>
 </p>
 
 
-<%= link_to 'Back', items_path %>
+
 <% if current_user.nil? || current_user.id != @item.user_id %>
-    <%= link_to 'Buy', new_transaction_path(:item_id => @item.id) %>
+    <%= form_for(@item, :url => url_for(:controller => 'shopping_carts', :action => 'add_to_cart'), :method => :get) do |f| %>
+
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <p>
+          <b>Quantity:</b>
+          <%= f.number_field :quantity, :value => 1, :min => 1, :max => @item.quantity %>
+        </p>
+
+
+        <p>
+          <%= f.submit :value => "Add To Cart" %>
+        </p>
+    <% end %>
+
 <% end %>
+
+<%= link_to 'Back', items_path %>

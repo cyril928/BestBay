@@ -1,4 +1,26 @@
 class ShoppingCartsController < ApplicationController
+  include ShoppingCartsHelper
+  before_filter :authenticate_user!
+
+
+
+  def add_to_cart
+     @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
+     if @shopping_cart.nil?
+       @shopping_cart = ShoppingCart.new({:user_id => current_user.id, :item_list => Hash.new.to_s})
+     end
+     if params[:item_id].nil?
+       @item = Item.find(params[:item][:item_id])
+       @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item][:item_id], params[:item][:quantity], @item.quantity)
+     else
+       @item = Item.find(params[:item_id])
+       @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item_id], params[:quantity], @item.quantity)
+          end
+       @shopping_cart.save
+     redirect_to @shopping_cart
+  end
+
+
   # GET /shopping_carts
   # GET /shopping_carts.json
   def index
@@ -14,6 +36,12 @@ class ShoppingCartsController < ApplicationController
   # GET /shopping_carts/1.json
   def show
     @shopping_cart = ShoppingCart.find(params[:id])
+    @shopping_cart_hash = eval(@shopping_cart.item_list)
+    @shopping_item_list = Array.new
+    @shopping_cart_hash.each do |item_id, quantity|
+      @item = Item.find(Integer(item_id))
+      @shopping_item_list += [{:title => @item.title, :quantity => quantity, :price => (quantity * @item.price)}]
+    end
 
     respond_to do |format|
       format.html # show.html.erb

@@ -1,15 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Buyer:</b>
-  <%= @shopping_cart.buyer_id %>
-</p>
 
-<p>
-  <b>Item:</b>
-  <%= @shopping_cart.item_id %>
-</p>
+<table>
+ <tr>
+   <td> Product Name </td>
+   <td> Quantity </td>
+   <td> Price </td>
+   <td></td>
+ </tr>
+
+ <% unless @shopping_item_list.nil? %>
+      <%= puts @shopping_item_list %>
+  <% @shopping_item_list.each do |item_info| %>
+    <tr>
+      <td><%= item_info[:title] %></td>
+      <td><%= item_info[:quantity] %></td>
+      <td><%= item_info[:price] %></td>
+    </tr>
+  <% end %>
+ <% end %>
+</table>
 
 
 <%= link_to 'Edit', edit_shopping_cart_path(@shopping_cart) %> |
-<%= link_to 'Back', shopping_carts_path %>
+<%#= link_to 'Back', shopping_carts_path %>

@@ -2,7 +2,7 @@ RisingFalcons::Application.routes.draw do
   resources :transactions, only: [:new, :create, :show]
 
 
-  #resources :shopping_carts
+  resources :shopping_carts, only: [:show, :edit]
 
 
   #resources :biddings
@@ -25,6 +25,8 @@ RisingFalcons::Application.routes.draw do
 
   match "/search", to: "items#search", via: "get"
   match "/search", to: "items#search", via: "post"
+
+  match "/add_to_cart", to: "shopping_carts#add_to_cart", via: "get"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
