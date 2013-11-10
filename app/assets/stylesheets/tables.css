@@ -1,0 +1,27 @@
+    .mypets{ /*header of 1st demo*/
+        cursor: hand;
+        cursor: pointer;
+        padding: 2px 5px;
+        border: 1px solid gray;
+        background: #E1E1E1;
+        width: 30%
+    }
+
+    .openpet{ /*class added to contents of 1st demo when they are open*/
+        background: yellow;
+    }
+
+    .technology{ /*header of 2nd demo*/
+        cursor: hand;
+        cursor: pointer;
+        font: bold 14px Verdana;
+        margin: 10px 0;
+    }
+
+    .openlanguage{ /*class added to contents of 2nd demo when they are open*/
+        color: green;
+    }
+
+    .closedlanguage{ /*class added to contents of 2nd demo when they are closed*/
+        color: red;
+    }
