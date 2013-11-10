@@ -5,3 +5,4 @@ class UsersController < ApplicationController
     @items = Item.find_all_by_user_id(@user.id)
   end
 end
+
