@@ -16,40 +16,37 @@
 
     <% if @find_items.nil? %>
         <% @items.each do |item| %>
-            <% if item.quantity > 0 %>
-                <tr>
-                  <td><%= item.title %></td>
-                  <td><%= item.category %></td>
-                  <td><%= item.description %></td>
-                  <td><%= item.condition %></td>
-                  <!--<td><%#= item.duration %></td>-->
-                  <td><%= item.price %></td>
-                  <td><%= item.user.email %>
-                  <td><%= link_to 'View the Item', item %></td>
-                  <% if current_user.nil? || current_user.id != item.user_id %>
-                      <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
-                <% end %>
-                </tr>
-            <% end %>
+            <tr>
+              <td><%= item.title %></td>
+              <td><%= item.category %></td>
+              <td><%= item.description %></td>
+              <td><%= item.condition %></td>
+              <!--<td><%#= item.duration %></td>-->
+              <td><%= item.price %></td>
+              <td><%= item.user.email %>
+              <td><%= link_to 'View the Item', item %></td>
+              <% if current_user.nil? || current_user.id != item.user_id %>
+                  <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
+              <% end %>
+            </tr>
         <% end %>
 
-    <% elsif %>
+    <% else %>
         <% @find_items.each do |item| %>
-            <% if item.quantity > 0 %>
-                <tr>
-                  <td><%= item.title %></td>
-                  <td><%= item.category %></td>
-                  <td><%= item.description %></td>
-                  <td><%= item.condition %></td>
-                  <!--<td><%#= item.duration %></td>-->
-                  <td><%= item.price %></td>
-                  <td><%= item.user.email %>
-                  <td><%= link_to 'View the Item', item %></td>
-                  <% if current_user.nil? || current_user.id != item.user_id %>
-                      <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
-                <% end %>
-                </tr>
-            <% end %>
+
+            <tr>
+              <td><%= item.title %></td>
+              <td><%= item.category %></td>
+              <td><%= item.description %></td>
+              <td><%= item.condition %></td>
+              <!--<td><%#= item.duration %></td>-->
+              <td><%= item.price %></td>
+              <td><%= item.user.email %>
+              <td><%= link_to 'View the Item', item %></td>
+              <% if current_user.nil? || current_user.id != item.user_id %>
+                  <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
+              <% end %>
+            </tr>
         <% end %>
     <% end %>
   </table>

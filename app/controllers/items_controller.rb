@@ -18,10 +18,10 @@ class ItemsController < ApplicationController
   # Fetches items up for sale, filter excludes already bought item.
   def home
     if !flash[:query_result].nil?
-      @find_items = Item.where('id = ?', flash[:query_result]).where(:buyer_id => nil)
+      @find_items = Item.where("id in (?)", flash[:query_result]).where(:buyer_id => nil)
       flash[:query_result] = nil
     else
-      @items = Item.where(:buyer_id => nil)
+      @items = Item.where(:buyer_id => nil).where("quantity > 0")
     end
 
 
