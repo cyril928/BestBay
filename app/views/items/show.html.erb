@@ -42,7 +42,7 @@
 </p>
 
 
-<%= link_to 'Back', items_path %>
+<%= link_to 'Back', item_path %>
 <% if current_user.nil? || current_user.id != @item.user_id %>
     <%= link_to 'Buy', new_transaction_path(:item_id => @item.id) %>
 <% end %>

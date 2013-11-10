@@ -26,6 +26,7 @@ RisingFalcons::Application.routes.draw do
 
   match "/search", to: "items#search", via: "get"
   match "/search", to: "items#search", via: "post"
+  match "/transactions", to: "transactions#show", via: "get"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

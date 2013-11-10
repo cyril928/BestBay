@@ -68,6 +68,8 @@ class TransactionsController < ApplicationController
   # PUT /transactions/1.json
   def update
     @transaction = Transaction.find(params[:id])
+    @item = Item.find(@transaction_item_id)
+    @item.buyer_id=current_user.id
 
     respond_to do |format|
       if @transaction.update_attributes(params[:transaction])
