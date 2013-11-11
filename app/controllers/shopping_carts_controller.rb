@@ -84,7 +84,17 @@ class ShoppingCartsController < ApplicationController
   # PUT /shopping_carts/1
   # PUT /shopping_carts/1.json
   def update
-    @shopping_cart = ShoppingCart.find(params[:id])
+
+    puts params[:item][:delete_item_id]
+=begin
+    @shopping_cart_hash = eval(params[:shopping_cart].item_list)
+    @shopping_item_list = Array.new
+    @shopping_cart_hash.each do |item_id, quantity|
+      @item = Item.find(Integer(item_id))
+      @shopping_item_list += [{:title => @item.title, :quantity => quantity, :price => (quantity * @item.price)}]
+    end
+=end
+
 
     respond_to do |format|
       if @shopping_cart.update_attributes(params[:shopping_cart])
