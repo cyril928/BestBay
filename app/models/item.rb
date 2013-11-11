@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
   belongs_to :user
   has_many :biddings
-  attr_accessible :buyer_id, :category, :condition, :description, :duration, :price, :title, :user_id, :product, :quantity, :delete
+  attr_accessible :buyer_id, :category, :condition, :description, :duration, :price, :title, :user_id, :product, :quantity
   has_attached_file :product, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
 

@@ -37,11 +37,11 @@ class ShoppingCartsController < ApplicationController
   def show
     @shopping_cart = ShoppingCart.find(params[:id])
     @shopping_cart_hash = eval(@shopping_cart.item_list)
-    @shopping_item_list = Array.new
+    item_ids = Array.new
     @shopping_cart_hash.each do |item_id, quantity|
-      @item = Item.find(Integer(item_id))
-      @shopping_item_list += [{:title => @item.title, :quantity => quantity, :price => (quantity * @item.price)}]
+      item_ids<<Integer(item_id)
     end
+    @item_list = Item.find(item_ids)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -85,7 +85,7 @@ class ShoppingCartsController < ApplicationController
   # PUT /shopping_carts/1.json
   def update
 
-    puts params[:item][:delete_item_id]
+
 =begin
     @shopping_cart_hash = eval(params[:shopping_cart].item_list)
     @shopping_item_list = Array.new
@@ -95,7 +95,18 @@ class ShoppingCartsController < ApplicationController
     end
 =end
 
+    item_quantities = Array.new
+    item_quantities = params[:shopping_cart]
 
+    item_list = Hash.new
+    @shopping_cart = ShoppingCart.find(params[:id])
+    shopping_cart_hash = eval(@shopping_cart.item_list)
+    counter = 0
+    shopping_cart_hash.each do |item_id, quantity|
+      item_list[item_id] = Integer(item_quantities[counter])
+      counter += 1
+    end
+    params[:shopping_cart] = Hash["item_list" => item_list.to_s]
     respond_to do |format|
       if @shopping_cart.update_attributes(params[:shopping_cart])
         format.html { redirect_to @shopping_cart, notice: 'Shopping cart was successfully updated.' }
