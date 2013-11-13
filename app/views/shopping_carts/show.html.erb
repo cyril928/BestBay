@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= form_for(@item, :url => url_for(:controller => 'shopping_carts', :action => 'update'), :method => :put) do |f| %>
-               param[:item][:jiew]
+<%= form_tag controller: 'shopping_carts', action: 'update_quantity', method: 'post' do %>
+
     <table>
       <tr>
         <td> Product Name</td>
@@ -14,20 +14,20 @@
       <% unless @shopping_item_list.nil? %>
           <% @shopping_item_list.each do |item_info| %>
               <tr>
-                <td><%= item_info[:title] %></td>
-                <td><%= item_info.number_field :quantity, :value => item_info[:quantity], :min => 1, :max => @item.quantity %></td>
+                <td><%= item_info[:item].title %></td>
+                <td><%= number_field_tag 'change_quantity_item_id[]', item_info[:quantity], in: 1...(item_info[:item].quantity + 1) %></td>
                 <td><%= item_info[:price] %></td>
-                <td><%= f.check_box 'delete_item_id[]'%></td>
+                <td><%= check_box_tag "delete_item_id[]", @shopping_item_list.index(item_info), false %></td>
               </tr>
           <% end %>
       <% end %>
     </table>
-    <%= f.hidden_field :item_list, :value => @shopping_item_list %>
-    <p>
-      <%= f.submit :value => "Update" %>
-    </p>
+    <%= hidden_field_tag 'item_hash', @shopping_cart_hash %>
+
+    <%= submit_tag "Update" %>
+    <p>Total Price : <%= @total_price %></p>
+
 <% end %>
 
-
-<%#= link_to 'Edit', edit_shopping_cart_path(@shopping_cart) %> |
+<%= link_to 'Go to Pay', new_transaction_path %>
 <%#= link_to 'Back', shopping_carts_path %>
