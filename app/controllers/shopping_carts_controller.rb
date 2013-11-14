@@ -3,21 +3,52 @@ class ShoppingCartsController < ApplicationController
   before_filter :authenticate_user!
 
 
+  def update_quantity
+    @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
+    @shopping_cart_hash = eval(params[:item_hash])
+    @counter = 0
+    error_msg = ""
+    @shopping_cart_hash.each do |item_id, quantity|
+      item = Item.find(Integer(item_id))
+      if item.quantity < Integer(params[:change_quantity_item_id][@counter])
+        error_msg = "Sorry! Only #{item.quantity} of #{item.title} is available at the moment"
+      end
+      @counter+=1
+    end
+    @counter = 0
+    if error_msg.empty?
+      @shopping_cart_hash.each do |item_id, quantity|
+        @shopping_cart_hash[item_id.to_s] = Integer(params[:change_quantity_item_id][@counter])
+        if !params[:delete_item_id].nil? && (params[:delete_item_id].include? @counter.to_s)
+          @shopping_cart_hash.delete(item_id.to_s)
+        end
+        @counter+=1
+      end
+
+      @shopping_cart.item_list = @shopping_cart_hash.to_s
+      @shopping_cart.save
+
+      redirect_to @shopping_cart
+    else
+      redirect_to @shopping_cart, notice: error_msg
+    end
+  end
+
 
   def add_to_cart
-     @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
-     if @shopping_cart.nil?
-       @shopping_cart = ShoppingCart.new({:user_id => current_user.id, :item_list => Hash.new.to_s})
-     end
-     if params[:item_id].nil?
-       @item = Item.find(params[:item][:item_id])
-       @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item][:item_id], params[:item][:quantity], @item.quantity)
-     else
-       @item = Item.find(params[:item_id])
-       @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item_id], params[:quantity], @item.quantity)
-          end
-       @shopping_cart.save
-     redirect_to @shopping_cart
+    @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
+    if @shopping_cart.nil?
+      @shopping_cart = ShoppingCart.new({:user_id => current_user.id, :item_list => Hash.new.to_s})
+    end
+    if params[:item_id].nil?
+      @item = Item.find(params[:item][:item_id])
+      @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item][:item_id], params[:item][:quantity], @item.quantity)
+    else
+      @item = Item.find(params[:item_id])
+      @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item_id], params[:quantity], @item.quantity)
+    end
+    @shopping_cart.save
+    redirect_to @shopping_cart
   end
 
 
@@ -37,11 +68,13 @@ class ShoppingCartsController < ApplicationController
   def show
     @shopping_cart = ShoppingCart.find(params[:id])
     @shopping_cart_hash = eval(@shopping_cart.item_list)
-    item_ids = Array.new
+    @shopping_item_list = Array.new
+    @total_price = 0
     @shopping_cart_hash.each do |item_id, quantity|
-      item_ids<<Integer(item_id)
+      @item = Item.find(Integer(item_id))
+      @shopping_item_list += [{:item => @item, :quantity => quantity, :price => (quantity * @item.price)}]
+      @total_price += (quantity * @item.price)
     end
-    @item_list = Item.find(item_ids)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -84,20 +117,8 @@ class ShoppingCartsController < ApplicationController
   # PUT /shopping_carts/1
   # PUT /shopping_carts/1.json
   def update
-
-
-=begin
-    @shopping_cart_hash = eval(params[:shopping_cart].item_list)
-    @shopping_item_list = Array.new
-    @shopping_cart_hash.each do |item_id, quantity|
-      @item = Item.find(Integer(item_id))
-      @shopping_item_list += [{:title => @item.title, :quantity => quantity, :price => (quantity * @item.price)}]
-    end
-=end
-
     item_quantities = Array.new
     item_quantities = params[:shopping_cart]
-
     item_list = Hash.new
     @shopping_cart = ShoppingCart.find(params[:id])
     shopping_cart_hash = eval(@shopping_cart.item_list)

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= form_for(@shopping_cart, :url => url_for(:controller => 'shopping_carts', :action => 'update'), :method => :put) do |f| %>
+<%= form_tag controller: 'shopping_carts', action: 'update_quantity', method: 'post' do %>
 
     <table>
       <tr>
@@ -14,21 +14,19 @@
       <% unless @shopping_cart.item_list.empty? %>
           <% eval(@shopping_cart.item_list).each do |item_id, item_quantity| %>
               <tr>
-                <%	 item_in_cart = @item_list.detect{|w| w.id == Integer(item_id)} %>
-                <td><%= item_in_cart.title %></td>
-                <td><%= f.number_field :item_list[item_id], :value => item_quantity, :min => 1, :max => item_in_cart.quantity %></td>
-                <td><%= item_quantity*item_in_cart.price %></td>
-                <td><%= link_to 'Delete', shopping_cart_url(@shopping_cart, :item_in_cart => item_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td><%= item_info[:item].title %></td>
+                <td><%= number_field_tag 'change_quantity_item_id[]', item_info[:quantity], in: 1...(item_info[:item].quantity + 1) %></td>
+                <td><%= item_info[:price] %></td>
+                <td><%= check_box_tag "delete_item_id[]", @shopping_item_list.index(item_info), false %></td>
               </tr>
           <% end %>
       <% end %>
     </table>
-    <!--<%= f.hidden_field :item_list, :value => @shopping_item_list %>-->
-    <p>
-      <%= f.submit %>
-    </p>
+    <%= hidden_field_tag 'item_hash', @shopping_cart_hash %>
+    <%= submit_tag "Update" %>
+    <p>Total Price : <%= @total_price %></p>
+
 <% end %>
 
-
-<%#= link_to 'Edit', edit_shopping_cart_path(@shopping_cart) %> |
+<%= link_to 'Go to Pay', new_transaction_path %>
 <%#= link_to 'Back', shopping_carts_path %>
