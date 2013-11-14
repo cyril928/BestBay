@@ -2,7 +2,7 @@ RisingFalcons::Application.routes.draw do
   resources :transactions, only: [:new, :create, :show]
 
 
-  resources :shopping_carts, only: [:show, :edit, :update, :delete]
+  resources :shopping_carts, only: [:show, :edit, :update, :destroy]
 
 
   #resources :biddings

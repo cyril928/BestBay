@@ -122,10 +122,13 @@ class ShoppingCartsController < ApplicationController
   # DELETE /shopping_carts/1.json
   def destroy
     @shopping_cart = ShoppingCart.find(params[:id])
-    @shopping_cart.destroy
+    item_list_hash = eval(@shopping_cart.item_list)
+    item_list_hash.delete(params[:item_in_cart].to_s)
+    @shopping_cart.item_list = item_list_hash.to_s
+    @shopping_cart.save
 
     respond_to do |format|
-      format.html { redirect_to shopping_carts_url }
+      format.html { redirect_to @shopping_cart, notice: item_list_hash.to_s }
       format.json { head :no_content }
     end
   end
