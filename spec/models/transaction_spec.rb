@@ -10,7 +10,7 @@ describe Transaction  do
   it {should respond_to(:card_number)}
   it {should respond_to(:expiry_date)}
   it {should respond_to(:address)}
-  it {should respond_to(:item_id)}
+  it {should respond_to(:item_list)}
  end
 
   describe "name" do
@@ -43,13 +43,13 @@ describe Transaction  do
         blank.should be_valid
       end
   end
- describe "item_id" do
+ describe "item_list" do
    it "should be required" do
-     blank = FactoryGirl.build(:transaction, :item_id => "")
+     blank = FactoryGirl.build(:transaction, :item_list => "")
      blank.should_not be_valid
-     blank.errors[:item_id].should include("can't be blank")
+     blank.errors[:item_list].should include("can't be blank")
 
-     blank.item_id = 2
+     blank.item_list = "{\"1\" => 2}"
      blank.should be_valid
    end
  end

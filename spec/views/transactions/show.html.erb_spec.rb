@@ -7,7 +7,7 @@ describe "transactions/show" do
     :cardnum => 123456789123,
     :dateofexpire => 1111,
     :address => "testaddress",
-    :item_id => 1
+    :item_list => "{\"1\" => 2}"
     ))
   end
 

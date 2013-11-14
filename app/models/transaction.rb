@@ -7,6 +7,7 @@ class Transaction < ActiveRecord::Base
     validates :card_number,  presence: true, numericality: true, length: { :minimum => 12, :maximum => 19 }
     validates :expiry_date,  presence: true, numericality: true, length: { :minimum => 4, :maximum => 4}
     validates :address,  presence: true, length: {  :minimum => 5, :maximum => 105 }
+    validates :item_list,  presence: true
   end
 
 end

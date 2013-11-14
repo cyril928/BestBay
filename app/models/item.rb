@@ -19,7 +19,7 @@ begin
   validates :price,  presence: true, length: { maximum: 8 }
   validates_length_of :price, :in => 1..32
   validates_numericality_of :price
-  validates :quantity,  presence: true, numericality: true, inclusion: {:in => 1..65535}
+  validates :quantity,  presence: true, numericality: true, inclusion: {:in => 0..65535}
 end
 
 end
