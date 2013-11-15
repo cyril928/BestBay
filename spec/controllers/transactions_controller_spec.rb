@@ -26,8 +26,8 @@ describe TransactionsController do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = FactoryGirl.create(:user)
     sign_in @user
-
     @item = FactoryGirl.create(:item)
+    @shopping_cart = FactoryGirl.create(:shopping_cart)
   end
 
   describe "Signed in user" do
@@ -41,7 +41,7 @@ describe TransactionsController do
   # Transaction. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { { "name" => "test", "card_number" => 1234456789123, "expiry_date" => 1111, "address" => "
-  Howe Street", "item_id" => @item.id } }
+  Howe Street", "item_list" => "{\"1\" => 2}" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -66,7 +66,7 @@ describe TransactionsController do
 
   describe "GET new" do
     it "assigns a new transaction as @transaction", :focus => true do
-      get :new, {:item_id => @item.id}
+      get :new
       assigns(:transaction).should be_a_new(Transaction)
     end
   end
@@ -104,7 +104,7 @@ describe TransactionsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
         post :create, {:transaction => { "name" => "test", "card_number" => 1, "expiry_date" => 1111, "address" => "
-  Howe Street", "item_id" => @item.id }}
+  Howe Street", "item_list" => "{\"1\" => 2}" }}
         assigns(:transaction).should be_a_new(Transaction)
       end
 
@@ -112,7 +112,7 @@ describe TransactionsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
         post :create, {:transaction => { "name" => "", "card_number" => 1234456789123, "expiry_date" => 1111, "address" => "
-  Howe Street", "item_id" => @item.id }}
+  Howe Street", "item_list" => "{\"1\" => 2}" }}
         response.should render_template("new")
       end
     end

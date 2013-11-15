@@ -6,48 +6,33 @@
       <th>Category</th>
       <th>Description</th>
       <th>Condition</th>
-      <th>Duration</th>
+      <!--<th>Duration</th>-->
       <th>Price</th>
+      <th>Quantity</th>
       <th>Seller</th>
       <th></th>
       <th></th>
       <th></th>
     </tr>
 
-    <% if @find_items.nil? %>
-        <% @items.each do |item| %>
-            <tr>
-              <td><%= item.title %></td>
-              <td><%= item.category %></td>
-              <td><%= item.description %></td>
-              <td><%= item.condition %></td>
-              <td><%= item.duration %></td>
-              <td><%= item.price %></td>
-              <td><%= item.user.email %>
-              <td><%= link_to 'View the Item', item %></td>
-              <% if current_user.nil? || current_user.id != item.user_id %>
-                  <td><%= link_to 'Buy',new_transaction_path(:item_id => item.id) %></td>
-              <% end %>
-            </tr>
-        <% end %>
-
-    <% elsif %>
-        <% @find_items.each do |item| %>
-            <tr>
-              <td><%= item.title %></td>
-              <td><%= item.category %></td>
-              <td><%= item.description %></td>
-              <td><%= item.condition %></td>
-              <td><%= item.duration %></td>
-              <td><%= item.price %></td>
-              <td><%= item.user.email %>
-              <td><%= link_to 'View the Item', item %></td>
-              <% if current_user.nil? || current_user.id != item.user_id %>
-                  <td><%= link_to 'Buy',new_transaction_path(:item_id => item.id) %></td>
-              <% end %>
-            </tr>
-        <% end %>
+    <% @items.each do |item| %>
+        <tr>
+          <td><%= item.title %></td>
+          <td><%= item.category %></td>
+          <td><%= item.description %></td>
+          <td><%= item.condition %></td>
+          <!--<td><%#= item.duration %></td>-->
+          <td>$<%= item.price %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.user.email %>
+          <td><%= link_to 'View the Item', item %></td>
+          <% if current_user.nil? || current_user.id != item.user_id %>
+              <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
+          <% end %>
+        </tr>
     <% end %>
+
+
   </table>
 
 </div>

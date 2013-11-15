@@ -9,6 +9,7 @@ FactoryGirl.define do
     duration 12
     price 1
     user_id 1
-    buyer_id 1
+    total_quantity 10
+    quantity 5
   end
 end

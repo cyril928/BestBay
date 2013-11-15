@@ -1,15 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Buyer:</b>
-  <%= @shopping_cart.buyer_id %>
-</p>
+<%= form_tag controller: 'shopping_carts', action: 'update_quantity', method: 'post' do %>
 
-<p>
-  <b>Item:</b>
-  <%= @shopping_cart.item_id %>
-</p>
+    <table>
+      <tr>
+        <td> Product Name</td>
+        <td> Quantity</td>
+        <td> Price</td>
+        <td> Delete</td>
+        <td></td>
+      </tr>
 
+      <% unless @shopping_item_list.nil? %>
+          <% @shopping_item_list.each do |item_info| %>
+              <tr>
+                <td><%= item_info[:item].title %></td>
+                <td><%= number_field_tag 'change_quantity_item_id[]', item_info[:quantity], required: true, in: 1..(item_info[:item].quantity) %></td>
+                <td>$<%= item_info[:price] %></td>
+                <td><%= check_box_tag "delete_item_id[]", @shopping_item_list.index(item_info), false %></td>
+              </tr>
+          <% end %>
+      <% end %>
+    </table>
+    <%= hidden_field_tag 'item_hash', @shopping_cart_hash %>
+    <%= submit_tag "Update" %>
+    <p>Total Price : $<%= @total_price %></p>
 
-<%= link_to 'Edit', edit_shopping_cart_path(@shopping_cart) %> |
-<%= link_to 'Back', shopping_carts_path %>
+<% end %>
+
+<%= link_to 'Go to Pay', new_transaction_path %>
+<%#= link_to 'Back', shopping_carts_path %>

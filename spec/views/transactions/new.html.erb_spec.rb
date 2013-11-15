@@ -8,7 +8,7 @@ describe "transactions/new" do
       :card_number => "",
       :expiry_date => "",
       :address => "",
-      :item_id => ""
+      :item_list => ""
     ).as_new_record)
     @item = FactoryGirl.create(:item)
   end

@@ -4,9 +4,11 @@
       <%= link_to "BestBay", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to 'My Profile', items_path, id: "headlink" %></li>
-
           <% if user_signed_in? %>
+              <li><%= link_to 'My Profile', user_path(current_user.id), id: "headlink" %></li>
+              <% unless @shopping_cart.nil? %>
+                <li><%= link_to 'Shopping Cart', @shopping_cart, id: "headlink" %></li>
+              <% end %>
               <font color="white">Signed in as <%= current_user.email %>. Not you?</font>
 
               <li><%= link_to "Home", root_path, id: "headlink" %></li>

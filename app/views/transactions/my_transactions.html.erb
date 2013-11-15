@@ -1,0 +1,23 @@
+<h1>Listing transactions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Card Number</th>
+    <th>Expiry Date</th>
+    <th>Address</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @transactions.each do |transaction| %>
+  <tr>
+    <td><%= transaction.name %></td>
+    <td><%= transaction.card_number %></td>
+    <td><%= transaction.expiry_date %></td>
+    <td><%= transaction.address %></td>
+    <td><%= link_to 'Show', transaction %></td>
+  </tr>
+<% end %>
+</table>
