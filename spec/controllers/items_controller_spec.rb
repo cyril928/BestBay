@@ -52,7 +52,7 @@ describe ItemsController do
   end
 =end
 
-  describe "User uses category search and page will redirect to home page" do
+    describe "User uses category search and page will redirect to home page" do
     it "redirects to the home page" do
       get :search
       expect(response).to redirect_to root_path

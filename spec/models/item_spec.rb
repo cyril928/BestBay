@@ -20,6 +20,7 @@ describe Item do
     it {should respond_to(:product_content_type)}
     it {should respond_to(:product_file_size)}
     it {should respond_to(:product_updated_at)}
+    it {should respond_to(:quantity)}
   end
 
   context 'after item is saved,' do
@@ -175,6 +176,7 @@ describe Item do
     end
   end
 
+=begin
   describe "duration" do
     it "should be required" do
       blank = FactoryGirl.build(:item, :duration => "")
@@ -184,7 +186,8 @@ describe Item do
       blank.duration = "123"
       blank.should be_valid
     end
-=begin
+
+
     it "should be longer than 1 character" do
       too_short = FactoryGirl.build(:item, :title => 'a')
       too_short.should_not be_valid
@@ -193,7 +196,8 @@ describe Item do
       too_short.title = 'aa'
       too_short.should be_valid
     end
-=end
+
+
     it "should be shorter than 9 characters" do
       too_long = FactoryGirl.build(:item, :duration => '1' * 9)
       too_long.should_not be_valid
@@ -212,6 +216,7 @@ describe Item do
       too_long.should be_valid
     end
   end
+=end
 
   describe "price" do
     it "should be required" do
@@ -248,6 +253,43 @@ describe Item do
 
       too_long.price = '111'
       too_long.should be_valid
+    end
+  end
+
+  describe "quantity" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :quantity => "")
+      blank.should_not be_valid
+      blank.errors[:quantity].should include("can't be blank")
+
+      blank.quantity = "123"
+      blank.should be_valid
+    end
+    it "should be greater than -1" do
+      too_less = FactoryGirl.build(:item, :quantity => '-1')
+      too_less.should_not be_valid
+      too_less.errors[:quantity].should include("is not included in the list")
+
+      too_less.quantity = 0
+      too_less.should be_valid
+    end
+
+    it "should be less than 65536" do
+      too_large = FactoryGirl.build(:item, :quantity => '65536')
+      too_large.should_not be_valid
+      too_large.errors[:quantity].should include("is not included in the list")
+
+      too_large.quantity = 65535
+      too_large.should be_valid
+    end
+
+    it "should be a number" do
+      not_a_number = FactoryGirl.build(:item, :quantity => 'aaa')
+      not_a_number.should_not be_valid
+      not_a_number.errors[:quantity].should include("is not a number")
+
+      not_a_number.quantity = 111
+      not_a_number.should be_valid
     end
   end
 

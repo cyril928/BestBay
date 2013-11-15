@@ -40,13 +40,22 @@
       <%= f.label :condition %><br />
       <%= f.text_field :condition %>
     </div>
+    <!--<div class="field">
+      <%#= f.label :duration %><br />
+      <%#= f.text_field :duration %>
+    <%= f.hidden_field :duration, :value => 0 %>
+    </div>-->
+
+
+
     <div class="field">
-      <%= f.label :duration %><br />
-      <%= f.text_field :duration %>
+      <%= f.label :quantity %><br />
+      <%= f.number_field :quantity, :value => 1, :min => 1 %>
     </div>
+
     <div class="field">
       <%= f.label :price %><br />
-      <%= f.number_field :price %>
+      <%= f.number_field :price, :value => 1, :min => 1 %>
     </div>
     <div class="field">
       <%= f.file_field :product %>
