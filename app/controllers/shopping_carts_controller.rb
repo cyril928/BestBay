@@ -42,13 +42,23 @@ class ShoppingCartsController < ApplicationController
     end
     if params[:item_id].nil?
       @item = Item.find(params[:item][:item_id])
-      @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item][:item_id], params[:item][:quantity], @item.quantity)
+      if current_user.id  == @item.user_id
+        redirect_to root_path
+      else
+        @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item][:item_id], params[:item][:quantity], @item.quantity)
+        @shopping_cart.save
+        redirect_to @shopping_cart
+      end
     else
       @item = Item.find(params[:item_id])
-      @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item_id], params[:quantity], @item.quantity)
+      if current_user.id  == @item.user_id
+        redirect_to root_path
+      else
+        @shopping_cart.item_list = add_to_item_list(@shopping_cart.item_list, params[:item_id], params[:quantity], @item.quantity)
+        @shopping_cart.save
+        redirect_to @shopping_cart
+      end
     end
-    @shopping_cart.save
-    redirect_to @shopping_cart
   end
 
 
