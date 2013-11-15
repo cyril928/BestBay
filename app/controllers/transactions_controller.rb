@@ -13,34 +13,28 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1
   # GET /transactions/1.json
+  # Basic scaffold code for viewing a transaction along with a check to prevent a user from viewing another user's transaction
   def show
     @transaction = Transaction.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @transaction }
+    if(@transaction.user_id == current_user.id)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @transaction }
+      end
+      else
+      redirect_to root_path
     end
   end
 
   # GET /transactions/new
   # GET /transactions/new.json
-  # Start of buy transaction and ensures that the seller cannot buy a product he has posted
   def new
     @transaction = Transaction.new
-    #@shopping_cart = params[:id]
-    #@item = Item.find(params[:item_id])
-    #params[:item_id] = nil
-=begin
-    if current_user.id  == @item.user_id
-      redirect_to root_path
-    else
-=end
-    #@transaction.item_id = @item.id
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @transaction }
     end
-    #end
   end
 
   # GET /transactions/1/edit
@@ -51,13 +45,14 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   # Generates the transaction for buying and also updates the item table to reflect that the item is bought.
+  # Performs check on available quantities. Also persists entire item details at the time of transaction for logging
+  # purposes as well as display in profile page and transaction details page.
   def create
     @transaction = Transaction.new(params[:transaction])
     #@item = Item.find(@transaction.item_id)
     #@item.buyer_id = current_user.id
     @transaction.user_id = current_user.id
     @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
-    @transaction.item_list = @shopping_cart.item_list
     error_flag = 0
     error_message = ""
     available_item = Array.new
@@ -75,13 +70,19 @@ class TransactionsController < ApplicationController
     if error_flag == 1
       redirect_to @shopping_cart, notice: error_message
     else
-      available_item.each do |item|
-        item.save
+      item_list = Hash.new
+      eval(@shopping_cart.item_list).each do |item_id, item_quantity|
+        index = Item.find(Integer(item_id)).attributes.except("created_at", "updated_at", "product_file_name",
+                                                              "product_content_type", "product_file_size", "product_updated_at")
+        item_list[index] = item_quantity
       end
-
+      @transaction.item_list = item_list.to_s
 
       respond_to do |format|
         if @transaction.save
+          available_item.each do |item|
+            item.save
+          end
           @shopping_cart.delete
           format.html { redirect_to @transaction, notice: 'Transaction successful.' }
           format.json { render json: @transaction, status: :created, location: @transaction }
@@ -120,6 +121,15 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to transactions_url }
       format.json { head :no_content }
+    end
+  end
+
+  # This method gets all the transactions belonging to the current user
+  def my_transactions
+    @transactions = Transaction.find_all_by_user_id(current_user.id)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @transactions }
     end
   end
 end

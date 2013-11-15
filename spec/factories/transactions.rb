@@ -6,6 +6,7 @@ FactoryGirl.define do
     card_number "123456123456"
     expiry_date "1010"
     address "abcde"
-    item_list "{\"1\" => 2}"
+    item_list "{{\"id\"=>1, \"title\"=>\"MyString\", \"category\"=>\"MyString\", \"description\"=>\"MyString\",
+ \"condition\"=>\"MyString\", \"duration\"=>12, \"price\"=>1, \"user_id\"=>1, \"total_quantity\"=>10, \"quantity\"=>5} => 2}"
   end
 end

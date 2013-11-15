@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131108040138) do
+ActiveRecord::Schema.define(:version => 20131115011115) do
 
   create_table "biddings", :force => true do |t|
     t.integer  "item_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20131108040138) do
     t.string   "duration"
     t.integer  "price"
     t.integer  "user_id"
-    t.integer  "buyer_id"
+    t.integer  "total_quantity"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.string   "product_file_name"

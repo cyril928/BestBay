@@ -16,7 +16,7 @@
               <tr>
                 <td><%= item_info[:item].title %></td>
                 <td><%= number_field_tag 'change_quantity_item_id[]', item_info[:quantity], required: true, in: 1..(item_info[:item].quantity) %></td>
-                <td><%= item_info[:price] %></td>
+                <td>$<%= item_info[:price] %></td>
                 <td><%= check_box_tag "delete_item_id[]", @shopping_item_list.index(item_info), false %></td>
               </tr>
           <% end %>
@@ -24,7 +24,7 @@
     </table>
     <%= hidden_field_tag 'item_hash', @shopping_cart_hash %>
     <%= submit_tag "Update" %>
-    <p>Total Price : <%= @total_price %></p>
+    <p>Total Price : $<%= @total_price %></p>
 
 <% end %>
 

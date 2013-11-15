@@ -1,8 +1,8 @@
 class ShoppingCartsController < ApplicationController
-  include ShoppingCartsHelper
   before_filter :authenticate_user!
 
-
+  # Update a shopping cart entry based on user entered preference. User can only update quantities and request deletion.
+  # Check for simultaneous updates included by rechecking quantity value before save.
   def update_quantity
     @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
     @shopping_cart_hash = eval(params[:item_hash])
@@ -34,7 +34,8 @@ class ShoppingCartsController < ApplicationController
     end
   end
 
-
+  # Adds an item to the user's shopping cart. Retrieve existing cart else create new. Add item to cart, if already
+  # present, update quantity. Handle request from 2 possible pages. More elegant solution, will work on later
   def add_to_cart
     @shopping_cart = ShoppingCart.find_by_user_id(current_user.id)
     if @shopping_cart.nil?
@@ -75,31 +76,41 @@ class ShoppingCartsController < ApplicationController
 
   # GET /shopping_carts/1
   # GET /shopping_carts/1.json
+  # Check whether accessing own cart. If true retrieve cart. Construct a shopping item list from the saved item id and
+  # format it for the view.
   def show
     @shopping_cart = ShoppingCart.find(params[:id])
-    @shopping_cart_hash = eval(@shopping_cart.item_list)
-    @shopping_item_list = Array.new
-    @total_price = 0
-    @shopping_cart_hash.each do |item_id, quantity|
-      @item = Item.find(Integer(item_id))
-      @shopping_item_list += [{:item => @item, :quantity => quantity, :price => (quantity * @item.price)}]
-      @total_price += (quantity * @item.price)
-    end
+    if(@shopping_cart.user == current_user)
+      @shopping_cart_hash = eval(@shopping_cart.item_list)
+      @shopping_item_list = Array.new
+      @total_price = 0
+      @shopping_cart_hash.each do |item_id, quantity|
+        @item = Item.find(Integer(item_id))
+        @shopping_item_list += [{:item => @item, :quantity => quantity, :price => (quantity * @item.price)}]
+        @total_price += (quantity * @item.price)
+      end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @shopping_cart }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @shopping_cart }
+      end
+    else
+      redirect_to root_path
     end
   end
 
   # GET /shopping_carts/new
   # GET /shopping_carts/new.json
   def new
+    if(ShoppingCart.find_by_user_id(current.user).nil?)
     @shopping_cart = ShoppingCart.new
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @shopping_cart }
+    end
+    else
+      redirect_to root_path
     end
   end
 
@@ -163,4 +174,24 @@ class ShoppingCartsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # Returns: string version of the shopping list for  the shopping cart
+  # Parameters: shopping_list: a list of items in the shopping cart
+  # Parameters: item_id: id of the item which is to be added to the shopping list
+  # Parameters: quantity: quantity sought for by the buyer
+  # Parameters: max_quantity: maximum available quantity for the requested item.
+  # Adds an item to the shopping list or if already present increments the quantity. Checks whether order
+  # exceeds available quantity, if true then set the quantity to maximum available
+  def add_to_item_list(shopping_list, item_id, quantity, max_quantity)
+
+    @shopping_list_hash = eval(shopping_list)
+    if @shopping_list_hash.has_key?(item_id)
+      @shopping_list_hash[item_id] = [Integer(@shopping_list_hash[item_id]) + Integer(quantity), max_quantity].min
+    else
+      @shopping_list_hash[item_id] = [Integer(quantity), max_quantity].min
+    end
+    @shopping_list_hash.to_s
+
+  end
+
 end

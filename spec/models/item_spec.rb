@@ -15,7 +15,7 @@ describe Item do
     it {should respond_to(:duration)}
     it {should respond_to(:price)}
     it {should respond_to(:user_id)}
-    it {should respond_to(:buyer_id)}
+    it {should respond_to(:total_quantity)}
     it {should respond_to(:product_file_name)}
     it {should respond_to(:product_content_type)}
     it {should respond_to(:product_file_size)}
@@ -256,6 +256,43 @@ describe Item do
     end
   end
 
+  describe "total_quantity" do
+    it "should be required" do
+      blank = FactoryGirl.build(:item, :total_quantity => "")
+      blank.should_not be_valid
+      blank.errors[:total_quantity].should include("can't be blank")
+
+      blank.total_quantity = "123"
+      blank.should be_valid
+    end
+    it "should be greater than 0" do
+      too_less = FactoryGirl.build(:item, :total_quantity => '0')
+      too_less.should_not be_valid
+      too_less.errors[:total_quantity].should include("is not included in the list")
+
+      too_less.total_quantity = 1
+      too_less.should be_valid
+    end
+
+    it "should be less than 65536" do
+      too_large = FactoryGirl.build(:item, :total_quantity => '65536')
+      too_large.should_not be_valid
+      too_large.errors[:total_quantity].should include("is not included in the list")
+
+      too_large.total_quantity = 65535
+      too_large.should be_valid
+    end
+
+    it "should be a number" do
+      not_a_number = FactoryGirl.build(:item, :total_quantity => 'aaa')
+      not_a_number.should_not be_valid
+      not_a_number.errors[:total_quantity].should include("is not a number")
+
+      not_a_number.total_quantity = 111
+      not_a_number.should be_valid
+    end
+  end
+
   describe "quantity" do
     it "should be required" do
       blank = FactoryGirl.build(:item, :quantity => "")
@@ -292,5 +329,4 @@ describe Item do
       not_a_number.should be_valid
     end
   end
-
 end

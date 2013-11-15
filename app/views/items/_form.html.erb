@@ -50,11 +50,13 @@
 
     <div class="field">
       <%= f.label :quantity %><br />
-      <%= f.number_field :quantity, :value => 1, :min => 1 %>
+      <%= f.number_field :total_quantity, :value => 1, :min => 1, :max => 65535 %>
     </div>
 
+    <%= f.hidden_field :quantity, :value => :total_quantity %>
+
     <div class="field">
-      <%= f.label :price %><br />
+      <%= f.label :price %><br />$
       <%= f.number_field :price, :value => 1, :min => 1 %>
     </div>
     <div class="field">

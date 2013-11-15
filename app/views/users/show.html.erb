@@ -2,30 +2,30 @@
 
 <p>
   <strong>First Name:</strong>
-  <%= @user.first_name %>
+  <%= current_user.first_name %>
 </p>
 
 <p>
   <strong>Last Name:</strong>
-  <%= @user.last_name %>
+  <%= current_user.last_name %>
 </p>
 <p>
   <strong>Email:</strong>
-  <%= @user.email %>
+  <%= current_user.email %>
 </p>
 
 <p>
   <strong>Street:</strong>
-  <%= @user.street %>
+  <%= current_user.street %>
 </p>
 
 <p>
   <strong>Country:</strong>
-  <%= @user.country %>
+  <%= current_user.country %>
 </p>
 <p>
   <strong>Zip:</strong>
-  <%= @user.zip %>
+  <%= current_user.zip %>
 </p>
 
 <h3 class="mypets">Item Selling</h3>
@@ -37,14 +37,12 @@
       <th>Category</th>
       <th>Description</th>
       <th>Condition</th>
-      <th>Duration</th>
+      <!--<th>Duration</th>-->
       <th>Price</th>
-
-      <th></th>
-      <th></th>
+      <th>Quantity</th>
       <th></th>
     </tr>
-    <% @items1.each do |item| %>
+    <% @items[1].each do |item| %>
         <tr>
           <td><%= item.title %></td>
           <td><%= item.category %></td>
@@ -52,8 +50,8 @@
           <td><%= item.description %></td>
 
           <td><%= item.condition %></td>
-          <td><%= item.duration %></td>
-          <td><%= item.price %></td>
+          <td>$<%= item.price %></td>
+          <td><%= item.quantity %></td>
 
           <td><%= link_to 'View the Item', item %></td>
         </tr>
@@ -70,14 +68,12 @@
       <th>Category</th>
       <th>Description</th>
       <th>Condition</th>
-      <th>Duration</th>
+      <!--<th>Duration</th>-->
       <th>Price</th>
-
-      <th></th>
-      <th></th>
+      <th>Quantity Sold</th>
       <th></th>
     </tr>
-    <% @items2.each do |item| %>
+    <% @items[2].each do |item| %>
         <tr>
           <td><%= item.title %></td>
           <td><%= item.category %></td>
@@ -85,8 +81,8 @@
           <td><%= item.description %></td>
 
           <td><%= item.condition %></td>
-          <td><%= item.duration %></td>
-          <td><%= item.price %></td>
+          <td>$<%= item.price %></td>
+          <td><%= item.total_quantity - item.quantity %></td>
 
           <td><%= link_to 'View the Item', item %></td>
         </tr>
@@ -105,14 +101,12 @@
       <th>Category</th>
       <th>Description</th>
       <th>Condition</th>
-      <th>Duration</th>
-      <th>Price</th>
-
-      <th></th>
-      <th></th>
+      <th>Quantity Bought</th>
+      <th>Unit Price</th>
+      <th>Total Price</th>
       <th></th>
     </tr>
-    <% @items3.each do |item| %>
+    <% @items[3].each do |item| %>
         <tr>
           <td><%= item.title %></td>
           <td><%= item.category %></td>
@@ -120,8 +114,9 @@
           <td><%= item.description %></td>
 
           <td><%= item.condition %></td>
-          <td><%= item.duration %></td>
-          <td><%= item.price %></td>
+          <td><%= item.quantity %></td>
+          <td>$<%= item.price %></td>
+          <td>$<%= item.price * item.quantity %></td>
 
           <td><%= link_to 'View the Item', item %></td>
         </tr>
@@ -162,3 +157,4 @@
 
 <%= link_to 'Sell Item', new_item_path %>
 <%= link_to 'edit profile', edit_user_path %>
+<%= link_to 'My Transactions', my_transactions_path %>

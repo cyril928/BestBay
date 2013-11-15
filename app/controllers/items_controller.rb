@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  # ensure authentication for pages requiring signed in user along with exceptions.
       before_filter :authenticate_user!, :except => [:home, :show, :search]
 
   def search
@@ -15,13 +16,13 @@ class ItemsController < ApplicationController
   end
 
 
-  # Fetches items up for sale, filter excludes already bought item.
+  # Fetches items up for sale, filter excludes items whose stock is exhausted.
   def home
     if !flash[:query_result].nil?
-      @find_items = Item.where("id in (?)", flash[:query_result]).where(:buyer_id => nil)
+      @items = Item.where("id in (?)", flash[:query_result]).where("quantity > 0")
       flash[:query_result] = nil
     else
-      @items = Item.where(:buyer_id => nil).where("quantity > 0")
+      @items = Item.where("quantity > 0")
     end
 
 
@@ -49,7 +50,6 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-    cookies.permanent[:remember_item_token] = @item.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
@@ -74,6 +74,7 @@ class ItemsController < ApplicationController
 
   # POST /items
   # POST /items.json
+  # Standard scaffold code augmented by setting the user_id on the item to the user_id of the person posting(seller)
   def create
     @item = Item.new(params[:item])
     @item.user_id = current_user.id

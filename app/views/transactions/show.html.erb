@@ -20,5 +20,25 @@
   <%= @transaction.address %>
 </p>
 
+<table>
+  <tr>
+    <td> Product Name</td>
+    <td> Quantity</td>
+    <td> Price</td>
+    <td></td>
+  </tr>
+      <% total_price = 0 %>
+      <% eval(@transaction.item_list).each do |item_hash, item_quantity| %>
+          <tr>
+            <% item = Item.new(attributes = item_hash) %>
+            <td><%= item.title %></td>
+            <td><%= item_quantity %></td>
+            <td>$<%= item.price %></td>
+            <% total_price += item_quantity*item.price %>
+          </tr>
+      <% end %>
+</table>
+<br />
+<p><b>Total Price : $<%= total_price %></b></p>
 
-<%= link_to 'Back', root_path %>
+<%= link_to 'Back', my_transactions_path %>
