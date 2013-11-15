@@ -6,8 +6,7 @@
     <th>Card Number</th>
     <th>Expiry Date</th>
     <th>Address</th>
-    <th></th>
-    <th></th>
+    <th>Date of Transaction</th>
     <th></th>
   </tr>
 
@@ -17,6 +16,7 @@
     <td><%= transaction.card_number %></td>
     <td><%= transaction.expiry_date %></td>
     <td><%= transaction.address %></td>
+    <td><%= transaction.created_at %></td>
     <td><%= link_to 'Show', transaction %></td>
   </tr>
 <% end %>

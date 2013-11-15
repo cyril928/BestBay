@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131115011115) do
+ActiveRecord::Schema.define(:version => 20131115112557) do
 
   create_table "biddings", :force => true do |t|
     t.integer  "item_id"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20131115011115) do
 
   create_table "transactions", :force => true do |t|
     t.string   "name"
-    t.integer  "card_number"
+    t.string   "card_number"
     t.string   "expiry_date"
     t.string   "address"
     t.datetime "created_at",  :null => false
