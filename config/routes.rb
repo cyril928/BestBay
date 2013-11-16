@@ -1,4 +1,7 @@
 RisingFalcons::Application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   resources :transactions, only: [:new, :create, :show]
 
 
@@ -15,6 +18,7 @@ RisingFalcons::Application.routes.draw do
   root :to => 'Items#home'
 
   devise_for :users
+  ActiveAdmin.routes(self)
   resources :users, :only => [:show, :edit, :update]
 
   resources :items, only: [:new, :create, :show, :index]
