@@ -68,6 +68,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    country-select (1.1.1)
     devise (3.2.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -201,6 +202,7 @@ DEPENDENCIES
   bootstrap-sass
   capybara
   coffee-rails (~> 3.2.1)
+  country-select
   devise
   factory_girl_rails
   formtastic

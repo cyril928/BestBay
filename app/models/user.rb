@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :street, :country, :zip, :phone
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :street, :country, :zip, :phone, :active
   # attr_accessible :title, :body
 
 
@@ -42,5 +42,11 @@ class User < ActiveRecord::Base
   after_validation { self.errors.messages.delete(:password_digest) }
 =end
 
+  def active_for_authentication?
+    # Uncomment the below debug statement to view the properties of the returned self model values.
+    # logger.debug self.to_yaml
+
+    super && self.active?
+  end
 
 end
