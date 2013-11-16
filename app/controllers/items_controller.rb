@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   # ensure authentication for pages requiring signed in user along with exceptions.
-      before_filter :authenticate_user!, :except => [:home, :show, :search]
+  before_filter :authenticate_user!, :except => [:home, :show, :search]
 
   def search
     if params[:keyword].nil?
@@ -12,17 +12,17 @@ class ItemsController < ApplicationController
         @items = Item.select(:id).where({category: params[:category_query], title: params[:keyword]})
       end
     end
-    redirect_to root_path, :flash => { :query_result => @items }
+    redirect_to root_path, :flash => {:query_result => @items}
   end
 
 
   # Fetches items up for sale, filter excludes items whose stock is exhausted.
   def home
     if !flash[:query_result].nil?
-      @items = Item.where("id in (?)", flash[:query_result]).where("quantity > 0")
+      @items = Item.where("id in (?)", flash[:query_result]).where("quantity > 0").where(active: 1)
       flash[:query_result] = nil
     else
-      @items = Item.where("quantity > 0")
+      @items = Item.where("quantity > 0").where(active: 1)
     end
 
 
@@ -50,9 +50,14 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @item }
+    if (@item.active?)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @item }
+      end
+    else
+      error_msg = "The #{@item.title}'s sold activity has been temporarily deactivated!"
+      redirect_to root_path, notice: error_msg
     end
   end
 
