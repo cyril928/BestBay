@@ -25,7 +25,7 @@ RisingFalcons::Application.routes.draw do
   ActiveAdmin.routes(self)
   resources :users, :only => [:show, :edit, :update]
 
-  resources :items, only: [:new, :create, :show, :index]
+  resources :items, only: [:new, :create, :show]
 
   match "/about", to: "static_pages#about", via: "get"
   match "/help", to: "static_pages#help", via: "get"
