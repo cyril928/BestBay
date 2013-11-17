@@ -14,10 +14,7 @@ RisingFalcons::Application.routes.draw do
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   devise_for :users, :skip => [:registrations]
-  as :user do
-    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-    put 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
-  end
+
 
   root :to => 'Items#home'
 
