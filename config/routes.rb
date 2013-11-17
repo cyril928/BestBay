@@ -13,6 +13,11 @@ RisingFalcons::Application.routes.draw do
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+<<<<<<< HEAD
+=======
+  devise_for :users, :skip => [:registrations]
+
+>>>>>>> ff60c992330006db0807fa9315d9f9a15e54cac8
 
   root :to => 'Items#home'
 
