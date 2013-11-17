@@ -5,6 +5,7 @@ describe UsersController do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = FactoryGirl.create(:user)
     @item = FactoryGirl.create(:item)
+    @transaction = FactoryGirl.create(:transaction)
     sign_in @user
   end
 
@@ -51,11 +52,41 @@ describe UsersController do
 
     end
 
-    #it "should show the items being bought by user" do
-     # get :show, {:id => @user.to_param}
-    #  @items= Item.find_all_by_user_id(:id)
-     # expect(assigns(:items_bought)).not_to eq  @items
-    #end
+    it "transactions should include the items bought by user" do
+     get :show, {:id => @user.to_param}
+      #@items= Item.find_all_by_user_id(:id)
+      #expect(assigns(:items_bought)).not_to eq  @items
+      transactions = Transaction.find_all_by_user_id(@user.id)
+      transactions.each do |transc|
+        item_list_hash = eval(transc.item_list)
+        expect(assigns(:items_bought)).to have(transc.item_list)
+
+      end
+
+    end
+
+    it "should show the items being bought by user" do
+      get :show, {:id => @user.to_param}
+      #@items= Item.find_all_by_user_id(:id)
+      #expect(assigns(:items_bought)).not_to eq  @items
+      transactions = Transaction.find_all_by_user_id(@user.id)
+      items_bought = Array.new
+      transactions.each do |transc|
+        item_list_hash = eval(transc.item_list)
+        item_list_hash.each do |item_hash, quantity|
+          item = Item.new(attributes = item_hash)
+          item.id = item_hash["id"]
+          if items_bought.all? {|item_temp| item_temp.id != item.id}
+            item.quantity = quantity
+            items_bought<<item
+          end
+
+        end
+
+      end
+      expect(assigns(:items_bought)).to eq (items_bought)
+
+    end
 
   end
 
