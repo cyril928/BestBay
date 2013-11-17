@@ -65,4 +65,18 @@
 
 <% end %>
 
+<% if current_user!=nil %>
+ <td><%= button_to 'Report', :controller => "/emailers", :action => :index , :item_id => @item.id ,:user_id=>current_user.id,:onclick => "myfunc()" %></td>
+    <% else%>
+ <td><%= button_to 'Report', :controller => "/emailers", :action => :index , :item_id => @item.id ,:user_id=>0,:onclick => "myfunc()" %></td>
+<% end %>
+<div id="1"> <div>
+
 <%= link_to 'Back', items_path %>
+
+<script>
+ function myfunc()
+ {
+   document.getElementById("1").innerHTML="My First JavaScript";
+ }
+</script>
