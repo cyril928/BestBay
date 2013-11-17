@@ -80,7 +80,6 @@ describe UsersController do
             item.quantity = quantity
             items_bought<<item
           end
-
         end
 
       end
