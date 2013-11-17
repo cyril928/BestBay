@@ -27,6 +27,9 @@ class UsersController < ApplicationController
         end
     end
     @items[3] = items_bought
+    ## For RSpec Testing Purpose##
+    ##@items_selling=  @items[1]
+    ##@items_sold  = @items[2]
   end
     #user can edit his profile
   def edit

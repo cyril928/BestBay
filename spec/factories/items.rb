@@ -12,4 +12,6 @@ FactoryGirl.define do
     total_quantity 10
     quantity 5
   end
+
+
 end
