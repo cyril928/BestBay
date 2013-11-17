@@ -38,4 +38,30 @@ RisingFalcons::Application.configure do
   # In development mode, the path is used to find the image processor ImageMagick for gem paperclip
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_dispatch.best_standards_support = :builtin
+
+  config.active_support.deprecation = :notify
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.default :charset => "utf-8"
+
+
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.active_support.deprecation = :log
+
+  config.action_mailer.smtp_settings ={
+      :enable_starttls_auto => true,
+      :address            => 'smtp.gmail.com',
+      :port               => 587,
+      :tls                => true,
+      :domain             => 'gmail.com',
+      :authentication     => :plain,
+      :user_name          => 'risingfalcons19@gmail.com',
+      :password           => 'risingfalcons'
+  }
+
 end

@@ -29,21 +29,19 @@ class UsersController < ApplicationController
     @items[3] = items_bought
   end
     #user can edit his profile
-  def edit
-    @user = User.find(params[:id])
-    @items = Item.find_all_by_user_id(@user.id)
-  end
-
-  def update
-    @user = User.find(params[:id])
-    @items = Item.find_all_by_user_id(@user.id)
-    if @user.update_attributes(params[:user])
-      redirect_to :action => 'show'
-    else
-      @item = item.find(:all)
-      render :action => 'edit'
+    #user can edit his profile
+    def edit
+        @user = User.find(params[:id])
     end
-  end
+    
+    def update
+        @user = User.find(params[:id])
+        if @user.update_attributes(params[:user])
+            redirect_to :action => 'show'
+            else
+            render :action => 'edit'
+        end
+    end
 
 end
 
