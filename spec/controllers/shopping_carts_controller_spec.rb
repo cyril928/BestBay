@@ -159,4 +159,73 @@ describe ShoppingCartsController do
   end
 =end
 
+  include Devise::TestHelpers
+  before (:each) do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+    @item = FactoryGirl.create(:item)
+    @shopping_cart = FactoryGirl.create(:shopping_cart)
+  end
+
+  describe "Signed in user" do
+    it "should be a signed in user" do
+      subject.current_user.should_not be_nil
+    end
+  end
+
+
+  describe "GET 'add_to_cart'" do
+    it "return http success when go from home page" do
+      get :add_to_cart, {:item_id => @item.id}, {:quantity => 1}
+      flash[:alert].should eql("")
+      response.should be_redirect
+      #response.should redirect_to(assigns[:@shopping_cart])
+    end
+    it "return http success when go from item detail page" do
+      get 'add_to_cart', {:item_id => @item.id}, {:quantity => 1}
+      response.should be_redirect
+      #response.should redirect_to(assigns[:@shopping_cart])
+    end
+
+  end
+
+  describe "POST 'update_quantity'" do
+    before (:each) do
+
+      @user1 = FactoryGirl.create(:user, :email => 'test@gmail.com')
+      @item1 = FactoryGirl.create(:item, :title => 'item1', :user_id => @user1.id)
+      @item2 = FactoryGirl.create(:item, :title => 'item2', :user_id => @user1.id)
+    end
+
+    it "return http success when user changes quantity of item in shopping cart" do
+      post 'update_quantity', {:item_hash => "{\"2\"=>1, \"3\"=>5}"}, {:change_quantity_item_id => ["1", "4"]}
+      response.should be_redirect
+    end
+    it "return http success when user deletes item in shopping cart" do
+      post 'update_quantity', {:item_hash => "{\"2\"=>1, \"3\"=>5}"}, {:delete_item_id => ["0"]}
+      response.should be_redirect
+    end
+    it "user can't claim quantity of a item which is greater than its remaining quantity" do
+      @user2 = FactoryGirl.create(:user, :email => 'test2@gmail.com')
+      sign_in @user2
+      post 'update_quantity', {:item_hash => "{\"2\"=>1, \"3\"=>5}"}, {:change_quantity_item_id => ["6", "1"]}
+      flash[:alert].should eql("Sorry! Only #{@item1.quantity} of #{@item1.title} is available at the moment")
+    end
+  end
+
+
+  describe "GET 'show'" do
+    it "return http success" do
+      get 'show', :id => @shopping_cart.to_param
+      response.should be_success
+    end
+    it "assigns shopping cart as @shopping_cart" do
+      get 'show', :id => @shopping_cart.to_param
+      assigns(:shopping_cart).should_not be_nil
+    end
+  end
+
+
+
 end

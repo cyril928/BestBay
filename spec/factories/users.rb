@@ -10,5 +10,6 @@ FactoryGirl.define do
     country  "USA"
     zip  "15206"
     phone  "4126801073"
+    active 1
   end
 end
