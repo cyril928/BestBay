@@ -9,8 +9,9 @@ class Emailer < ActionMailer::Base
     
     itemId=item_id
     mail(:to =>"risingfalcons19@gmail.com",
-         :body=> "Illegal item id #{itemId}",
-	 :subject=>"Illegal Item Report")
+         :body=> "Please see the Terms and Conditions attached #{itemId}",
+	 :subject=>"Item Report")
    end
+
 
 end

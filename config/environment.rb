@@ -3,6 +3,7 @@ require File.expand_path('../application', __FILE__)
 
 RisingFalcons::Application.initialize!
 
+
 ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
@@ -16,3 +17,4 @@ ActionMailer::Base.smtp_settings = {
 
 ActionMailer::Base.default :content_type => "text/html"
 # Initialize the rails application
+
