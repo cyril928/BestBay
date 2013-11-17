@@ -2,7 +2,7 @@
 
 
 <h1>
-  <!--<b>Title:</b>-->
+
   <%= @item.title %>
 </h1>
 
@@ -20,12 +20,6 @@
   <b>Condition:</b>
   <%= @item.condition %>
 </p>
-
-<!--<p>
-  <b>Duration:</b>
-  <%#= @item.duration %>
-</p>-->
-
 
 <p>
   <b>Price:</b>
@@ -73,6 +67,7 @@
 <div id="1"> <div>
 
 <%= link_to 'Back', items_path %>
+  <%= link_to 'Seller', user_path %>
 
 <script>
  function myfunc()

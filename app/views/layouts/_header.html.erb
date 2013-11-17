@@ -1,9 +1,13 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
+    <div align="left">
     <div class="container">
+
       <%= link_to "BestBay", root_path, id: "logo" %>
+      <div align="right">
       <nav>
-        <ul class="nav pull-right">
+
+        <ul class="nav nav-pills">
           <% if user_signed_in? %>
               <li><%= link_to 'My Profile', user_path(current_user.id), id: "headlink" %></li>
               <% unless @shopping_cart.nil? %>
@@ -22,6 +26,8 @@
 
         </ul>
       </nav>
+    </div>
+      </div>
     </div>
   </div>
 </header>
