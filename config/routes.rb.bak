@@ -7,8 +7,7 @@ RisingFalcons::Application.routes.draw do
 
   #resources :biddings
 
-  match  '/Emailer/index', to: 'emailers#index' , via: 'get'
-   match  '/Emailer/index', to: 'emailers#index' , via: 'post'
+ match  '/Emailer/index', to: 'emailers#index' , via: 'get'
 
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

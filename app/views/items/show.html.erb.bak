@@ -1,42 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 
-<p>
-  <strong>First Name:</strong>
-  <%= @user.first_name %>
-</p>
-<p>
-  <strong>Last Name:</strong>
-  <%= @user.last_name %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Street:</strong>
-  <%= @user.street %>
-</p>
-<p>
-  <strong>Country:</strong>
-  <%= @user.country %>
-</p>
-
-<p>
-  <strong>zip:</strong>
-  <%= @user.zip %>
-</p>
-<p>
-  <strong>phone:</strong>
-  <%= @user.phone %>
-</p>
-
-
-<p>
-  <b>Title :</b>
+<h1>
+  <!--<b>Title:</b>-->
   <%= @item.title %>
-</p>
+</h1>
 
 <p>
   <b>Category:</b>
@@ -53,31 +21,58 @@
   <%= @item.condition %>
 </p>
 
-<p>
+<!--<p>
   <b>Duration:</b>
-  <%= @item.duration %>
-</p>
+  <%#= @item.duration %>
+</p>-->
+
 
 <p>
   <b>Price:</b>
-  <%= @item.price %>
+  $<%= @item.price %>
 </p>
 
 <p>
-  <b>User:</b>
-  <%= @item.user_id %>
+  <b>Quantity Available:</b>
+  <%= @item.quantity %>
 </p>
 
 <p>
-  <b>Buyer:</b>
-  <%= @item.buyer_id %>
+  <b>Seller:</b>
+  <%= @item.user.email %>
 </p>
 
 
 <p>
- <%= image_tag @item.product.url %>
+  <%= image_tag @item.product.url %>
 </p>
 
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
+<% if current_user.nil? || current_user.id != @item.user_id %>
+    <%= form_for(@item, :url => url_for(:controller => 'shopping_carts', :action => 'add_to_cart'), :method => :get) do |f| %>
+
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <p>
+          <b>Quantity:</b>
+          <%= f.number_field :quantity, :value => 1, :min => 1, :max => @item.quantity %>
+        </p>
+
+
+        <p>
+          <%= f.submit :value => "Add To Cart" %>
+        </p>
+    <% end %>
+
+<% end %>
+ <td><%= button_to 'Report', :controller => "/emailers", :action => :index , :item_id => @item.id ,:onclick => "myfunc()" %></td>
+
+
 <%= link_to 'Back', items_path %>
+
+<script>
+
+ function myfunc()
+ {
+  
+ }
+</script>
