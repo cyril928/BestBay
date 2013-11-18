@@ -27,6 +27,7 @@ class UsersController < ApplicationController
         end
         end
     end
+
     if @user == current_user
       @items[3] = items_bought
     end

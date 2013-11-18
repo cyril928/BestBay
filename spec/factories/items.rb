@@ -13,4 +13,6 @@ FactoryGirl.define do
     quantity 5
     active 1
   end
+
+
 end
