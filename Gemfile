@@ -3,10 +3,11 @@ ruby '1.9.3'
 gem 'rails', '3.2.14'
 gem 'devise'
 gem 'bootstrap-sass'
-gem 'sqlite3'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development, :test do
+  gem 'sqlite3'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
 end
