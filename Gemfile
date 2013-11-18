@@ -6,9 +6,10 @@ gem 'bootstrap-sass'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'sqlite3'
 group :development, :test do
-   gem 'sqlite3'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
 end
 
 group :production do
@@ -47,8 +48,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 #suggested gems by Todd
-gem 'factory_girl_rails' 
-gem 'rspec-rails' 
+
 gem 'devise'
 gem "capybara"
 
@@ -63,3 +63,8 @@ end
 
 
 gem 'formtastic'
+gem 'country-select'
+
+gem 'activeadmin'
+#gem 'sass-rails'
+gem "meta_search",    '>= 1.1.0.pre'

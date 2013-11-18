@@ -11,6 +11,7 @@ FactoryGirl.define do
     user_id 1
     total_quantity 10
     quantity 5
+    active 1
   end
 
 

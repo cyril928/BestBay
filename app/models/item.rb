@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :user
   # has_many :biddings
   # Settable attributes. Mainly implemented in iteration 1.total_quantity and quantity added in Iteration 3, buyer_id discarded.
-  attr_accessible :total_quantity, :category, :condition, :description, :duration, :price, :title, :user_id, :product, :quantity
+  attr_accessible :total_quantity, :category, :condition, :description, :duration, :price, :title, :user_id, :product, :quantity, :active
   has_attached_file :product, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
 

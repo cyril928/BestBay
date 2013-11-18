@@ -4,9 +4,11 @@ describe ItemsController do
 begin
   describe "routing" do
 
+=begin
     it "routes to #index" do
       get("/items").should route_to("items#index")
     end
+=end
 
     it "routes to #new" do
       get("/items/new").should route_to("items#new")

@@ -1,4 +1,7 @@
 RisingFalcons::Application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   resources :transactions, only: [:new, :create, :show]
 
 
@@ -7,17 +10,22 @@ RisingFalcons::Application.routes.draw do
 
   #resources :biddings
 
+  match  '/Emailer/index', to: 'emailers#index' , via: 'get'
+   match  '/Emailer/index', to: 'emailers#index' , via: 'post'
 
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  devise_for :users, :skip => [:registrations]
+
 
   root :to => 'Items#home'
 
   devise_for :users
+  ActiveAdmin.routes(self)
   resources :users, :only => [:show, :edit, :update]
 
-  resources :items, only: [:new, :create, :show, :index]
+  resources :items, only: [:new, :create, :show]
 
   match "/about", to: "static_pages#about", via: "get"
   match "/help", to: "static_pages#help", via: "get"

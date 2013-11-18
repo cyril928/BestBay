@@ -60,6 +60,8 @@
     <div class="field">
       <%= f.file_field :product %>
     </div>
+
+    <%= f.hidden_field :active, :value => true %>
     <div class="actions">
       <%= f.submit %>
     </div>
