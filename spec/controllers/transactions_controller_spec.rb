@@ -41,7 +41,8 @@ describe TransactionsController do
   # Transaction. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { { "name" => "test", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "
-  Howe Street", "item_list" => "{\"1\" => 2}" } }
+  Howe Street", "item_list" => "{{\"id\"=>1, \"title\"=>\"MyString\", \"category\"=>\"MyString\", \"description\"=>\"MyString\",
+ \"condition\"=>\"MyString\", \"duration\"=>12, \"price\"=>1, \"user_id\"=>1, \"total_quantity\"=>10, \"quantity\"=>5} => 2}" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in

@@ -1,37 +1,37 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div align="left">
-    <div class="container">
+      <div class="container">
 
-      <%= link_to "BestBay", root_path, id: "logo" %>
-      <div align="right">
-      <nav>
+        <%= link_to "BestBay", root_path, id: "logo" %>
+        <div align="right">
+          <nav>
+            <ul class="nav nav-pills">
+              <% if user_signed_in? %>
+                  <li><%= link_to 'My Profile', user_path(current_user.id), id: "headlink" %></li>
+                  <% unless @shopping_cart.nil? %>
+                      <li><%= link_to 'Shopping Cart', @shopping_cart, id: "headlink" %></li>
+                  <% end %>
+                  <font color="white">Signed in as <%= current_user.email %>. Not you?</font>
 
-        <ul class="nav nav-pills">
-          <% if user_signed_in? %>
-              <li><%= link_to 'My Profile', user_path(current_user.id), id: "headlink" %></li>
-              <% unless @shopping_cart.nil? %>
-                <li><%= link_to 'Shopping Cart', @shopping_cart, id: "headlink" %></li>
+                  <li><%= link_to "Home", root_path, id: "headlink" %></li>
+
+                  <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete, id: "headlink" %></li>
+
+              <% else %>
+                  <li><%= link_to "Sign up", new_user_registration_path, id: "headlink" %></li>
+                  <li><%= link_to "Sign in", new_user_session_path, id: "headlink" %></li>
               <% end %>
-              <font color="white">Signed in as <%= current_user.email %>. Not you?</font>
 
-              <li><%= link_to "Home", root_path, id: "headlink" %></li>
-
-              <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete, id: "headlink" %></li>
-
-          <% else %>
-              <li><%= link_to "Sign up", new_user_registration_path, id: "headlink" %></li>
-              <li><%= link_to "Sign in", new_user_session_path, id: "headlink" %></li>
-          <% end %>
-
-        </ul>
-      </nav>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
       </div>
     </div>
   </div>
 </header>
-
 <script type="text/javascript">
     ddlevelsmenu.setup("ddtopmenubar", "topbar") //ddlevelsmenu.setup("mainmenuid", "topbar|sidebar")
 </script>

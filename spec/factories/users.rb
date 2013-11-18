@@ -4,9 +4,9 @@ FactoryGirl.define do
   factory :user do
     email "cyril76928@gmail.com"
     password "12341234"
-    first_name "Tung-Keng Lee"
+    first_name "Tung-Keng"
     last_name  "Lee"
-    street  "5700 Centre Ave."
+    street '5700 Centre Ave.'
     country  "USA"
     zip  "15206"
     phone  "4126801073"

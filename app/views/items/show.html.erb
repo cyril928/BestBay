@@ -64,10 +64,10 @@
     <% else%>
  <td><%= button_to 'Report', :controller => "/emailers", :action => :index , :item_id => @item.id ,:user_id=>0,:onclick => "myfunc()" %></td>
 <% end %>
-<div id="1"> <div>
+<div id="1"> </div>
 
 <%= link_to 'Back', items_path %>
-  <%= link_to 'Seller', user_path %>
+<%= link_to 'Seller', user_path(@item.user_id) %>
 
 <script>
  function myfunc()
