@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @rating_comment.user_id %>
+</p>
+
+<p>
+  <b>Seller:</b>
+  <%= @rating_comment.seller_id %>
+</p>
+
+<p>
+  <b>Item:</b>
+  <%= @rating_comment.item_id %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= @rating_comment.rating %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @rating_comment.comment %>
+</p>
+
+<p>
+  <b>Is seller rating:</b>
+  <%= @rating_comment.is_seller_rating %>
+</p>
+
+
+<%= link_to 'Edit', edit_rating_comment_path(@rating_comment) %> |
+<%= link_to 'Back', rating_comments_path %>

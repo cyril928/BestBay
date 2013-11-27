@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120201610) do
+ActiveRecord::Schema.define(:version => 20131127211345) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -73,6 +73,30 @@ ActiveRecord::Schema.define(:version => 20131120201610) do
     t.integer  "active"
   end
 
+  create_table "rating_comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "seller_id"
+    t.integer  "item_id"
+    t.integer  "rating"
+    t.string   "comment"
+    t.integer  "is_seller_rating"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "revenues", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.string   "name"
+    t.string   "card_number"
+    t.string   "expiry_date"
+    t.string   "address"
+    t.integer  "amount"
+    t.integer  "is_transaction_revenue"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
   create_table "shopping_carts", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at", :null => false
@@ -85,10 +109,11 @@ ActiveRecord::Schema.define(:version => 20131120201610) do
     t.string   "card_number"
     t.string   "expiry_date"
     t.string   "address"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "user_id"
     t.string   "item_list"
+    t.integer  "reward_points"
   end
 
   create_table "users", :force => true do |t|
@@ -113,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20131120201610) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.integer  "active"
+    t.integer  "reward_points"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
