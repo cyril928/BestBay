@@ -1,0 +1,33 @@
+<h1>Listing rating_comments</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Seller</th>
+    <th>Item</th>
+    <th>Rating</th>
+    <th>Comment</th>
+    <th>Is seller rating</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rating_comments.each do |rating_comment| %>
+  <tr>
+    <td><%= rating_comment.user_id %></td>
+    <td><%= rating_comment.seller_id %></td>
+    <td><%= rating_comment.item_id %></td>
+    <td><%= rating_comment.rating %></td>
+    <td><%= rating_comment.comment %></td>
+    <td><%= rating_comment.is_seller_rating %></td>
+    <td><%= link_to 'Show', rating_comment %></td>
+    <td><%= link_to 'Edit', edit_rating_comment_path(rating_comment) %></td>
+    <td><%= link_to 'Destroy', rating_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rating comment', new_rating_comment_path %>

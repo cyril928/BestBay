@@ -1,4 +1,7 @@
 RisingFalcons::Application.routes.draw do
+  resources :rating_comments
+
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
