@@ -4,7 +4,7 @@
 
       div.bgcarousel{ /* CSS for main carousel container */
           background: black url(ajaxload.gif) center center no-repeat; /* loading gif while caoursel is loading */
-          width:800px; /* default dimensions of carousel */
+          width:1100px; /* default dimensions of carousel */
           height:200px;
           TEXT-ALIGN: center;
           MARGIN-RIGHT: auto;
@@ -62,13 +62,13 @@
       var firstbgcarousel=new bgCarousel({
           wrapperid: 'mybgcarousel', //ID of blank DIV on page to house carousel
           imagearray: [
-              ['../images/1.jpg', '<h2>BLACK FRIDAY</h2>GREAT DISCOUNT.'], //["image_path", "optional description"]
-              ['/app/assets/images/image/2.jpg', '<h2>THANKS GIVING</h2>DEAL FRENZY.'],
-              ['../images/3.jpg', 'HOTTEST GIFTS FOR THE HOLIDAYS'],
-              ['image/4.jpg', 'UP TO 70% OFF'] //<--no trailing comma after very last image element!
+              ['<%=asset_path("1.jpg")%>', '<h2>BLACK FRIDAY</h2>GREAT DISCOUNT.'], //["image_path", "optional description"]
+              ['<%=asset_path("2.jpg")%>', '<h2>THANKS GIVING</h2>DEAL FRENZY.'],
+              ['<%=asset_path("3.jpg")%>', 'HOTTEST GIFTS FOR THE HOLIDAYS'],
+              ['<%=asset_path("4.jpg")%>', 'UP TO 80% OFF'] //<--no trailing comma after very last image element!
           ],
           displaymode: {type:'auto', pause:3000, cycles:2, stoponclick:false, pauseonmouseover:true},
-          navbuttons: ['/app/assets/images/left.gif', 'image/right.gif', 'image/up.gif', 'image/down.gif'], // path to nav images
+          navbuttons: ['<%=asset_path("left.gif")%>', '<%=asset_path("right.gif")%>', '<%=asset_path("up.gif")%>', '<%=asset_path("down.gif")%>'], // path to nav images
           activeslideclass: 'selectedslide', // CSS class that gets added to currently shown DIV slide
           orientation: 'h', //Valid values: "h" or "v"
           persist: true, //remember last viewed slide and recall within same session?
