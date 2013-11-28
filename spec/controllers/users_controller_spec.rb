@@ -36,32 +36,19 @@ describe UsersController do
 
   describe "Show user page should display the item selling, sold and bought" do
     it "should show the items being sold by user" do
-         #@user.id = 1
-         get :show, {:id => @user.to_param}
-         @items= Item.where(:user_id => @user.id).where("total_quantity <> quantity")
-         #@items= Item.find_all_by_user_id(:id).where("total_quantity <> quantity")
-        #expect(assigns(:items[2])).to eq  @items
-         expect(assigns(:@items[2])).to eq  @items
-       # flash[:alert].should eql("")
+      @items= Item.where(:user_id => @user.id).where("total_quantity <> quantity")
+
+      get :show, {:id => @user.to_param}
+
+      expect(assigns("items")[2]).to eq  @items
     end
 
     it "should show the items selling by user" do
-      get :show, {:id => @user.to_param}
       @items= Item.where(:user_id => @user.id).where("quantity > 0")
-      expect(assigns(:@items[1])).to eq  @items
 
-    end
+      get :show, {:id => @user.to_param}
 
-    it "transactions should include the items bought by user" do
-     get :show, {:id => @user.to_param}
-      #@items= Item.find_all_by_user_id(:id)
-      #expect(assigns(:items_bought)).not_to eq  @items
-      transactions = Transaction.find_all_by_user_id(@user.id)
-      transactions.each do |transc|
-        item_list_hash = eval(transc.item_list)
-        expect(assigns(:items_bought)).to have(transc.item_list)
-
-      end
+      expect(assigns("items")[1]).to eq  @items
 
     end
 
@@ -83,7 +70,7 @@ describe UsersController do
         end
 
       end
-      expect(assigns(:items_bought)).to eq (items_bought)
+      expect(assigns("items")[3]).to eq (items_bought)
 
     end
 

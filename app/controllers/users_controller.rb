@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
    #show the item selling, item sold and item bought by a user in his profile
   def show
+    @user = User.find(params[:id])
     @items = Hash.new
     @items[1] = Item.where(:user_id => current_user.id).where("quantity > 0")
     @items[2] = Item.where(:user_id => current_user.id).where("total_quantity <> quantity")
@@ -26,10 +27,10 @@ class UsersController < ApplicationController
         end
         end
     end
-    @items[3] = items_bought
-    ## For RSpec Testing Purpose##
-    ##@items_selling=  @items[1]
-    ##@items_sold  = @items[2]
+
+    if @user == current_user
+      @items[3] = items_bought
+    end
   end
     #user can edit his profile
     #user can edit his profile
