@@ -30,6 +30,7 @@
 </head>
 <div align="center">
   <table id="customers">
+
     <tr>
       <th>Title</th>
       <th>Category</th>
@@ -39,6 +40,7 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Seller</th>
+      <th>Advertised</th>
       <th></th>
      <th></th>
       
@@ -54,6 +56,7 @@
           <td>$<%= item.price %></td>
           <td><%= item.quantity %></td>
           <td><%= item.user.email %>
+          <td><%= item.isAdvertisement %></td>
           <td><%= link_to 'View the Item', item %></td>
           <% if current_user.nil? || current_user.id != item.user_id %>
               <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
@@ -63,8 +66,41 @@
     <% end %>
 
 
-  </table>
 
+  <tr>
+    <td>
+      <% @advertised_items = @items.select { |item| item.isAdvertisement == true }%>
+     <% item_length = @advertised_items.length %>
+      <% rand_num = rand(item_length) %>
+      <% i=0 %>
+      <% @advertised_items.each do |item| %>
+      <% if i == rand_num   %>
+      <tr>
+        <td><%= item.title %></td>
+        <td><%= item.category %></td>
+        <td><%= item.description %></td>
+        <td><%= item.condition %></td>
+        <!--<td><%#= item.duration %></td>-->
+        <td>$<%= item.price %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.user.email %>
+        <td><%= item.isAdvertisement %></td>
+        <td><%= link_to 'View the Item', item %></td>
+        <% i = i+1 %>
+
+      </tr>
+        <% else %>
+        <% i = i+1 %>
+        <%  %>
+  <% end %>
+
+    <% end %>
+
+
+    </td>
+  </tr>
+        </table>
 </div>
+
 
 

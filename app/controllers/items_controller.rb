@@ -85,6 +85,7 @@ class ItemsController < ApplicationController
     @item.user_id = current_user.id
     @item.quantity = @item.total_quantity
 
+
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
