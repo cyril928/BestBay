@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bgcarousel
+//= require ddaccordion
+//= require ddlevelsmenu
 //= require_tree .
