@@ -23,10 +23,19 @@
       <% end %>
     </table>
     <%= hidden_field_tag 'item_hash', @shopping_cart_hash %>
+
     <%= submit_tag "Update" %>
     <p>Total Price : $<%= @total_price %></p>
 
 <% end %>
 
-<%= link_to 'Go to Pay', new_transaction_path %>
-<%#= link_to 'Back', shopping_carts_path %>
+<% if @total_price > 0 %>
+    <p>
+      <%= link_to 'Pay with Card/(Card + Reward Points)', new_transaction_path(:total_amount => @total_price) %>
+    </p>
+<% end %>
+<% if @total_price > 0 && @total_price <= current_user.reward_points %>
+    <p>
+      <%= link_to 'Pay exclusively with Reward Points', reward_points_only_path(:reward_points => @total_price) %>
+    </p>
+<% end %>

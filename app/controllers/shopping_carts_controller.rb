@@ -89,7 +89,7 @@ class ShoppingCartsController < ApplicationController
         @shopping_item_list += [{:item => @item, :quantity => quantity, :price => (quantity * @item.price)}]
         @total_price += (quantity * @item.price)
       end
-
+      @reward_points = current_user.reward_points > @total_price ? @total_price : current_user.reward_points
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @shopping_cart }

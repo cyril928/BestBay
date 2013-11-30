@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131127211345) do
+ActiveRecord::Schema.define(:version => 20131129103655) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -109,11 +109,13 @@ ActiveRecord::Schema.define(:version => 20131127211345) do
     t.string   "card_number"
     t.string   "expiry_date"
     t.string   "address"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "user_id"
     t.string   "item_list"
-    t.integer  "reward_points"
+    t.integer  "reward_points_earned"
+    t.integer  "total_amount"
+    t.integer  "reward_points_spent"
   end
 
   create_table "users", :force => true do |t|

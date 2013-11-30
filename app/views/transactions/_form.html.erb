@@ -27,6 +27,11 @@
     <%= f.label :address %><br />
     <%= f.text_field :address %>
   </div>
+  <div class="field">
+    <%= f.label :reward_points_spent %><br />
+    <%= f.number_field :reward_points_spent, value: 0, required: true, in: 0..(current_user.reward_points >= @transaction.total_amount ? (@transaction.total_amount - 1) : current_user.reward_points) %>
+  </div>
+    <%= f.hidden_field :reward_points_earned, :value => 0 %>
   <div class="actions">
     <%= f.submit 'Confirm Buy'%>
   </div>
