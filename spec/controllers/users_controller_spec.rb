@@ -78,6 +78,8 @@ describe UsersController do
 
 
 
+
+
   #describe "After Editing Profile, user is redirected to Profile page" do
   # it "when user clicks the edit profile page" do
   #   post :update

@@ -19,7 +19,13 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ItemsController do
-
+  before (:each) do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @user = FactoryGirl.create(:user)
+    @item = FactoryGirl.create(:item)
+    @transaction = FactoryGirl.create(:transaction)
+    sign_in @user
+  end
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
@@ -78,6 +84,13 @@ describe ItemsController do
       @result = Item.select(:id).where({category: "TV & Home Theater", title: "panasonic"})
       expect(assigns(:items)).to eq @result
     end
+  end
+
+
+  describe "Advertised Item should have URL In description"  do
+    it "Advertised Item should have URL In description"
+
+
   end
 
 

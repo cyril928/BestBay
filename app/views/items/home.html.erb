@@ -112,17 +112,17 @@
              <% if i == rand_num    %>
 
                <tr>
-             <tr> <td><%= item.title %></td>  </tr>
+             <!--<tr> <td><#%= item.title %></td>  </tr>-->
 
-             <tr> <td><%= item.description %></td>  </tr>
-             <tr><td><%= item.condition %></td>    </tr>
+             <!--<tr> <td>#<#%= item.description %></td>  </tr>-->
+             <!--<tr><td><#%= item.condition %></td>    </tr>-->
                <!--<td><%#= item.duration %></td>-->
-             <tr><td>$<%= item.price %></td>      </tr>
+             <!--<tr><td>$<#%= item.price %></td>      </tr>-->
 
-             <tr> <td><%= item.user.email %> </td>   </tr>
-             <tr> <td>  <%= link_to image_tag(item.product.url), item.description%> </td>   </tr>
+             <!--<tr> <td><#%= item.user.email %> </td>   </tr>-->
+             <tr> <td>  <%= link_to image_tag(item.product.url), item.description, :target => "_blank" %> </td>   </tr>
 
-             <tr> <td><%= link_to 'Click here to View the Item', item, :target => "_blank" %></td>   </tr>
+             <!--<tr> <td><#%= link_to 'Click here to View the Item', item, :target => "_blank" %></td>   </tr>-->
                <% i = i+1 %>
                 <% break %>
 
