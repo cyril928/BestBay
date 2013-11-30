@@ -11,13 +11,19 @@
   </tr>
 
 <% @transactions.each do |transaction| %>
-  <tr>
-    <td><%= transaction.name %></td>
-    <td><%= transaction.card_number %></td>
-    <td><%= transaction.expiry_date %></td>
-    <td><%= transaction.address %></td>
-    <td><%= transaction.created_at %></td>
-    <td><%= link_to 'Show', transaction %></td>
-  </tr>
+      <tr>
+        <td><%= transaction.name %></td>
+        <% if transaction.total_amount > 0 %>
+            <td><%= transaction.card_number %></td>
+            <td><%= transaction.expiry_date %></td>
+            <td><%= transaction.address %></td>
+        <% else %>
+            <td>Only Reward Points Used</td>
+            <td>Not Applicable</td>
+            <td>Not Applicable</td>
+        <% end %>
+        <td><%= transaction.created_at %></td>
+        <td><%= link_to 'Show', transaction %></td>
+      </tr>
 <% end %>
 </table>

@@ -13,20 +13,25 @@
   <%#= f.hidden_field :item_id, :value => params[:item_id] %>
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name,required: true %>
   </div>
   <div class="field">
     <%= f.label :card_number %><br />
-    <%= f.text_field :card_number %>
+    <%= f.text_field :card_number,required: true %>
   </div>
   <div class="field">
     <%= f.label :expiry_date %> mmyy format only<br />
-    <%= f.text_field :expiry_date %>
+    <%= f.text_field :expiry_date,required: true %>
   </div>
   <div class="field">
     <%= f.label :address %><br />
     <%= f.text_field :address %>
   </div>
+  <div class="field">
+    <%= f.label :reward_points_spent %><br />
+    <%= f.number_field :reward_points_spent, value: 0, required: true, in: 0..(current_user.reward_points >= @transaction.total_amount ? (@transaction.total_amount - 1) : current_user.reward_points) %>
+  </div>
+    <%= f.hidden_field :reward_points_earned, :value => 0 %>
   <div class="actions">
     <%= f.submit 'Confirm Buy'%>
   </div>

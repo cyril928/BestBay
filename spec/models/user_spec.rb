@@ -168,6 +168,26 @@ describe User do
     end
   end
 
+  describe "reward_points" do
+    it "Reward points should be required" do
+      user = FactoryGirl.build(:user, :reward_points => '')
+      user.should_not be_valid
+      user.errors[:reward_points].should include("can't be blank")
+
+      user.reward_points = '100'
+      user.should be_valid
+    end
+
+    it "Reward points should be a number" do
+      user = FactoryGirl.build(:user, :reward_points => 'aaa')
+      user.should_not be_valid
+      user.errors[:reward_points].should include("is not a number")
+
+      user.reward_points = '100'
+      user.should be_valid
+    end
+  end
+
 end
 
 

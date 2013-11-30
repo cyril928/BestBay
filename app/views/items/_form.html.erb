@@ -9,11 +9,23 @@
             <% end %>
           </ul>
         </div>
+    <% else %>
+        <% if @revenue.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@revenue.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+              <ul>
+                <% @revenue.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
     <% end %>
 
     <div class="field">
       <%= f.label :title %><br />
-      <%= f.text_field :title %>
+      <%= f.text_field :title ,required: true%>
     </div>
 
 
@@ -38,27 +50,27 @@
     </div>
     <div class="field">
       <%= f.label :condition %><br />
-      <%= f.text_field :condition %>
+      <%= f.text_field :condition,required: true %>
     </div>
     <!--<div class="field">
       <%#= f.label :duration %><br />
       <%#= f.text_field :duration %>
-    <%= f.hidden_field :duration, :value => 0 %>
+    <%= f.hidden_field :duration, :value => 0,required: true %>
     </div>-->
 
 
 
-    <div class="field">
+    <div class="field" >
       <%= f.label :quantity %><br />
-      <%= f.number_field :total_quantity, :value => 1, :min => 1, :max => 65535 %>
+      <%= f.number_field :total_quantity, :value => 1, :min => 1, :max => 65535,required: true%>
     </div>
 
-    <div class="field">
+    <div class="field" >
       <%= f.label :price %><br />$
-      <%= f.number_field :price, :value => 1, :min => 1 %>
+      <%= f.number_field :price, :value => 1, :min => 1,required: true %>
     </div>
-    <div class="field">
-      <%= f.file_field :product %>
+    <div class="field" >
+      <%= f.file_field :product%>
     </div>
 
     <div class="field">
@@ -75,7 +87,29 @@
           </div>
 
     <%= f.hidden_field :active, :value => 1 %>
-    <div class="actions">
-      <%= f.submit %>
+
+    <h1>Pay for product uploading</h1>
+
+    <div class="field">
+      <%= label_tag 'name' %><br />
+      <%= text_field_tag 'name' %>
     </div>
+    <div class="field">
+      <%= label_tag 'card_number' %><br />
+      <%= text_field_tag 'card_number' %>
+    </div>
+    <div class="field">
+      <%= label_tag 'expiry_date' %> mmyy format only<br />
+      <%= text_field_tag 'expiry_date' %>
+    </div>
+    <div class="field">
+      <%= label_tag 'address' %><br />
+      <%= text_field_tag 'address' %>
+    </div>
+
+
+    <div class="actions">
+      <%= f.submit "Upload item and pay for space" %>
+    </div>
+
 <% end %>

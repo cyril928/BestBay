@@ -42,6 +42,7 @@ RisingFalcons::Application.routes.draw do
   match "/add_to_cart", to: "shopping_carts#add_to_cart", via: "get"
   match "/update_quantity", to: "shopping_carts#update_quantity", via: "post"
   match "/my_transactions", to: "transactions#my_transactions", via: "get"
+  match "/reward_points_only", to: "transactions#reward_points_only", via: "get"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

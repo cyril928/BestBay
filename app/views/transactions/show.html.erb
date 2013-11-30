@@ -4,41 +4,47 @@
   <b>Name:</b>
   <%= @transaction.name %>
 </p>
+<% if @transaction.total_amount > 0 %>
+    <p>
+      <b>Card number:</b>
+      <%= @transaction.card_number %>
+    </p>
 
-<p>
-  <b>Card number:</b>
-  <%= @transaction.card_number %>
-</p>
+    <p>
+      <b>Expiry Date:</b>
+      <%= @transaction.expiry_date %>
+    </p>
 
-<p>
-  <b>Expiry Date:</b>
-  <%= @transaction.expiry_date %>
-</p>
-
-<p>
-  <b>Address:</b>
-  <%= @transaction.address %>
-</p>
-
+    <p>
+      <b>Address:</b>
+      <%= @transaction.address %>
+    </p>
+<% else %>
+    <p>
+      <b> You used only your reward points for this purchase!</b>
+    </p>
+<% end %>
 <table>
   <tr>
-    <td> Product Name</td>
-    <td> Quantity</td>
-    <td> Price</td>
-    <td></td>
+    <th> Product Name</th>
+    <th> Quantity</th>
+    <th> Unit Price</th>
+    <th> Price</th>
   </tr>
-      <% total_price = 0 %>
       <% eval(@transaction.item_list).each do |item_hash, item_quantity| %>
           <tr>
             <% item = Item.new(attributes = item_hash) %>
             <td><%= item.title %></td>
             <td><%= item_quantity %></td>
             <td>$<%= item.price %></td>
-            <% total_price += item_quantity*item.price %>
+            <td>$<%= item.price * item_quantity %></td>
           </tr>
       <% end %>
 </table>
 <br />
-<p><b>Total Price : $<%= total_price %></b></p>
+<p><b>Total Reward Points Spent : <%= @transaction.reward_points_spent %></b></p>
+<p><b>Total Reward Points Earned : <%= @transaction.reward_points_earned %></b></p>
+<br />
+<p><b>Total Price : $<%= @transaction.total_amount %></b></p>
 
-<%= link_to 'Back', my_transactions_path %>
+<%= link_to 'My Transactions', my_transactions_path %>

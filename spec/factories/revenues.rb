@@ -5,8 +5,8 @@ FactoryGirl.define do
     user_id 1
     item_id 1
     name "MyString"
-    card_number "MyString"
-    expiry_date "MyString"
+    card_number "123412341234"
+    expiry_date "0816"
     address "MyString"
     amount 1
     is_transaction_revenue 1

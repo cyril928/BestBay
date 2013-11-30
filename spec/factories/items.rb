@@ -2,12 +2,12 @@
 
 FactoryGirl.define do
   factory :item do
-    title "MyString"
-    category "MyString"
-    description "MyString"
-    condition "MyString"
+    title "test_item_title"
+    category "test_item_category"
+    description "test_item_description"
+    condition "test_item_condition"
     duration 12
-    price 1
+    price 1000
     user_id 1
     total_quantity 10
     quantity 5

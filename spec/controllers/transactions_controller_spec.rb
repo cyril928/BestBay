@@ -40,9 +40,10 @@ describe TransactionsController do
   # This should return the minimal set of attributes required to create a valid
   # Transaction. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "test", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "
-  Howe Street", "item_list" => "{{\"id\"=>1, \"title\"=>\"MyString\", \"category\"=>\"MyString\", \"description\"=>\"MyString\",
- \"condition\"=>\"MyString\", \"duration\"=>12, \"price\"=>1, \"user_id\"=>1, \"total_quantity\"=>10, \"quantity\"=>5} => 2}" } }
+  let(:valid_attributes) { { "name" => "test", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "testaddress",
+  "item_list" => "{{\"id\"=>1, \"title\"=>\"test_item_title\", \"category\"=>\"test_item_category\", \"description\"=>\"test_item_description\",
+ \"condition\"=>\"test_item_condition\", \"duration\"=>12, \"price\"=>1000, \"user_id\"=>1, \"total_quantity\"=>10, \"quantity\"=>5} => 2}",
+  "total_amount" => 2000, "reward_points_earned" => 200, "reward_points_spent" => 0} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -98,23 +99,66 @@ describe TransactionsController do
         post :create, {:transaction => valid_attributes}
         response.should redirect_to(Transaction.last)
       end
+
+      it "updated user's reward points" do
+        post :create, {:transaction => valid_attributes}
+        @user.reload.reward_points.should eq(200)
+      end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved transaction as @transaction" do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        post :create, {:transaction => { "name" => "test", "card_number" => 1, "expiry_date" => 1111, "address" => "
-  Howe Street", "item_list" => "{\"1\" => 2}" }}
+        post :create, {:transaction => { "name" => "test", "card_number" => "1", "expiry_date" => 1111, "address" => "testaddress",
+        "item_list" => "{\"1\" => 2}", "total_amount" => 2000, "reward_points_earned" => 200, "reward_points_spent" => 0 }}
         assigns(:transaction).should be_a_new(Transaction)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        post :create, {:transaction => { "name" => "", "card_number" => 1234456789123, "expiry_date" => 1111, "address" => "
-  Howe Street", "item_list" => "{\"1\" => 2}" }}
+        post :create, {:transaction => { "name" => "", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "testaddress",
+                      "item_list" => "{\"1\" => 2}", "total_amount" => 2000, "reward_points_earned" => 200, "reward_points_spent" => 0 }}
         response.should render_template("new")
+      end
+    end
+  end
+
+  describe "GET reward_points_only" do
+    describe "with valid params" do
+      it "creates a new Transaction" do
+        @user.reward_points = 3000
+        @user.save
+        @user.reload
+        expect {
+          get :reward_points_only, {:reward_points => 2000}
+        }.to change(Transaction, :count).by(1)
+      end
+
+      it "assigns a newly created reward points transaction as @transaction" do
+        @user.reward_points = 3000
+        @user.save
+        @user.reload
+        get :reward_points_only, {:reward_points => 2000}
+        assigns(:transaction).should be_a(Transaction)
+        assigns(:transaction).should be_persisted
+      end
+
+      it "redirects to the created transaction" do
+        @user.reward_points = 3000
+        @user.save
+        @user.reload
+        get :reward_points_only, {:reward_points => 2000}
+        response.should redirect_to(Transaction.last)
+      end
+
+      it "updated user's reward points" do
+        @user.reward_points = 3000
+        @user.save
+        @user.reload
+        get :reward_points_only, {:reward_points => 2000}
+        @user.reload.reward_points.should eq(1000)
       end
     end
   end

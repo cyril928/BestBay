@@ -58,7 +58,7 @@ describe ItemsController do
   end
 =end
 
-    describe "User uses category search and page will redirect to home page" do
+  describe "User uses category search and page will redirect to home page" do
     it "redirects to the home page" do
       get :search
       expect(response).to redirect_to root_path
@@ -83,6 +83,102 @@ describe ItemsController do
       post :search, {:category_query => "TV & Home Theater", :keyword => "panasonic"}
       @result = Item.select(:id).where({category: "TV & Home Theater", title: "panasonic"})
       expect(assigns(:items)).to eq @result
+    end
+  end
+
+  login_user
+  describe "Signed in user" do
+    it "should be a signed in user" do
+      subject.current_user.should_not be_nil
+    end
+  end
+
+  describe "GET new" do
+    it "assigns a new item as @item" do
+      get :new
+      assigns(:item).should be_a_new(Item)
+    end
+    it "assigns a new revenue as @revenue" do
+      get :new
+      assigns(:revenue).should be_a_new(Revenue)
+    end
+  end
+
+  let(:item_valid_attributes) {{ "title" => "test", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
+  "price" => 100, "total_quantity" => 10, "active" => 1}}
+
+  let(:revenue_valid_attributes) {{ "name" => "test", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "
+  Howe Street"}}
+
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new Item" do
+        expect {
+          post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1234456789123",
+                         :expiry_date => "1111", :address => "Howe Street"}
+        }.to change(Revenue, :count).by(1)
+      end
+
+
+      it "creates a new Revenue" do
+        expect {
+          post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1234456789123",
+                         :expiry_date => "1111", :address => "Howe Street"}
+        }.to change(Revenue, :count).by(1)
+      end
+
+      it "assigns a newly created item as @item" do
+        post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1234456789123",
+                       :expiry_date => "1111", :address => "Howe Street"}
+        assigns(:item).should be_a(Item)
+        assigns(:item).should be_persisted
+      end
+
+      it "assigns a newly created revenue as @revenue" do
+        post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1234456789123",
+                       :expiry_date => "1111", :address => "Howe Street"}
+        assigns(:revenue).should be_a(Revenue)
+        assigns(:revenue).should be_persisted
+      end
+
+    end
+
+    describe "with invalid params" do
+
+      it "assigns a newly created but unsaved item as @item" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        #Revenue.any_instance.stub(:save).and_return(false)
+        post :create, {:item => { "title" => "", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
+                                  "price" => 100, "total_quantity" => 10, "active" => 1}, :name => "test", :card_number => "1",
+                       :expiry_date => "1", :address => "Howe Street"}
+        assigns(:item).should be_a_new(Item)
+      end
+
+      it "re-renders the 'new' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        #Revenue.any_instance.stub(:save).and_return(false)
+        post :create, {:item => { "title" => "", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
+                                  "price" => 100, "total_quantity" => 10, "active" => 1}, :name => "test", :card_number => "1",
+                       :expiry_date => "1", :address => "Howe Street"}
+        response.should render_template("new")
+      end
+
+
+      it "assigns a newly created but unsaved revenue as @revenue" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        #Revenue.any_instance.stub(:save).and_return(false)
+        post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1",
+                       :expiry_date => "1", :address => "Howe Street"}
+        assigns(:revenue).should be_a_new(Revenue)
+      end
+
+      it "re-renders the 'new' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        #Revenue.any_instance.stub(:save).and_return(false)
+        post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1",
+                       :expiry_date => "1", :address => "Howe Street"}
+        response.should render_template("new")
+      end
     end
   end
 
