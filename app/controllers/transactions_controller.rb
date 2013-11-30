@@ -84,6 +84,17 @@ class TransactionsController < ApplicationController
             item.save
           end
           @shopping_cart.delete
+
+          # Charge 10%revenue for each item in transaction
+          eval(@transaction.item_list).each do |item, item_quantity|
+            amount = item["price"] * item_quantity * 0.1
+
+            revenue = Revenue.new(user_id: current_user.id, item_id: item["id"], name: @transaction.name,
+                                  card_number: @transaction.card_number, expiry_date: @transaction.expiry_date,
+                                  address: @transaction.address, amount: amount, is_transaction_revenue: 1)
+            revenue.save
+          end
+
           format.html { redirect_to @transaction, notice: 'Transaction successful.' }
           format.json { render json: @transaction, status: :created, location: @transaction }
         else
