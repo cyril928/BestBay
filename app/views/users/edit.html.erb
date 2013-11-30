@@ -1,11 +1,11 @@
 <%= form_for(@user) do |f| %>
 
     <div><%= f.label :first_name %><br>
-      <%= f.text_field :first_name %></div>
+      <%= f.text_field :first_name ,required: true%></div>
     <div><%= f.label :last_name %><br>
-      <%= f.text_field :last_name %></div>
+      <%= f.text_field :last_name,required: true %></div>
     <div><%= f.label :street %><br>
-      <%= f.text_field :street %></div>
+      <%= f.text_field :street ,required: true%></div>
     <div><%= f.label :country %><br>
       <%= f.text_field :country %></div>
     <div><%= f.label :zip %><br>
