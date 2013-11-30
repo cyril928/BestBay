@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   # ensure authentication for pages requiring signed in user along with exceptions.
   before_filter :authenticate_user!, :except => [:home, :show, :search]
 
+
   def search
     if params[:keyword].nil?
       @items = Item.select(:id).where({category: params[:category_query]})
@@ -65,7 +66,7 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
-
+    @revenue = Revenue.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }
@@ -81,17 +82,26 @@ class ItemsController < ApplicationController
   # POST /items.json
   # Standard scaffold code augmented by setting the user_id on the item to the user_id of the person posting(seller)
   def create
+
     @item = Item.new(params[:item])
     @item.user_id = current_user.id
     @item.quantity = @item.total_quantity
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render json: @item, status: :created, location: @item }
+        @revenue = Revenue.new(user_id: current_user.id, item_id: @item.id, name: params[:name],
+                              card_number: params[:card_number], expiry_date: params[:expiry_date],
+                              address: params[:address], amount: 2, is_transaction_revenue: 0)
+        if @revenue.save
+          format.html { redirect_to @item, notice: 'Thanks for your paying, Your item is available to sell.' }
+          format.json { render json: @item, status: :created, location: @item }
+        else
+          @item.delete
+          format.html { render action: "new" }
+        end
       else
         format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        #format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
   end
