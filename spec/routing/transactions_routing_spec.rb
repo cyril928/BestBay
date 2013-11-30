@@ -36,6 +36,12 @@ describe TransactionsController do
       delete("/transactions/1").should route_to("transactions#destroy", :id => "1")
     end
 =end
+    it "route to #my_transactions" do
+      get("/my_transactions").should route_to("transactions#my_transactions")
+    end
 
+    it "route to #reward_points_only" do
+      get("/reward_points_only").should route_to("transactions#reward_points_only")
+    end
   end
 end

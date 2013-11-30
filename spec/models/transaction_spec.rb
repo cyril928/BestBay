@@ -11,6 +11,9 @@ describe Transaction  do
   it {should respond_to(:expiry_date)}
   it {should respond_to(:address)}
   it {should respond_to(:item_list)}
+  it {should respond_to(:total_amount)}
+  it {should respond_to(:reward_points_earned)}
+  it {should respond_to(:reward_points_spent)}
  end
 
   describe "name" do
@@ -53,4 +56,65 @@ describe Transaction  do
      blank.should be_valid
    end
  end
+
+ describe "total_amount" do
+   it "should be required" do
+     test_transaction = FactoryGirl.build(:transaction, :total_amount => "")
+     test_transaction.should_not be_valid
+     test_transaction.errors[:total_amount].should include("can't be blank")
+
+     test_transaction.total_amount = 1000
+     test_transaction.should be_valid
+   end
+
+   it "should be a number" do
+     test_transaction = FactoryGirl.build(:transaction, :total_amount => 'aaa')
+     test_transaction.should_not be_valid
+     test_transaction.errors[:total_amount].should include("is not a number")
+
+     test_transaction.total_amount = 1000
+     test_transaction.should be_valid
+   end
+ end
+
+ describe "reward_points_earned" do
+   it "should be required" do
+     test_transaction = FactoryGirl.build(:transaction, :reward_points_earned => "")
+     test_transaction.should_not be_valid
+     test_transaction.errors[:reward_points_earned].should include("can't be blank")
+
+     test_transaction.reward_points_earned = 100
+     test_transaction.should be_valid
+   end
+
+   it "should be a number" do
+     test_transaction = FactoryGirl.build(:transaction, :reward_points_earned => 'aaa')
+     test_transaction.should_not be_valid
+     test_transaction.errors[:reward_points_earned].should include("is not a number")
+
+     test_transaction.reward_points_earned = 100
+     test_transaction.should be_valid
+   end
+ end
+
+ describe "reward_points_spent" do
+   it "should be required" do
+     test_transaction = FactoryGirl.build(:transaction, :reward_points_spent => "")
+     test_transaction.should_not be_valid
+     test_transaction.errors[:reward_points_spent].should include("can't be blank")
+
+     test_transaction.reward_points_spent = 100
+     test_transaction.should be_valid
+   end
+
+   it "should be a number" do
+     test_transaction = FactoryGirl.build(:transaction, :reward_points_spent => 'aaa')
+     test_transaction.should_not be_valid
+     test_transaction.errors[:reward_points_spent].should include("is not a number")
+
+     test_transaction.reward_points_spent = 1000
+     test_transaction.should be_valid
+   end
+ end
+
 end

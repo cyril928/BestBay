@@ -8,9 +8,13 @@ describe "transactions/new" do
       :card_number => "",
       :expiry_date => "",
       :address => "",
-      :item_list => ""
+      :item_list => "",
+      :total_amount => "2000",
+      :reward_points_earned => "",
+      :reward_points_spent => ""
     ).as_new_record)
-    @item = FactoryGirl.create(:item)
+    view.stub(:user_signed_in?) { true }
+    view.stub(:current_user) { FactoryGirl.build(:user) }
   end
   it "renders new transaction form" do
     render
@@ -21,6 +25,7 @@ describe "transactions/new" do
       assert_select "input#transaction_card_number[name=?]", "transaction[card_number]"
       assert_select "input#transaction_expiry_date[name=?]", "transaction[expiry_date]"
       assert_select "input#transaction_address[name=?]", "transaction[address]"
+      assert_select "input#transaction_reward_points_spent[name=?]", "transaction[reward_points_spent]"
   end
   end
 

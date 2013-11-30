@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :street, :country, :zip, :phone, :active
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :street, :country,
+                  :zip, :phone, :active, :reward_points
   # attr_accessible :title, :body
 
 
@@ -30,6 +31,7 @@ class User < ActiveRecord::Base
     validates :phone,  presence: true, length: { maximum: 50 }
     validates_length_of :phone, :in => 7..32
     validates_numericality_of :phone
+    validates :reward_points, presence: true, numericality: true
   end
 
 
