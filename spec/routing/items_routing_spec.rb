@@ -38,6 +38,15 @@ begin
     end
 =end
 
+
+    it "route to get#search" do
+      get("/search").should route_to("items#search")
+    end
+
+    it "route to post#search" do
+      post("/search").should route_to("items#search")
+    end
+
   end
 end
 end

@@ -139,6 +139,8 @@
       <th>Unit Price</th>
       <th>Total Price</th>
       <th></th>
+      <th></th>
+      <th>Comment/Rating</th>
     </tr>
     <% @items[3].each do |item| %>
         <tr>
@@ -151,8 +153,9 @@
           <td><%= item.quantity %></td>
           <td>$<%= item.price %></td>
           <td>$<%= item.price * item.quantity %></td>
-
-          <td><%= link_to 'View the Item', item_path %></td>
+          <td><%= item.id %></td>
+          <td><%= link_to 'View the Item', { :controller => "items", :action => "show", :id => item.id} %></td>
+          <td><%= link_to 'Leave the comment & rating',{ :controller => "items", :action => "show", :comment_leaving => 1, :id => item.id} %></td>
         </tr>
     <% end %>
   </table>

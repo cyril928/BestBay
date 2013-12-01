@@ -1,5 +1,5 @@
 RisingFalcons::Application.routes.draw do
-  resources :rating_comments
+  resources :rating_comments, only: [:create]
 
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -8,13 +8,13 @@ RisingFalcons::Application.routes.draw do
   resources :transactions, only: [:new, :create, :show]
 
 
-  resources :shopping_carts, only: [:show, :edit, :update, :destroy]
+  resources :shopping_carts, only: [:show, :new]
 
 
   #resources :biddings
 
   match  '/Emailer/index', to: 'emailers#index' , via: 'get'
-   match  '/Emailer/index', to: 'emailers#index' , via: 'post'
+  match  '/Emailer/index', to: 'emailers#index' , via: 'post'
 
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

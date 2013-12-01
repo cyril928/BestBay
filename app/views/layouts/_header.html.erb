@@ -76,7 +76,7 @@
                ['Health', 'Health']]),
                      :onChange => "displaydesc(document.form1.select1, thetext1, 'textcontainer1')",
                      :size => 1) %>
-      <%= text_field_tag(:keyword) %>
+      <%= text_field_tag(:keyword, nil, placeholder: 'Enter search term...') %>
       <%= submit_tag("Search") %>
 
   <% end %>
