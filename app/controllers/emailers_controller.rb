@@ -8,6 +8,16 @@ class EmailersController < ApplicationController
 
       redirect_to(@item)
       
-    end
+   end
+
+
+
+   def index2
+
+     Emailer.deliver_contact2().deliver
+
+     redirect_to('/')
+
+   end
 
 end

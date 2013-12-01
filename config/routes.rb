@@ -13,6 +13,9 @@ RisingFalcons::Application.routes.draw do
   match  '/Emailer/index', to: 'emailers#index' , via: 'get'
    match  '/Emailer/index', to: 'emailers#index' , via: 'post'
 
+  match  '/Emailer/index2', to: 'emailers#index2' , via: 'get'
+  match  '/Emailer/index2', to: 'emailers#index2' , via: 'post'
+
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
