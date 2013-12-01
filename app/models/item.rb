@@ -1,6 +1,7 @@
 class Item < ActiveRecord::Base
   # An item belongs to a user(seller)
   belongs_to :user
+  has_many :rating_comments
   # has_many :biddings
   # Settable attributes. Mainly implemented in iteration 1.total_quantity and quantity added in Iteration 3, buyer_id discarded.
   attr_accessible :total_quantity, :category, :condition, :description, :duration, :price, :title,

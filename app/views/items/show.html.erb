@@ -43,7 +43,7 @@
     </p>
 <% else %>
     <p>
-      Average Rating (1-10) (Bad - Good): <b> No one rating it yet!</b>
+      Average Rating (1-10) (Bad - Good): <b> No one has rated it yet!</b>
     </p>
 <% end %>
 
@@ -115,7 +115,7 @@
           </div>
         </fieldset>
 
-        <%= text_area_tag 'comment', @current_user_comment, placeholder: 'Enter search term...', rows: 8, cols: 16 %>
+        <%= text_area_tag 'comment', @current_user_comment, placeholder: 'Enter your comment here...', rows: 8, cols: 16 %>
 
         <%= hidden_field_tag 'item_id', @item.id %>
         <%= submit_tag "Post" %>
@@ -126,8 +126,8 @@
     <table id="comment">
       <tr>
         <th>Comment</th>
-        <th>Publisher</th>
-        <th>Publish Time</th>
+        <th>Commented by</th>
+        <th>Commented on at</th>
       </tr>
 
 
@@ -141,7 +141,7 @@
 
     </table>
 <% else %>
-    <b>No one comment it yet!</b>
+    <b>No one has commented on it yet!</b>
 <% end %>
 
 <script>

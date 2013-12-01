@@ -27,7 +27,7 @@
   <strong>Zip:</strong>
   <%= @user.zip %>
 </p>
-<% if @user.id == current_user.id %>
+<% if @user == current_user %>
     <p>
       <strong>Reward Points Available:</strong>
       <%= current_user.reward_points %>
@@ -140,8 +140,7 @@
           <th>Quantity Bought</th>
           <th>Unit Price</th>
           <th>Total Price</th>
-          <th></th>
-          <th></th>
+          <th>View Item</th>
           <th>Comment/Rating</th>
         </tr>
         <% @items[3].each do |item| %>
@@ -155,9 +154,8 @@
               <td><%= item.quantity %></td>
               <td>$<%= item.price %></td>
               <td>$<%= item.price * item.quantity %></td>
-              <td><%= item.id %></td>
               <td><%= link_to 'View the Item', { :controller => "items", :action => "show", :id => item.id} %></td>
-              <td><%= link_to 'Leave the comment & rating',{ :controller => "items", :action => "show", :comment_leaving => 1, :id => item.id} %></td>
+              <td><%= link_to 'Leave comments & ratings',{ :controller => "items", :action => "show", :comment_leaving => 1, :id => item.id} %></td>
             </tr>
         <% end %>
       </table>
@@ -193,7 +191,7 @@
     })
 </script>
 
-<% if @user.id == current_user.id %>
+<% if @user == current_user %>
     <%= link_to 'Sell Item', new_item_path %>
     <%= link_to 'Edit Profile', edit_user_path %>
     <%= link_to 'My Transactions', my_transactions_path %>
