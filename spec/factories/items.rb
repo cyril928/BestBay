@@ -12,6 +12,7 @@ FactoryGirl.define do
     total_quantity 10
     quantity 5
     active 1
+    isAdvertisement false
   end
 
 

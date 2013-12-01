@@ -183,8 +183,26 @@ describe ItemsController do
   end
 
 
-  describe "Advertised Item should have URL In description"  do
-    it "Advertised Item should have URL In description"
+  #describe "Advertised Item should have URL In description"  do
+  #  it "Advertised Item should have URL In description"
+  #  get :show, {:id => @item.to_param}
+  #  Advertisement = @item.isAdvertisement
+  #
+  #  transactions = Transaction.find_all_by_user_id(@user.id)
+  #  items_bought = Array.new
+  #  transactions.each do |transc|
+  #    item_list_hash = eval(transc.item_list)
+  #    item_list_hash.each do |item_hash, quantity|
+  #      item = Item.new(attributes = item_hash)
+  #      item.id = item_hash["id"]
+  #      if items_bought.all? {|item_temp| item_temp.id != item.id}
+  #        item.quantity = quantity
+  #        items_bought<<item
+  #      end
+  #    end
+  #
+  #  end
+  #  expect(assigns("items")[3]).to eq (items_bought)
 
 
   end
@@ -319,4 +337,4 @@ describe ItemsController do
   end
 =end
 
-end
+

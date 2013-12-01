@@ -23,7 +23,7 @@ begin
   validates_numericality_of :price
   validates :quantity,  presence: true, numericality: true, inclusion: {:in => 0..65535}
   validates :total_quantity,  presence: true, numericality: true, inclusion: {:in => 1..65535}
-  validates :isAdvertisement , :inclusion => {:in => [true, false]}#, inclusion: {:in => 0..1}
+  validates :isAdvertisement,  inclusion:  {:in => [true, false]}
 end
 
 end
