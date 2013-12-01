@@ -8,5 +8,14 @@ class Emailer < ActionMailer::Base
     mail(:to =>"bestbay2013fall@gmail.com",
          :body=> "Illegal item id #{itemId} reported from user id #{userId}",
 	 :subject=>"Illegal Item Report")
-   end
+  end
+
+
+  def deliver_contact2()
+
+    mail(:to =>"bestbay2013fall@gmail.com",
+         :body=> "I have some problem with this site",
+         :subject=>"Contact admin")
+  end
+
 end
