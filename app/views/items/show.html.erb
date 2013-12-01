@@ -51,6 +51,11 @@
   <%= image_tag @item.product.url %>
 </p>
 
+<p>
+  <b>Is Advertised</b>
+  <%= @item.isAdvertisement %>
+</p>
+
 
 <% if current_user.nil? || current_user.id != @item.user_id %>
     <%= form_for(@item, :url => url_for(:controller => 'shopping_carts', :action => 'add_to_cart'), :method => :get) do |f| %>

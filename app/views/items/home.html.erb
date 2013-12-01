@@ -77,7 +77,7 @@
 
   </script>
 
-</head>
+<!--</head>-->
 
 <h1>Welcome to BestBay</h1>
 <div id="mybgcarousel" class="bgcarousel" ></div>
@@ -90,7 +90,7 @@
     #customers
     {
         font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-        width:100%;
+        width:90%;
         border-collapse:collapse;
     }
     #customers td, #customers th
@@ -113,9 +113,29 @@
         color:#000000;
         background-color: #acf286;
     }
+    #advertisement
+    {
+        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+        width:10%;
+        border-collapse:collapse;
+        text-align: right;
+        float: right;
+        background-color:#A7C942;
+    }
 </style>
 </head>
-<div align="center">
+
+
+  <div>
+    <table>
+      <tr>
+        <td>
+
+
+
+
+
+<!--<div align="left" id="customers"  >-->
   <table id="customers">
     <tr>
       <th>Pic</th>
@@ -127,11 +147,13 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Seller</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>View Item</th>
+      <th>Buy</th>
+      <th>Like/Share</th>
+      
     </tr>
-
+    <% @advertised_items = @items.select { |item| item.isAdvertisement == true }%>
+    <% @items= @items.select { |item| item.isAdvertisement == false }  %>
     <% @items.each do |item| %>
         <tr>
           <td><%= image_tag item.product.url %></td>
@@ -153,8 +175,58 @@
     <% end %>
 
 
-  </table>
 
-</div>
+
+
+
+
+
+
+   </table>
+        </td>
+<!--</div>-->
+      <td>
+    <!--<div id="advertisement" >-->
+   <table id="advertisement">
+     <tr>
+       <td>
+         <!--<#% @advertised_items = @items.select { |item| item.isAdvertisement == true }%>-->
+         <% item_length = @advertised_items.length  %>
+         <!--<%# item_length = item_length - 1 %>-->
+         <% rand_num = rand(item_length) %>
+         <% i=0 %>
+         <% @advertised_items.each do |item| %>
+             <% if i == rand_num    %>
+
+               <tr>
+             <!--<tr> <td><#%= item.title %></td>  </tr>-->
+
+             <!--<tr> <td>#<#%= item.description %></td>  </tr>-->
+             <!--<tr><td><#%= item.condition %></td>    </tr>-->
+               <!--<td><%#= item.duration %></td>-->
+             <!--<tr><td>$<#%= item.price %></td>      </tr>-->
+
+             <!--<tr> <td><#%= item.user.email %> </td>   </tr>-->
+             <tr> <td>  <%= link_to image_tag(item.product.url), item.description, :target => "_blank" %> </td>   </tr>
+
+             <!--<tr> <td><#%= link_to 'Click here to View the Item', item, :target => "_blank" %></td>   </tr>-->
+               <% i = i+1 %>
+                <% break %>
+
+         <% else %>
+             <% i = i+1 %>
+             <%  %>
+         <% end %>
+     <% end %>
+   </table>
+      </td>
+      </tr>
+    </table>
+    <!--</div>-->
+  </div>
+
+
+
+
 
 

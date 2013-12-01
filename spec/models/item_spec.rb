@@ -329,4 +329,26 @@ describe Item do
       not_a_number.should be_valid
     end
   end
+
+  describe "isAdvertisement" do
+  it "should be a boolean" do
+
+
+    bool_ad = FactoryGirl.build(:item, :isAdvertisement => true )
+    bool_ad.should be_valid
+
+    bool_ad = FactoryGirl.build(:item, :isAdvertisement => false )
+    bool_ad.should be_valid
+  end
+
+
+      it "should be required" do
+        bool_ad = FactoryGirl.build(:item, :isAdvertisement => true)
+
+        bool_ad.isAdvertisement = true
+        bool_ad.should be_valid
+
+end
+
+end
 end

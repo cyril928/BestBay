@@ -105,6 +105,8 @@ class ItemsController < ApplicationController
     @item = Item.new(params[:item])
     @item.user_id = current_user.id
     @item.quantity = @item.total_quantity
+    @item.isAdvertisement == 0 ? @item.isAdvertisement = false : @item.isAdvertisement = true
+
 
     respond_to do |format|
       if @item.save

@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20131130211947) do
     t.integer  "quantity"
     t.integer  "active"
     t.integer  "average_rating"
+    t.boolean  "isAdvertisement"
   end
 
   create_table "rating_comments", :force => true do |t|

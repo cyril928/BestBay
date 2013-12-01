@@ -12,6 +12,7 @@ FactoryGirl.define do
     total_quantity 10
     quantity 5
     active 1
+    isAdvertisement false
     product_file_name "images_(1).jpeg"
     product_content_type "image/jpeg"
     product_file_size 9403
