@@ -91,13 +91,25 @@
     <%= form_tag controller: 'rating_comments', action: 'create', method: 'post' do %>
         <fieldset>
           <div class="some-class">
-            <% for i in 1..10 %>
-                <% if i == Integer(@current_user_rating) %>
-                    <%= radio_button_tag(:rating, i, true) %>
-                    <%= label_tag(:rating_1, i) %>
-                <% else %>
-                    <%= radio_button_tag(:rating, i) %>
-                    <%= label_tag(:rating_1, i) %>
+            <% unless @current_user_rating.nil? %>
+                <% for i in 1..10 %>
+                    <% if i == Integer(@current_user_rating) %>
+                        <%= radio_button_tag(:rating, i, true) %>
+                        <%= label_tag(:rating_1, i) %>
+                    <% else %>
+                        <%= radio_button_tag(:rating, i) %>
+                        <%= label_tag(:rating_1, i) %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <% for i in 1..10 %>
+                    <% if i == 6 %>
+                        <%= radio_button_tag(:rating, i, true) %>
+                        <%= label_tag(:rating_1, i) %>
+                    <% else %>
+                        <%= radio_button_tag(:rating, i) %>
+                        <%= label_tag(:rating_1, i) %>
+                    <% end %>
                 <% end %>
             <% end %>
           </div>

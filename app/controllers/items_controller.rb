@@ -60,10 +60,12 @@ class ItemsController < ApplicationController
       @rating_comment_hash[user_name] = rating_comment
     end
 
-    @possible_current_user_comment = RatingComment.where(['item_id = ? AND user_id = ?', params[:id], current_user.id])
-    @possible_current_user_comment.each do |current_user_comment|
-      @current_user_comment = current_user_comment.comment
-      @current_user_rating = current_user_comment.rating
+    unless params[:comment_leaving].nil? || current_user.nil?
+      @possible_current_user_comment = RatingComment.where(['item_id = ? AND user_id = ?', params[:id], current_user.id])
+      @possible_current_user_comment.each do |current_user_comment|
+        @current_user_comment = current_user_comment.comment
+        @current_user_rating = current_user_comment.rating
+      end
     end
 
 
@@ -107,8 +109,8 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         @revenue = Revenue.new(user_id: current_user.id, item_id: @item.id, name: params[:name],
-                              card_number: params[:card_number], expiry_date: params[:expiry_date],
-                              address: params[:address], amount: 2, is_transaction_revenue: 0)
+                               card_number: params[:card_number], expiry_date: params[:expiry_date],
+                               address: params[:address], amount: 2, is_transaction_revenue: 0)
         if @revenue.save
           format.html { redirect_to @item, notice: 'Thanks for your paying, Your item is available to sell.' }
           format.json { render json: @item, status: :created, location: @item }
