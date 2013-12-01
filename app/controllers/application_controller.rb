@@ -16,6 +16,11 @@ class ApplicationController < ActionController::Base
   end
   # Assigns the last accessed url or the root path if no previous url to be the url to be redirected to after sign in.
   def after_sign_in_path_for(resource)
-    session[:previous_url] || root_path
+    if (resource.is_a?(User))
+      session[:previous_url] || root_path
+    else if (resource.is_a?(AdminUser))
+           admin_dashboard_path(resource)
+         end
+    end
   end
 end

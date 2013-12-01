@@ -1,32 +1,29 @@
 RisingFalcons::Application.routes.draw do
-  resources :rating_comments
 
+  root :to => 'Items#home'
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-
-  resources :transactions, only: [:new, :create, :show]
-
-
-  resources :shopping_carts, only: [:show, :edit, :update, :destroy]
-
-
-  #resources :biddings
-
-  match  '/Emailer/index', to: 'emailers#index' , via: 'get'
-   match  '/Emailer/index', to: 'emailers#index' , via: 'post'
-
+  devise_for :users
+  resources :users, :only => [:show, :edit, :update]
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   devise_for :users, :skip => [:registrations]
 
-
-  root :to => 'Items#home'
-
-  devise_for :users
+  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :users, :only => [:show, :edit, :update]
+
+  resources :transactions, only: [:new, :create, :show]
+  match "/my_transactions", to: "transactions#my_transactions", via: "get"
+  match "/reward_points_only", to: "transactions#reward_points_only", via: "get"
+
+  resources :shopping_carts, only: [:show, :edit, :update, :destroy]
+  match "/add_to_cart", to: "shopping_carts#add_to_cart", via: "get"
+  match "/update_quantity", to: "shopping_carts#update_quantity", via: "post"
+
+  #resources :biddings
+
+  match  '/Emailer/index', to: 'emailers#index' , via: 'get'
+  match  '/Emailer/index', to: 'emailers#index' , via: 'post'
 
   resources :items, only: [:new, :create, :show]
 
@@ -34,15 +31,11 @@ RisingFalcons::Application.routes.draw do
   match "/help", to: "static_pages#help", via: "get"
   #match "Item/buy", to: "items#buy", via: "get"
 
-
   match "/search", to: "items#search", via: "get"
   match "/search", to: "items#search", via: "post"
   #match "/transactions", to: "transactions#show", via: "get"
 
-  match "/add_to_cart", to: "shopping_carts#add_to_cart", via: "get"
-  match "/update_quantity", to: "shopping_carts#update_quantity", via: "post"
-  match "/my_transactions", to: "transactions#my_transactions", via: "get"
-  match "/reward_points_only", to: "transactions#reward_points_only", via: "get"
+  resources :rating_comments
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
