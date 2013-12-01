@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "rating_comments/new" do
+=begin
   before(:each) do
     assign(:rating_comment, stub_model(RatingComment,
       :user_id => 1,
@@ -25,4 +26,5 @@ describe "rating_comments/new" do
       assert_select "input#rating_comment_is_seller_rating[name=?]", "rating_comment[is_seller_rating]"
     end
   end
+=end
 end

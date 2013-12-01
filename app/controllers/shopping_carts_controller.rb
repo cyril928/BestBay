@@ -25,10 +25,14 @@ class ShoppingCartsController < ApplicationController
         @counter+=1
       end
 
-      @shopping_cart.item_list = @shopping_cart_hash.to_s
-      @shopping_cart.save
-
-      redirect_to @shopping_cart
+      if(@shopping_cart_hash.length != 0)
+        @shopping_cart.item_list = @shopping_cart_hash.to_s
+        @shopping_cart.save
+        redirect_to @shopping_cart
+      else
+        @shopping_cart.delete
+        redirect_to root_path
+      end
     else
       redirect_to @shopping_cart, notice: error_msg
     end

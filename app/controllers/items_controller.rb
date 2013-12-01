@@ -50,6 +50,23 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    params[:comment_leaving].nil? ? @edit_comment_shown = 0 : @edit_comment_shown = 1
+    @rating_comment_hash = Hash.new
+    rating_comment_set = RatingComment.where(['item_id = ? AND comment <> ""', params[:id]])
+
+    rating_comment_set.each do |rating_comment|
+      user = User.find(rating_comment.user_id)
+      user_name = user.first_name + ' ' + user.last_name
+      @rating_comment_hash[user_name] = rating_comment
+    end
+
+    @possible_current_user_comment = RatingComment.where(['item_id = ? AND user_id = ?', params[:id], current_user.id])
+    @possible_current_user_comment.each do |current_user_comment|
+      @current_user_comment = current_user_comment.comment
+      @current_user_rating = current_user_comment.rating
+    end
+
+
     @item = Item.find(params[:id])
     if (@item.active?)
       respond_to do |format|

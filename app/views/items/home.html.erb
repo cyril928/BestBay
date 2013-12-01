@@ -128,8 +128,8 @@
       <th>Quantity</th>
       <th>Seller</th>
       <th></th>
-     <th></th>
-      
+      <th></th>
+      <th></th>
     </tr>
 
     <% @items.each do |item| %>
@@ -148,6 +148,7 @@
               <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
 		<% else %> <td>Your Item</td>
           <% end %>
+          <td><div class="fb-like" data-href="http://frozen-stream-5271.herokuapp.com/items/<%= item.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></td>
         </tr>
     <% end %>
 

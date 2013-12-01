@@ -2,66 +2,68 @@
 
 <p>
   <strong>First Name:</strong>
-  <%= current_user.first_name %>
+  <%= @user.first_name %>
 </p>
 
 <p>
   <strong>Last Name:</strong>
-  <%= current_user.last_name %>
+  <%= @user.last_name %>
 </p>
 <p>
   <strong>Email:</strong>
-  <%= current_user.email %>
+  <%= @user.email %>
 </p>
 
 <p>
   <strong>Street:</strong>
-  <%= current_user.street %>
+  <%= @user.street %>
 </p>
 
 <p>
   <strong>Country:</strong>
-  <%= current_user.country %>
+  <%= @user.country %>
 </p>
 <p>
   <strong>Zip:</strong>
-  <%= current_user.zip %>
+  <%= @user.zip %>
 </p>
-<p>
-  <strong>Reward Points Available:</strong>
-  <%= current_user.reward_points %>
-</p>
+<% if @user.id == current_user.id %>
+    <p>
+      <strong>Reward Points Available:</strong>
+      <%= current_user.reward_points %>
+    </p>
+<% end %>
 
 <h3 class="mypets">Item Selling</h3>
 <div class="thepet">
-<style>
-    #customers
-    {
-        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-        width:100%;
-        border-collapse:collapse;
-    }
-    #customers td, #customers th
-    {
-        font-size:1em;
-        border:1px solid #98bf21;
-        padding:3px 7px 2px 7px;
-    }
-    #customers th
-    {
-        font-size:1.1em;
-        text-align:left;
-        padding-top:5px;
-        padding-bottom:4px;
-        background-color:#A7C942;
-        color:#ffffff;
-    }
-    #customers tr.alt td
-    {
-        color:#000000;
-        background-color: #acf286;
-    }
-</style>
+  <style>
+      #customers
+      {
+          font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+          width:100%;
+          border-collapse:collapse;
+      }
+      #customers td, #customers th
+      {
+          font-size:1em;
+          border:1px solid #98bf21;
+          padding:3px 7px 2px 7px;
+      }
+      #customers th
+      {
+          font-size:1.1em;
+          text-align:left;
+          padding-top:5px;
+          padding-bottom:4px;
+          background-color:#A7C942;
+          color:#ffffff;
+      }
+      #customers tr.alt td
+      {
+          color:#000000;
+          background-color: #acf286;
+      }
+  </style>
 
   <table id="customers">
     <tr>
@@ -94,7 +96,7 @@
 </div>
 <h3 class="mypets">Item Sold</h3>
 <div class="thepet">
-<table id="customers">
+  <table id="customers">
 
     <tr>
       <th>Title</th>
@@ -125,41 +127,44 @@
 </div>
 
 <br />
- <% unless @items[3].nil?%>
-<h3 class="mypets">Item Bought</h3>
-<div class="thepet">
- <table id="customers">
+<% unless @items[3].nil?%>
+    <h3 class="mypets">Item Bought</h3>
+    <div class="thepet">
+      <table id="customers">
 
-    <tr>
-      <th>Title</th>
-      <th>Category</th>
-      <th>Description</th>
-      <th>Condition</th>
-      <th>Quantity Bought</th>
-      <th>Unit Price</th>
-      <th>Total Price</th>
-      <th></th>
-    </tr>
-    <% @items[3].each do |item| %>
         <tr>
-          <td><%= item.title %></td>
-          <td><%= item.category %></td>
-
-          <td><%= item.description %></td>
-
-          <td><%= item.condition %></td>
-          <td><%= item.quantity %></td>
-          <td>$<%= item.price %></td>
-          <td>$<%= item.price * item.quantity %></td>
-
-          <td><%= link_to 'View the Item', item_path %></td>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Condition</th>
+          <th>Quantity Bought</th>
+          <th>Unit Price</th>
+          <th>Total Price</th>
+          <th></th>
+          <th></th>
+          <th>Comment/Rating</th>
         </tr>
-    <% end %>
-  </table>
-  <br />
-</div>
+        <% @items[3].each do |item| %>
+            <tr>
+              <td><%= item.title %></td>
+              <td><%= item.category %></td>
 
-<br />
+              <td><%= item.description %></td>
+
+              <td><%= item.condition %></td>
+              <td><%= item.quantity %></td>
+              <td>$<%= item.price %></td>
+              <td>$<%= item.price * item.quantity %></td>
+              <td><%= item.id %></td>
+              <td><%= link_to 'View the Item', { :controller => "items", :action => "show", :id => item.id} %></td>
+              <td><%= link_to 'Leave the comment & rating',{ :controller => "items", :action => "show", :comment_leaving => 1, :id => item.id} %></td>
+            </tr>
+        <% end %>
+      </table>
+      <br />
+    </div>
+
+    <br />
 <% end %>
 
 <script type="text/javascript">
@@ -188,7 +193,8 @@
     })
 </script>
 
-
-<%= link_to 'Sell Item', new_item_path %>
-<%= link_to 'edit profile', edit_user_path %>
-<%= link_to 'My Transactions', my_transactions_path %>
+<% if @user.id == current_user.id %>
+    <%= link_to 'Sell Item', new_item_path %>
+    <%= link_to 'Edit Profile', edit_user_path %>
+    <%= link_to 'My Transactions', my_transactions_path %>
+<% end %>

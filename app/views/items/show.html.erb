@@ -1,41 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-
 <h1>
 
   <%= @item.title %>
 </h1>
 
+<div class="fb-like" data-href="http://frozen-stream-5271.herokuapp.com/items/<%= @item.id %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
 <p>
-  <b>Category:</b>
-  <%= @item.category %>
+  Category:
+  <b><%= @item.category %></b>
 </p>
 
 <p>
-  <b>Description:</b>
-  <%= @item.description %>
+  Description:
+  <b><%= @item.description %></b>
 </p>
 
 <p>
-  <b>Condition:</b>
-  <%= @item.condition %>
+  Condition:
+  <b><%= @item.condition %></b>
 </p>
 
 <p>
-  <b>Price:</b>
-  $<%= @item.price %>
+  Price:
+  <b>$<%= @item.price %></b>
 </p>
 
 <p>
-  <b>Quantity Available:</b>
-  <%= @item.quantity %>
+  Quantity Available:
+  <b><%= @item.quantity %></b>
 </p>
 
 <p>
-  <b>Seller:</b>
-  <%= @item.user.email %>
+  Seller:
+  <b><%= @item.user.email %></b>
 </p>
 
+<% if @item.average_rating != 0 %>
+    <p>
+      Average Rating (1-10) (Bad - Good): <b> <%= @item.average_rating %> </b>
+    </p>
+<% else %>
+    <p>
+      Average Rating (1-10) (Bad - Good): <b> No one rating it yet!</b>
+    </p>
+<% end %>
 
 <p>
   <%= image_tag @item.product.url %>
@@ -51,6 +61,9 @@
           <%= f.number_field :quantity, :value => 1, :min => 1, :max => @item.quantity %>
         </p>
 
+        <br>
+        <br>
+        <br>
 
         <p>
           <%= f.submit :value => "Add To Cart" %>
@@ -60,17 +73,67 @@
 <% end %>
 
 <% if current_user!=nil %>
- <td><%= button_to 'Report', :controller => "/emailers", :action => :index , :item_id => @item.id ,:user_id=>current_user.id,:onclick => "myfunc()" %></td>
-    <% else%>
- <td><%= button_to 'Report', :controller => "/emailers", :action => :index , :item_id => @item.id ,:user_id=>0,:onclick => "myfunc()" %></td>
+    <td><%= button_to 'Report', :controller => "/emailers", :action => :index, :item_id => @item.id, :user_id => current_user.id, :onclick => "myfunc()" %></td>
+<% else %>
+    <td><%= button_to 'Report', :controller => "/emailers", :action => :index, :item_id => @item.id, :user_id => 0, :onclick => "myfunc()" %></td>
 <% end %>
-<div id="1"> </div>
+<div id="1"></div>
 
 <%= link_to 'Seller', user_path(@item.user_id) %>
 
+<br>
+<br>
+
+<% if @edit_comment_shown == 1 %>
+    <p>
+      <b>Rate / Comment this product! (1-10) (Bad-Good)</b>
+    </p>
+    <%= form_tag controller: 'rating_comments', action: 'create', method: 'post' do %>
+        <fieldset>
+          <div class="some-class">
+            <% for i in 1..10 %>
+                <% if i == Integer(@current_user_rating) %>
+                    <%= radio_button_tag(:rating, i, true) %>
+                    <%= label_tag(:rating_1, i) %>
+                <% else %>
+                    <%= radio_button_tag(:rating, i) %>
+                    <%= label_tag(:rating_1, i) %>
+                <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+
+        <%= text_area_tag 'comment', @current_user_comment, placeholder: 'Enter search term...', rows: 8, cols: 16 %>
+
+        <%= hidden_field_tag 'item_id', @item.id %>
+        <%= submit_tag "Post" %>
+    <% end %>
+<% end %>
+
+<% if @rating_comment_hash.any? %>
+    <table id="comment">
+      <tr>
+        <th>Comment</th>
+        <th>Publisher</th>
+        <th>Publish Time</th>
+      </tr>
+
+
+      <% @rating_comment_hash.each do |user_name, comment| %>
+          <tr>
+            <td><%= comment.comment %></td>
+            <td><%= user_name %></td>
+            <td><%= comment.updated_at %></td>
+          </tr>
+      <% end %>
+
+    </table>
+<% else %>
+    <b>No one comment it yet!</b>
+<% end %>
+
 <script>
- function myfunc()
- {
-   document.getElementById("1").innerHTML="My First JavaScript";
- }
+    function myfunc() {
+        document.getElementById("1").innerHTML = "My First JavaScript";
+    }
 </script>

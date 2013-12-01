@@ -3,6 +3,7 @@ require "spec_helper"
 describe RatingCommentsController do
   describe "routing" do
 
+=begin
     it "routes to #index" do
       get("/rating_comments").should route_to("rating_comments#index")
     end
@@ -18,11 +19,13 @@ describe RatingCommentsController do
     it "routes to #edit" do
       get("/rating_comments/1/edit").should route_to("rating_comments#edit", :id => "1")
     end
+=end
 
     it "routes to #create" do
       post("/rating_comments").should route_to("rating_comments#create")
     end
 
+=begin
     it "routes to #update" do
       put("/rating_comments/1").should route_to("rating_comments#update", :id => "1")
     end
@@ -30,6 +33,7 @@ describe RatingCommentsController do
     it "routes to #destroy" do
       delete("/rating_comments/1").should route_to("rating_comments#destroy", :id => "1")
     end
+=end
 
   end
 end

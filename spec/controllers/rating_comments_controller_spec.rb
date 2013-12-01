@@ -30,6 +30,56 @@ describe RatingCommentsController do
   # RatingCommentsController. Be sure to keep this updated too.
   #let(:valid_session) { {} }
 
+
+  login_user
+  before (:each) do
+    @item = FactoryGirl.create(:item)
+  end
+
+  describe "Signed in user" do
+    it "should be a signed in user" do
+      subject.current_user.should_not be_nil
+    end
+  end
+
+
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new rating" do
+        expect {
+          post :create, {:rating => "2", :item_id => @item.id}
+        }.to change(RatingComment, :count).by(1)
+      end
+
+
+      it "creates a new comment" do
+        expect {
+          post :create, {:rating => "2", :comment => "gooditem!", :item_id => @item.id}
+        }.to change(RatingComment, :count).by(1)
+      end
+
+=begin
+      it "assigns a newly created item as @item" do
+        post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1234456789123",
+                       :expiry_date => "1111", :address => "Howe Street"}
+        assigns(:item).should be_a(Item)
+        assigns(:item).should be_persisted
+      end
+
+      it "assigns a newly created revenue as @revenue" do
+        post :create, {:item => item_valid_attributes, :name => "test", :card_number => "1234456789123",
+                       :expiry_date => "1111", :address => "Howe Street"}
+        assigns(:revenue).should be_a(Revenrue)
+        assigns(:revenue).should be_persisted
+      end
+=end
+
+    end
+  end
+
+
+
+
 =begin
   describe "GET index" do
     it "assigns all rating_comments as @rating_comments" do

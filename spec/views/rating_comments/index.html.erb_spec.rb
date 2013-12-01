@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "rating_comments/index" do
+=begin
   before(:each) do
     assign(:rating_comments, [
       stub_model(RatingComment,
@@ -32,4 +33,5 @@ describe "rating_comments/index" do
     assert_select "tr>td", :text => "Comment".to_s, :count => 2
     assert_select "tr>td", :text => 5.to_s, :count => 2
   end
+=end
 end
