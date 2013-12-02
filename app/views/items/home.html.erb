@@ -52,6 +52,70 @@
           text-decoration:none;
       }
 
+      #masonry-container {
+          background: #FFF;
+          padding: 5px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+          clear: both;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+      }
+
+      .clearfix:before, .clearfix:after { content: ""; display: table; }
+      .clearfix:after { clear: both; }
+      .clearfix { zoom: 1; }
+
+      .col1 { width: 80px; }
+      .col2 { width: 180px; }
+      .col3 { width: 280px; }
+      .col4 { width: 380px; }
+      .col5 { width: 480px; }
+
+      .col1 img { max-width: 80px; }
+      .col2 img { max-width: 180px; }
+      .col3 img { max-width: 280px; }
+      .col4 img { max-width: 380px; }
+      .col5 img { max-width: 480px; }
+
+      .transitions-enabled.masonry,
+      .transitions-enabled.masonry .masonry-brick {
+          -webkit-transition-duration: 0.7s;
+          -moz-transition-duration: 0.7s;
+          -ms-transition-duration: 0.7s;
+          -o-transition-duration: 0.7s;
+          transition-duration: 0.7s;
+      }
+
+      .transitions-enabled.masonry {
+          -webkit-transition-property: height, width;
+          -moz-transition-property: height, width;
+          -ms-transition-property: height, width;
+          -o-transition-property: height, width;
+          transition-property: height, width;
+      }
+
+      .transitions-enabled.masonry  .masonry-brick {
+          -webkit-transition-property: left, right, top;
+          -moz-transition-property: left, right, top;
+          -ms-transition-property: left, right, top;
+          -o-transition-property: left, right, top;
+          transition-property: left, right, top;
+      }
+
+
+          /* disable transitions on container */
+      .transitions-enabled.infinite-scroll.masonry {
+          -webkit-transition-property: none;
+          -moz-transition-property: none;
+          -ms-transition-property: none;
+          -o-transition-property: none;
+          transition-property: none;
+      }
+
+
+
   </style>
 
   <script src="bgcarousel.js" type="text/javascript">
@@ -74,6 +138,19 @@
           persist: true, //remember last viewed slide and recall within same session?
           slideduration: 500 //transition duration (milliseconds)
       })
+
+      $(function(){
+          $('#masonry-container').masonry({
+              itemSelector: '.box',
+              columnWidth: function( containerWidth ) {
+                  return containerWidth / 5;
+              }
+              isAnimated: !Modernizr.csstransitions,
+              isFitWidth: true
+          });
+
+      });
+
 
   </script>
 
@@ -115,45 +192,21 @@
     }
 </style>
 </head>
-<div align="center">
-  <table id="customers">
-    <tr>
-      <th>Pic</th>
-      <th>Title</th>
-      <th>Category</th>
-      <th>Description</th>
-      <th>Condition</th>
-      <!--<th>Duration</th>-->
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Seller</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+<div id="masonry-container" class="transitions-enabled masonry masonry-brick infinite-scroll centered clearfix">
 
     <% @items.each do |item| %>
-        <tr>
-          <td><%= image_tag item.product.url %></td>
-          <td><%= item.title %></td>
-          <td><%= item.category %></td>
-          <td><%= item.description %></td>
-          <td><%= item.condition %></td>
-          <!--<td><%#= item.duration %></td>-->
-          <td>$<%= item.price %></td>
-          <td><%= item.quantity %></td>
-          <td><%= item.user.email %>
-          <td><%= link_to 'View the Item', item %></td>
-          <% if current_user.nil? || current_user.id != item.user_id %>
-              <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
-		<% else %> <td>Your Item</td>
-          <% end %>
-          <td><div class="fb-like" data-href="http://frozen-stream-5271.herokuapp.com/items/<%= item.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></td>
-        </tr>
-    <% end %>
+      <div class="box col2" align="center">
+          <a href="/items/<%= item.id%>"><img src=<%= item.product.url %></a>
+          <p><%= link_to item.title, item %></p>
+          <p>$<%= link_to item.price, item %></p>
+          <p><% if current_user.nil? || current_user.id != item.user_id %>
+              <%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %>
+		<% else %> Your Item
+          <% end %></p>
+          <div class="fb-like" data-href="http://frozen-stream-5271.herokuapp.com/items/<%= item.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+      </div>
+  <% end %>
 
-
-  </table>
 
 </div>
 
