@@ -18,16 +18,46 @@ pre {
   font-size: 11px;
 }
 
-a {
-  color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
+/*
+a:link {
+  color: blue;
+  text-decoration:none;
+}*/
+
+/*
+a:visited {
+  color: purple;
+  text-decoration:none;
 }
+
+a:active {
+  background-color: yellow;
+  text-decoration:none;
+}
+
+*/
+/*a:hover {
+  color:red;
+  text-decoration:none;
+}*//*
+
+
+a:link {
+  border-style: solid;
+  border-width : 1px 4px 4px 1px;
+  text-decoration : none;
+  padding : 4px;
+  border-color : #69f #00f #00f #69f;
+}
+a:hover { border-color: #ccc; }
+*/
+
+
+a:link {text-decoration: none}
+a:visited {text-decoration: none}
+a:active {text-decoration: none}
+a:hover {font-size:24; font-weight:bold; color: #CC66FF;  background-color: #FFFFFF;}
+
 
 div {
   &.field, &.actions {
