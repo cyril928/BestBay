@@ -45,7 +45,7 @@
     </div>
 
     <div class="field">
-      <%= f.label :description %><br />
+      <%= f.label :description %>(Please provide only a full valid URL here if you are uploading this as an advertisement)<br />
       <%= f.text_field :description %>
     </div>
     <div class="field">
@@ -74,6 +74,19 @@
     </div>
 
     <%= f.hidden_field :average_rating, :value => 0 %>
+    <div class="field">
+      <%= f.label :is_advertisement %><br />
+      <%= f.number_field :is_advertisement, :value => 0, :min => 0, :max =>1 %>
+     <!--<#%= f.check_box_tag(:isAdvertisement, value = "1", checked = false, options = {}) %>-->
+      <!--f.input :isAdvertisement, :as => :check_box, input_html: {checked:   1} %>-->
+
+      <!--Yes <#%= f.radio_button  :isAdvertisement, :value => 1,  :class =>"Ad_Input", :checked => false  %>
+      No  <#%= f.radio_button :isAdvertisement, :value => 0, :class =>"Ad_Input", :checked => true   %>
+-->
+
+
+          </div>
+
     <%= f.hidden_field :active, :value => 1 %>
 
     <h1>Pay for product uploading</h1>

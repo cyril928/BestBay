@@ -19,7 +19,13 @@ require 'rack/test'
 # that an instance is receiving a specific message.
 
 describe ItemsController do
-
+  before (:each) do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @user = FactoryGirl.create(:user)
+    @item = FactoryGirl.create(:item)
+    @transaction = FactoryGirl.create(:transaction)
+    sign_in @user
+  end
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
@@ -80,7 +86,7 @@ describe ItemsController do
     end
   end
 
-  login_user
+  #login_user
   describe "Signed in user" do
     it "should be a signed in user" do
       subject.current_user.should_not be_nil
@@ -99,7 +105,7 @@ describe ItemsController do
   end
 
   let(:item_valid_attributes) {{ "title" => "test", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
-  "price" => 100, "total_quantity" => 10, "active" => 1, "product" => Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/images/rails.png', 'rails/png') }}
+  "price" => 100, "total_quantity" => 10, "active" => 1, "is_advertisement" => 0, "product" => Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/images/rails.png', 'rails/png') }}
 
   let(:revenue_valid_attributes) {{ "name" => "test", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "
   Howe Street"}}
@@ -153,7 +159,7 @@ describe ItemsController do
         # Trigger the behavior that occurs when invalid params are submitted
         #Revenue.any_instance.stub(:save).and_return(false)
         post :create, {:item => { "title" => "", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
-                                  "price" => 100, "total_quantity" => 10, "active" => 1}, :name => "test", :card_number => "1",
+                                  "price" => 100, "total_quantity" => 10, "active" => 1, "is_advertisement" => 0}, :name => "test", :card_number => "1",
                        :expiry_date => "1", :address => "Howe Street"}
         response.should render_template("new")
       end
@@ -178,7 +184,7 @@ describe ItemsController do
   end
 
 let(:item_valid_attributes_show) {{ "title" => "test", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
-                                 "price" => 100, "total_quantity" => 10, "quantity" => 10 , "active" => 1,
+                                 "price" => 100, "total_quantity" => 10, "quantity" => 10 , "active" => 1, "is_advertisement" => 0,
                                  "product" => Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/images/rails.png', 'image/png')}}
 
   describe "GET show" do

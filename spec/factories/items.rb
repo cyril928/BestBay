@@ -16,6 +16,7 @@ FactoryGirl.define do
     product_content_type "image/jpeg"
     product_file_size 9403
     product_updated_at "2013-11-17 03:24:44.982879"
+    is_advertisement 0
   end
 
 

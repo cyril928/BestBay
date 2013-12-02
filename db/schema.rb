@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131130211947) do
+ActiveRecord::Schema.define(:version => 20131202004327) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20131130211947) do
     t.integer  "quantity"
     t.integer  "active"
     t.integer  "average_rating"
+    t.integer  "is_advertisement"
   end
 
   create_table "rating_comments", :force => true do |t|

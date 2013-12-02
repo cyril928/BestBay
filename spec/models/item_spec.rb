@@ -21,6 +21,8 @@ describe Item do
     it {should respond_to(:product_file_size)}
     it {should respond_to(:product_updated_at)}
     it {should respond_to(:quantity)}
+    it {should respond_to (:is_advertisement)}
+    it {should respond_to(:active)}
   end
 
   context 'after item is saved,' do
@@ -329,4 +331,44 @@ describe Item do
       not_a_number.should be_valid
     end
   end
+
+  describe "is_advertisement" do
+    it "should be required" do
+
+
+      item_ad = FactoryGirl.build(:item, :is_advertisement => '' )
+      item_ad.should_not be_valid
+      item_ad.errors[:is_advertisement].should include("can't be blank")
+
+      item_ad.is_advertisement = 1
+      item_ad.should be_valid
+    end
+
+
+    it "should be an integer" do
+
+
+      item_ad = FactoryGirl.build(:item, :is_advertisement => 'aaa' )
+      item_ad.should_not be_valid
+      item_ad.errors[:is_advertisement].should include("is not a number")
+
+      item_ad.is_advertisement = 1
+      item_ad.should be_valid
+    end
+
+
+    it "should be a 1 or 0" do
+
+
+      item_ad = FactoryGirl.build(:item, :is_advertisement => 2)
+      item_ad.should_not be_valid
+      item_ad.errors[:is_advertisement].should include("is not included in the list")
+
+      item_ad.is_advertisement = 1
+      item_ad.should be_valid
+      item_ad.is_advertisement = 0
+      item_ad.should be_valid
+    end
+  end
+
 end

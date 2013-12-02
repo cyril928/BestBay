@@ -12,6 +12,8 @@ describe User do
   it {should respond_to(:country)}
   it {should respond_to(:zip)}
   it {should respond_to(:phone)}
+  it {should respond_to(:active)}
+  it {should respond_to(:reward_points)}
 
 
   it "should have valid factory" do
