@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   def show
     params[:comment_leaving].nil? ? @edit_comment_shown = 0 : @edit_comment_shown = 1
     @rating_comment_hash = Hash.new
-    rating_comment_set = RatingComment.where(['item_id = ? AND comment <> ""', params[:id]])
+    rating_comment_set = RatingComment.where(['item_id = ? AND comment is not null', params[:id]])
 
     rating_comment_set.each do |rating_comment|
       user = User.find(rating_comment.user_id)
