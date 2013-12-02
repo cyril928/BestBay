@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :user
   # has_many :biddings
   # Settable attributes. Mainly implemented in iteration 1.total_quantity and quantity added in Iteration 3, buyer_id discarded.
-  attr_accessible :total_quantity, :category, :condition, :description, :duration, :price, :title, :user_id, :product, :quantity, :active, :isAdvertisement
+  attr_accessible :total_quantity, :category, :condition, :description, :duration, :price, :title, :user_id, :product, :quantity, :active, :is_advertisement
   has_attached_file :product, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
 
@@ -23,7 +23,7 @@ begin
   validates_numericality_of :price
   validates :quantity,  presence: true, numericality: true, inclusion: {:in => 0..65535}
   validates :total_quantity,  presence: true, numericality: true, inclusion: {:in => 1..65535}
-  validates :isAdvertisement,  inclusion:  {:in => [true, false]}
+  validates :is_advertisement, presence: true, numericality: true,  inclusion:  {:in => [1, 0]}
 end
 
 end

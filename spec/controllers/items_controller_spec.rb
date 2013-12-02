@@ -86,7 +86,7 @@ describe ItemsController do
     end
   end
 
-  login_user
+  #login_user
   describe "Signed in user" do
     it "should be a signed in user" do
       subject.current_user.should_not be_nil
@@ -105,7 +105,7 @@ describe ItemsController do
   end
 
   let(:item_valid_attributes) {{ "title" => "test", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
-  "price" => 100, "total_quantity" => 10, "active" => 1}}
+  "price" => 100, "total_quantity" => 10, "active" => 1, "is_advertisement" => 0}}
 
   let(:revenue_valid_attributes) {{ "name" => "test", "card_number" => "1234456789123", "expiry_date" => 1111, "address" => "
   Howe Street"}}
@@ -149,7 +149,7 @@ describe ItemsController do
         # Trigger the behavior that occurs when invalid params are submitted
         #Revenue.any_instance.stub(:save).and_return(false)
         post :create, {:item => { "title" => "", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
-                                  "price" => 100, "total_quantity" => 10, "active" => 1}, :name => "test", :card_number => "1",
+                                  "price" => 100, "total_quantity" => 10, "active" => 1, "is_advertisement" => 0}, :name => "test", :card_number => "1",
                        :expiry_date => "1", :address => "Howe Street"}
         assigns(:item).should be_a_new(Item)
       end
@@ -158,7 +158,7 @@ describe ItemsController do
         # Trigger the behavior that occurs when invalid params are submitted
         #Revenue.any_instance.stub(:save).and_return(false)
         post :create, {:item => { "title" => "", "category" => "Electronics", "description" => "Good status", "condition" => "Great",
-                                  "price" => 100, "total_quantity" => 10, "active" => 1}, :name => "test", :card_number => "1",
+                                  "price" => 100, "total_quantity" => 10, "active" => 1, "is_advertisement" => 0}, :name => "test", :card_number => "1",
                        :expiry_date => "1", :address => "Howe Street"}
         response.should render_template("new")
       end

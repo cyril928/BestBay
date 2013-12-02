@@ -139,11 +139,8 @@
   <table id="customers">
 
     <tr>
-<<<<<<< HEAD
 
-=======
       <th>Pic</th>
->>>>>>> 749bf2aab2b0ca363f58a3e975bb7738537f8467
       <th>Title</th>
       <th>Category</th>
       <th>Description</th>
@@ -157,8 +154,8 @@
      <th> Action on Item</th>
       
     </tr>
-    <% @advertised_items = @items.select { |item| item.isAdvertisement == true }%>
-    <% @items= @items.select { |item| item.isAdvertisement == false }  %>
+    <% @advertised_items = @items.select { |item| item.is_advertisement == 1 }%>
+    <% @items= @items.select { |item| item.is_advertisement == 0 }  %>
     <% @items.each do |item| %>
         <tr>
           <td><%= image_tag item.product.url %></td>
@@ -170,7 +167,7 @@
           <td>$<%= item.price %></td>
           <td><%= item.quantity %></td>
           <td><%= item.user.email %>
-         <td><%= item.isAdvertisement %></td>
+         <td><%= item.is_advertisement %></td>
           <td><%= link_to 'View the Item', item %></td>
           <% if current_user.nil? || current_user.id != item.user_id %>
               <td><%= link_to 'Add To Cart', :controller => "/shopping_carts", :action => :add_to_cart, :item_id => item.id, :quantity => 1 %></td>
