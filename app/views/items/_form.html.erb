@@ -1,4 +1,4 @@
-<%= form_for(@item, :html => { :multipart => true }) do |f| %>
+<%= form_for(@item, :html => {:multipart => true}) do |f| %>
     <% if @item.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -22,94 +22,138 @@
             </div>
         <% end %>
     <% end %>
-
-    <div class="field">
-      <%= f.label :title %><br />
-      <%= f.text_field :title ,required: true%>
-    </div>
-
-
-    <div class="field">
-      <%= f.label :category %><br />
-      <%= f.select(:category, options_for_select(
-              [['TV & Home Theater', 'TV & Home Theater'],
-               ['Computer & Tables', 'Computer & Tables'],
-               ['Cell Phones', 'Cell Phones'],
-               ['Cameras', 'Cameras'],
-               ['Audio', 'Audio'],
-               ['Electronics', 'Electronics'],
-               ['Video Games', 'Video Games'],
-               ['Health', 'Health']]),
-                     :onChange => "displaydesc(document.form1.select1, thetext1, 'textcontainer1')",
-                     :size => 1) %>
-    </div>
-
-    <div class="field">
-      <%= f.label :description %>(Please provide only a full valid URL here if you are uploading this as an advertisement)<br />
-      <%= f.text_field :description %>
-    </div>
-    <div class="field">
-      <%= f.label :condition %><br />
-      <%= f.text_field :condition,required: true %>
-    </div>
-    <!--<div class="field">
-      <%#= f.label :duration %><br />
-      <%#= f.text_field :duration %>
-    <%= f.hidden_field :duration, :value => 0,required: true %>
-    </div>-->
+    <table>
+      <tr>
+        <td><%= f.label :title %>
+        <td></tr>
+      <tr>
+        <td><%= f.text_field :title, required: true %></td>
+      </tr>
 
 
-
-    <div class="field" >
-      <%= f.label :quantity %><br />
-      <%= f.number_field :total_quantity, :value => 1, :min => 1, :max => 65535,required: true%>
-    </div>
-
-    <div class="field" >
-      <%= f.label :price %><br />$
-      <%= f.number_field :price, :value => 1, :min => 1,required: true %>
-    </div>
-    <div class="field" >
-      <%= f.file_field :product%>
-    </div>
-
-    <%= f.hidden_field :average_rating, :value => 0 %>
-    <div class="field">
-      <%= f.label :is_advertisement %><br />
-      <%= f.number_field :is_advertisement, :value => 0, :min => 0, :max =>1 %>
-     <!--<#%= f.check_box_tag(:isAdvertisement, value = "1", checked = false, options = {}) %>-->
-      <!--f.input :isAdvertisement, :as => :check_box, input_html: {checked:   1} %>-->
-
-      <!--Yes <#%= f.radio_button  :isAdvertisement, :value => 1,  :class =>"Ad_Input", :checked => false  %>
-      No  <#%= f.radio_button :isAdvertisement, :value => 0, :class =>"Ad_Input", :checked => true   %>
--->
+      <tr>
+        <td><%= f.label :category %></td>
+      </tr>
+      <tr>
+        <td><%= f.select(:category, options_for_select(
+                [['TV & Home Theater', 'TV & Home Theater'],
+                 ['Computer & Tables', 'Computer & Tables'],
+                 ['Cell Phones', 'Cell Phones'],
+                 ['Cameras', 'Cameras'],
+                 ['Audio', 'Audio'],
+                 ['Electronics', 'Electronics'],
+                 ['Video Games', 'Video Games'],
+                 ['Health', 'Health']]),
+                         :onChange => "displaydesc(document.form1.select1, thetext1, 'textcontainer1')",
+                         :size => 1) %>
+        </td>
+      </tr>
 
 
-          </div>
+      <tr>
+        <td><%= f.label :description %>(Please provide only a full valid URL here if you are uploading this as an
+          advertisement)
+        </td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :description, class: "form-control" %>  </td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :condition %>  </td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :condition, required: true %>  </td>
+      </tr>
+
+
+      <div class="form-group">
+        <tr>
+          <td>  <%= f.label :quantity %>   </td>
+        </tr>
+        <tr>
+          <td> <%= f.number_field :total_quantity, :value => 1, :min => 1, :max => 65535, required: true %>   </td>
+        </tr>
+      </div>
+
+      <div class="form-group">
+        <tr>
+          <td>  <%= f.label :price %>$</td>
+        </tr>
+        <tr>
+          <td><%= f.number_field :price, :value => 1, :min => 1, required: true %>    </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= f.file_field :product %>   </td>
+        </tr>
+      </div>
+
+      <%= f.hidden_field :average_rating, :value => 0 %>
+      <div class="form-group">
+        <tr>
+          <td> <%= f.label :is_advertisement %> </td>
+        </tr>
+        <tr>
+          <td> <%= f.number_field :is_advertisement, :value => 0, :min => 0, :max => 1 %>   </td>
+        </tr>
+        <!--<#%= f.check_box_tag(:isAdvertisement, value = "1", checked = false, options = {}) %>-->
+        <!--f.input :isAdvertisement, :as => :check_box, input_html: {checked:   1} %>-->
+
+        <!--Yes <#%= f.radio_button  :isAdvertisement, :value => 1,  :class =>"Ad_Input", :checked => false  %>
+        No  <#%= f.radio_button :isAdvertisement, :value => 0, :class =>"Ad_Input", :checked => true   %>
+  -->
+
+
+      </div>
+
+    </table>
+
+
+    <%= f.hidden_field :duration, :value => 0, required: true %>
 
     <%= f.hidden_field :active, :value => 1 %>
 
     <h1>Pay for product uploading</h1>
 
-    <div class="field">
-      <%= label_tag 'name' %><br />
-      <%= text_field_tag 'name' %>
-    </div>
-    <div class="field">
-      <%= label_tag 'card_number' %><br />
-      <%= text_field_tag 'card_number' %>
-    </div>
-    <div class="field">
-      <%= label_tag 'expiry_date' %> mmyy format only<br />
-      <%= text_field_tag 'expiry_date' %>
-    </div>
-    <div class="field">
-      <%= label_tag 'address' %><br />
-      <%= text_field_tag 'address' %>
-    </div>
+    <table>
+      <div class="form-group">
+        <tr>
+          <td> <%= label_tag 'name' %>    </td>
+        </tr>
+        <tr>
+          <td><%= text_field_tag 'name' %>   </td>
+        </tr>
+      </div>
+      <div class=form-group
+      ">
+      <tr>
+        <td> <%= label_tag 'card_number' %>  </td>
+      </tr>
+      <tr>
+        <td><%= text_field_tag 'card_number' %>  </td>
+      </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= label_tag 'expiry_date' %> mmyy format only</td>
+        </tr>
+        <tr>
+          <td><%= text_field_tag 'expiry_date' %>  </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= label_tag 'address' %>  </td>
+        </tr>
+        <tr>
+          <td><%= text_field_tag 'address' %>  </td>
+        </tr>
+      </div>
+    </table>
 
-
-    <div class="actions">
+    <div>
       <%= f.submit "Upload item and pay for space" %>
     </div>
 

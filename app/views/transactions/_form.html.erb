@@ -11,26 +11,31 @@
     </div>
   <% end %>
   <%#= f.hidden_field :item_id, :value => params[:item_id] %>
+
+  <table>
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name,required: true %>
+  <tr><td>  <%= f.label :name %>  </td></tr>
+    <tr><td>  <%= f.text_field :name,required: true %>    </td></tr>
   </div>
   <div class="field">
-    <%= f.label :card_number %><br />
-    <%= f.text_field :card_number,required: true %>
+    <tr><td>  <%= f.label :card_number %> </td></tr>
+    <tr><td>  <%= f.text_field :card_number,required: true %>  </td></tr>
   </div>
   <div class="field">
-    <%= f.label :expiry_date %> mmyy format only<br />
-    <%= f.text_field :expiry_date,required: true %>
+    <tr><td> <%= f.label :expiry_date %> mmyy format only </td></tr>
+    <tr><td>  <%= f.text_field :expiry_date,required: true %>  </td></tr>
   </div>
   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <tr><td>  <%= f.label :address %> </td></tr>
+    <tr><td>  <%= f.text_field :address %>   </td></tr>
   </div>
   <div class="field">
-    <%= f.label :reward_points_spent %><br />
-    <%= f.number_field :reward_points_spent, value: 0, required: true, in: 0..(current_user.reward_points >= @transaction.total_amount ? (@transaction.total_amount - 1) : current_user.reward_points) %>
+    <tr><td>  <%= f.label :reward_points_spent %> </td></tr>
+    <tr><td>  <%= f.number_field :reward_points_spent, value: 0, required: true, in: 0..(current_user.reward_points >= @transaction.total_amount ? (@transaction.total_amount - 1) : current_user.reward_points) %> </td></tr>
+
   </div>
+  </table>
+
     <%= f.hidden_field :reward_points_earned, :value => 0 %>
   <div class="actions">
     <%= f.submit 'Confirm Buy'%>
