@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202004327) do
+ActiveRecord::Schema.define(:version => 20131206085853) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -101,9 +101,9 @@ ActiveRecord::Schema.define(:version => 20131202004327) do
 
   create_table "shopping_carts", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "item_list"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.text     "item_list",  :limit => 255
   end
 
   create_table "transactions", :force => true do |t|
@@ -111,10 +111,10 @@ ActiveRecord::Schema.define(:version => 20131202004327) do
     t.string   "card_number"
     t.string   "expiry_date"
     t.string   "address"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "user_id"
-    t.string   "item_list"
+    t.text     "item_list",            :limit => 255
     t.integer  "reward_points_earned"
     t.integer  "total_amount"
     t.integer  "reward_points_spent"
